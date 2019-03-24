@@ -1,4 +1,6 @@
 ﻿using log4net;
+using MySql.Data.MySqlClient;
+using SharpDapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace DataDao
         protected IDapperConnection Database { get; private set; }
         public BaseDao()
         {
-            string connectionString = AccountConfigUtils.sqlConfig;
+            string connectionString = "server=localhost;port=3306;user id=root; password=lyx123456; database=okdata; pooling=true; charset=utf8mb4";
             var connection = new MySqlConnection(connectionString);
             Database = new DapperConnection(connection);
         }
