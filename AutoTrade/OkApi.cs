@@ -15,25 +15,25 @@ namespace AutoTrade
 
         #region rest调用
 
-        public static async Task<T> PostAsync<T>(string url, object param)
+        public static T Post<T>(string url, object param)
         {
             var client = new RestClient(url);
             RestRequest req = new RestRequest(Method.POST);
             req.AddHeader("content-type", "application/json");
             req.AddHeader("cache-type", "no-cache");
             req.AddJsonBody(param);
-            var response = await client.ExecuteTaskAsync(req);
+            var response = client.Execute(req);
             var result = JsonConvert.DeserializeObject<T>(response.Content);
             return result;
         }
 
-        public static async Task<T> GetAsync<T>(string url)
+        public static T Get<T>(string url)
         {
             var client = new RestClient(url);
             RestRequest req = new RestRequest(Method.GET);
             //req.AddHeader("content-type", "application/json");
             //req.AddHeader("cache-type", "no-cache");
-            var response = await client.ExecuteTaskAsync(req);
+            var response = client.Execute(req);
             var result = JsonConvert.DeserializeObject<T>(response.Content);
             return result;
         }
@@ -41,13 +41,13 @@ namespace AutoTrade
         #endregion
 
 
-        public static async Task<List<CoinInfo>> getdataAsync(string instrument)
+        public static List<CoinInfo> getdataAsync(string instrument)
         {
             var url = $"{root}api/spot/v3/instruments/{instrument}/candles";
 
             try
             {
-                var res = await GetAsync<List<List<string>>>(url);
+                var res = Get<List<List<string>>>(url);
                 var coinInfos = new List<CoinInfo>();
                 foreach (var item in res)
                 {
@@ -71,6 +71,42 @@ namespace AutoTrade
                 throw;
             }
         }
+
+        public static TradeResult Buy(string client_oid, string instrument_id, decimal price, decimal size)
+        {
+            var url = $"{root}/api/spot/v3/orders";
+            var obj = new
+            {
+                client_oid = client_oid,
+                type = "limit",
+                side = "buy",
+                instrument_id = "",
+                order_type = "0",
+                margin_trading = "1",
+                price,
+                size
+            };
+            var res = Post<TradeResult>(url, obj);
+            return res;
+        }
+
+        public static TradeResult Sell(string client_oid, string instrument_id, decimal price, decimal size)
+        {
+            var url = $"{root}/api/spot/v3/orders";
+            var obj = new
+            {
+                client_oid = client_oid,
+                type = "limit",
+                side = "sell",
+                instrument_id = "",
+                order_type = "0",
+                margin_trading = "1",
+                price,
+                size
+            };
+            var res = Post<TradeResult>(url, obj);
+            return res;
+        }
     }
 
     public class CoinInfo
@@ -81,5 +117,12 @@ namespace AutoTrade
         public decimal low { get; set; }
         public decimal close { get; set; }
         public decimal volume { get; set; }
+    }
+
+    public class TradeResult
+    {
+        public string order_id { get; set; }
+        public string client_oid { get; set; }
+        public bool result { get; set; }
     }
 }
