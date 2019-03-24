@@ -5,11 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataDao;
+using log4net;
 
 namespace AutoTrade
 {
     class Program
     {
+        protected ILog logger = LogManager.GetLogger(typeof(Program));
+
         static Dictionary<string, DateTime> nextDate = new Dictionary<string, DateTime>();
 
         static Dictionary<string, string> instruments = new Dictionary<string, string>();
@@ -35,16 +38,10 @@ namespace AutoTrade
         {
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            if (oldData.Count == 0 )
+            if (oldData.Count == 0 || coinInfos[0].close * (decimal)1.07 < oldData[0].BuyPrice)
             {
                 // 购买一单
-                PrepareBuy();
-                return;
-            }
-
-            if (coinInfos[0].close * (decimal)1.07 < oldData[0].BuyPrice)
-            {
-                // 购买一单
+                PrepareBuy(quote, symbol, coinInfos[0].close);
                 return;
             }
 
@@ -80,7 +77,7 @@ namespace AutoTrade
                 return;
             }
 
-            var buyAmount = (decimal) 0.07;
+            var buyAmount = (decimal)0.07;
             if (quote == "eth")
             {
                 buyAmount = (decimal)0.009;
@@ -88,15 +85,25 @@ namespace AutoTrade
             else if (quote == "btc")
             {
                 buyAmount = (decimal)0.0007;
-            } else  if (quote == "usdt")
+            }
+            else if (quote == "usdt")
             {
                 buyAmount = (decimal)2;
             }
 
             var buySize = buyAmount / nowPrice;
-            var buyPrice = nowPrice * (decimal) 1.02;
+            var buyPrice = nowPrice * (decimal)1.02;
             var client_oid = "buy" + DateTime.Now.Ticks;
-            OkApi.Buy(client_oid, symbol + "-" + quote, buyPrice, buySize);
+
+            try
+            {
+                logger.
+                OkApi.Buy(client_oid, symbol + "-" + quote, buyPrice, buySize);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         static void PrepareSell(BuyInfo buyInfo, decimal nowPrice)
