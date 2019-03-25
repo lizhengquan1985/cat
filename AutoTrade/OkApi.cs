@@ -39,6 +39,40 @@ namespace AutoTrade
             return result;
         }
 
+        public static T GetSign<T>(string url, string pathAndQuery)
+        {
+            var client = new RestClient(url);
+            RestRequest req = new RestRequest(Method.GET);
+            req.AddHeader("content-type", "application/json");
+
+            var _bodyStr = "";
+
+            var method = "GET";
+            var now = DateTime.Now;
+            var timeStamp = TimeZoneInfo.ConvertTimeToUtc(now).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+            var requestUrl = pathAndQuery;
+            string sign = "";
+            if (!String.IsNullOrEmpty(_bodyStr))
+            {
+                sign = Encryptor.HmacSHA256($"{timeStamp}{method}{requestUrl}{_bodyStr}", Config.secretKey);
+            }
+            else
+            {
+                sign = Encryptor.HmacSHA256($"{timeStamp}{method}{requestUrl}", Config.secretKey);
+            }
+
+            req.AddHeader("OK-ACCESS-KEY", Config.apiKey);
+            req.AddHeader("OK-ACCESS-SIGN", sign);
+            req.AddHeader("OK-ACCESS-TIMESTAMP", timeStamp.ToString());
+            req.AddHeader("OK-ACCESS-PASSPHRASE", Config._passPhrase);
+
+
+
+            var response = client.Execute(req);
+            var result = JsonConvert.DeserializeObject<T>(response.Content);
+            return result;
+        }
+
 
         public static T PostSign<T>(string url, object param, string pathAndQuery)
         {
@@ -129,7 +163,7 @@ namespace AutoTrade
 
         public static TradeResult Sell(string client_oid, string instrument_id, decimal price, decimal size)
         {
-            var url = $"{root}/api/spot/v3/orders";
+            var url = $"{root}api/spot/v3/orders";
             var obj = new
             {
                 client_oid = client_oid,
@@ -142,6 +176,15 @@ namespace AutoTrade
                 size
             };
             var res = Post<TradeResult>(url, obj);
+            return res;
+        }
+
+        public static OrderInfo QueryOrderDetail(string client_oid, string instrument_id)
+        {
+            var pathAndQuery = $"api/spot/v3/orders/{client_oid}?instrument_id={instrument_id}";
+            var url = $"{root}{pathAndQuery}";
+             
+            var res = GetSign<OrderInfo>(url, "/"+ pathAndQuery);
             return res;
         }
     }
@@ -191,4 +234,6 @@ namespace AutoTrade
             return JsonConvert.SerializeObject(info);
         }
     }
+
+
 }

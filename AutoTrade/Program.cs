@@ -29,9 +29,13 @@ namespace AutoTrade
                 // 获取行情，
                 var coinInfos = OkApi.getdataAsync(instruments[key] + "-" + key);
 
+                // 查询我的购买结果
+                QueryBuyDetail(key, instruments[key]);
+                // 查询出售结果
+                QuerySellDetail(key, instruments[key]);
+
                 RunTrade(coinInfos, key, instruments[key]);
             }
-
 
             Console.ReadLine();
         }
@@ -161,6 +165,61 @@ namespace AutoTrade
             {
                 logger.Error(e.Message, e);
                 Thread.Sleep(1000 * 60 * 60);
+            }
+        }
+
+        static void QueryBuyDetail(string quote, string symbol)
+        {
+            var notFillBuyList = new BuyInfoDao().ListNotFillBuy(quote, symbol);
+            foreach (var item in notFillBuyList)
+            {
+                try
+                {
+
+                    // 查询我的购买结果
+                    var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
+                    if (orderInfo == null)
+                    {
+                        continue;
+                    }
+
+                    if (orderInfo.status == "filled")
+                    {
+                        // 如果成交了。
+                        new BuyInfoDao().UpdateNotFillBuy(orderInfo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+                }
+            }
+        }
+
+        static void QuerySellDetail(string quote, string symbol)
+        {
+            var notFillSellList = new BuyInfoDao().ListNotFillSell(quote, symbol);
+            foreach (var item in notFillSellList)
+            {
+                try
+                {
+                    // 查询我的购买结果
+                    var orderInfo = OkApi.QueryOrderDetail(item.SellClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
+                    if (orderInfo == null)
+                    {
+                        continue;
+                    }
+
+                    if (orderInfo.status == "filled")
+                    {
+                        // 如果成交了。
+                        new BuyInfoDao().UpdateNotFillSell(orderInfo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+                }
             }
         }
     }
