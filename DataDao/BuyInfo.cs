@@ -22,5 +22,10 @@ namespace DataDao
         public string BuyOrderId { get; set; }
         public string SellOrderId { get; set; }
 
+        public string BuyClientOid { get; set; }
+        public string SellClientOid { get; set; }
+
+        public bool BuyResult { get; set; }
+
     }
 }
