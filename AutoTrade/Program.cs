@@ -26,15 +26,15 @@ namespace AutoTrade
 
             foreach (var key in instruments.Keys)
             {
+                // 查询订单结果
+                QueryOrderDetail(key, instruments[key]);
+
                 // 获取行情，
                 var coinInfos = OkApi.getdataAsync(instruments[key] + "-" + key);
-
-                // 查询我的购买结果
-                QueryBuyDetail(key, instruments[key]);
-                // 查询出售结果
-                QuerySellDetail(key, instruments[key]);
-
                 RunTrade(coinInfos, key, instruments[key]);
+
+                // 每走一遍, 休眠一下
+                Thread.Sleep(1000 * 1);
             }
 
             Console.ReadLine();
@@ -57,7 +57,7 @@ namespace AutoTrade
             // 判断是否交易。
             foreach (var item in oldData)
             {
-                // 没有超过8%
+                // 没有超过9% 不考虑出售
                 if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.09)
                 {
                     continue;
@@ -65,17 +65,16 @@ namespace AutoTrade
 
                 // 找到最大的close
                 var maxClose = coinInfos.Max(it => it.close);
-                var percent = coinInfos[0].close / oldData[0].BuyPrice;
-                if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * (decimal)percent < maxClose)
+                var percent = coinInfos[0].close / oldData[0].BuyPrice; // 现在的价格/购买的价格
+                var huidiaoPercent = 1 + (percent - 1) / 10;
+                if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
                 {
                     // 出售， 适当的回调，可以出售
                     PrepareSell(item, coinInfos[0].close);
                 }
 
-                // 如果上涨了过多，则也可以考虑适当的出售
-
+                // 如果上涨了过多，则也可以考虑适当的出售 TODO
             }
-            // 标记下一次读取时间
         }
 
         static void PrepareBuy(string quote, string symbol, decimal nowPrice)
@@ -115,8 +114,10 @@ namespace AutoTrade
                     BuyClientOid = client_oid,
                     BuyPrice = buyPrice,
                     BuyQuantity = buySize,
-                    CreateTime = DateTime.Now,
-                    IsFinished = false,
+                    BuyCreateAt = DateTime.Now.ToString("yyyy-MM-dd"),
+                    BuyFilledNotional = (decimal)0,
+                    BuyStatus = "",
+
                     Quote = quote,
                     Symbol = symbol,
                     UserName = "qq",
@@ -130,6 +131,7 @@ namespace AutoTrade
             catch (Exception e)
             {
                 logger.Error(e.Message, e);
+
                 Thread.Sleep(1000 * 60 * 60);
             }
         }
@@ -163,8 +165,34 @@ namespace AutoTrade
             }
             catch (Exception e)
             {
-                logger.Error(e.Message, e);
+                logger.Error("出售 --> " + e.Message, e);
+
                 Thread.Sleep(1000 * 60 * 60);
+            }
+        }
+
+        #region 查询订单结果
+
+        static void QueryOrderDetail(string quote, string symbol)
+        {
+            try
+            {
+                // 查询购买结果
+                QueryBuyDetail(quote, symbol);
+
+            }
+            catch (Exception ex)
+            {
+                logger.Error("查询购买结果 --> " + ex.Message, ex);
+            }
+            try
+            {
+                // 查询出售结果
+                QuerySellDetail(quote, symbol);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("查询出售结果 --> " + ex.Message, ex);
             }
         }
 
@@ -175,7 +203,6 @@ namespace AutoTrade
             {
                 try
                 {
-
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
                     if (orderInfo == null)
@@ -222,5 +249,7 @@ namespace AutoTrade
                 }
             }
         }
+
+        #endregion
     }
 }

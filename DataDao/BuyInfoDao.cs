@@ -27,6 +27,8 @@ namespace DataDao
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
+        #region 订单结果查询以及匹配
+
         public List<BuyInfo> ListNotFillBuy(string quote, string symbol)
         {
             var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus!=@BuyStatus";
@@ -68,5 +70,7 @@ namespace DataDao
                 SellClientOid = orderInfo.client_oid
             }).ToList();
         }
+
+        #endregion
     }
 }
