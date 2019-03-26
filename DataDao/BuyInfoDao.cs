@@ -5,20 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpDapper;
 using SharpDapper.Extensions;
+using Newtonsoft.Json;
 
 namespace DataDao
 {
     public class BuyInfoDao : BaseDao
     {
+        public BuyInfoDao() : base()
+        {
+        }
+
         public void CreateBuyInfo(BuyInfo buyInfo)
         {
-            Database.InsertAsync(buyInfo);
+            Database.Insert(buyInfo);
         }
 
         public void UpdateBuyInfo(BuyInfo buyInfo)
         {
-            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity where Id=@Id and BuyClientOid=@BuyClientOid";
-            Database.Execute(sql, new { buyInfo.SellClientOid, buyInfo.SellPrice, buyInfo.SellQuantity, buyInfo.Id, buyInfo.BuyClientOid });
+            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellResult=@SellResult where Id=@Id and BuyClientOid=@BuyClientOid";
+            Database.Execute(sql, new { buyInfo.SellClientOid, buyInfo.SellPrice, buyInfo.SellQuantity, buyInfo.SellResult, buyInfo.Id, buyInfo.BuyClientOid });
         }
 
         public List<BuyInfo> List5LowertBuy(string quote, string symbol)
@@ -37,9 +42,9 @@ namespace DataDao
 
         public void UpdateNotFillBuy(OrderInfo orderInfo)
         {
-            var sql = $"update t_buy_info set BuyPrice=@BuyPrice and BuyQuantity=@BuyQuantity and BuyCreateAt=@BuyCreateAt " +
-                $" and BuyFilledNotional=@BuyFilledNotional and BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
-            Database.Query<BuyInfo>(sql, new
+            var sql = $"update t_buy_info set BuyPrice=@BuyPrice, BuyQuantity=@BuyQuantity, BuyCreateAt=@BuyCreateAt, " +
+                $" BuyFilledNotional=@BuyFilledNotional, BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
+            Database.Execute(sql, new
             {
                 BuyPrice = orderInfo.price,
                 BuyQuantity = orderInfo.size,
@@ -47,7 +52,7 @@ namespace DataDao
                 BuyFilledNotional = orderInfo.filled_notional,
                 BuyStatus = orderInfo.status,
                 BuyClientOid = orderInfo.client_oid
-            }).ToList();
+            });
         }
 
         public List<BuyInfo> ListNotFillSell(string quote, string symbol)
@@ -58,9 +63,9 @@ namespace DataDao
 
         public void UpdateNotFillSell(OrderInfo orderInfo)
         {
-            var sql = $"update t_buy_info set SellPrice=@SellPrice and SellQuantity=@SellQuantity and SellCreateAt=@SellCreateAt " +
-                $" and SellFilledNotional=@SellFilledNotional and SellStatus=@BuyStatus where SellClientOid=@SellClientOid";
-            Database.Query<BuyInfo>(sql, new
+            var sql = $"update t_buy_info set SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, " +
+                $" SellFilledNotional=@SellFilledNotional, SellStatus=@BuyStatus where SellClientOid=@SellClientOid";
+            Database.Execute(sql, new
             {
                 SellPrice = orderInfo.price,
                 SellQuantity = orderInfo.size,
@@ -68,7 +73,7 @@ namespace DataDao
                 SellFilledNotional = orderInfo.filled_notional,
                 SellStatus = orderInfo.status,
                 SellClientOid = orderInfo.client_oid
-            }).ToList();
+            });
         }
 
         #endregion

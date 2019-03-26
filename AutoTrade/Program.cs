@@ -8,48 +8,72 @@ using DataDao;
 using log4net;
 using System.Threading;
 using Newtonsoft.Json;
+using log4net.Config;
+using System.IO;
 
 namespace AutoTrade
 {
+
+    public class TradeItem
+    {
+        public string quote { get; set; }
+        public string symbol { get; set; }
+    }
+
     class Program
     {
         protected static ILog logger = LogManager.GetLogger(typeof(Program));
 
         static Dictionary<string, DateTime> nextDate = new Dictionary<string, DateTime>();
 
-        static Dictionary<string, string> instruments = new Dictionary<string, string>();
+        static List<TradeItem> instruments = new List<TradeItem>();
 
         static void Main(string[] args)
         {
+            // 注册日志
+            XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            logger.Error("11111111111");
+
             // 初始化币种
-            instruments.Add("eth", "xrp");
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "eos" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "trx" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ada" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "qtum" });
 
-            foreach (var key in instruments.Keys)
+            while (true)
             {
-                // 查询订单结果
-                QueryOrderDetail(key, instruments[key]);
+                foreach (var item in instruments)
+                {
+                    Console.WriteLine($"{item.quote}-{item.symbol}");
+                    // 查询订单结果
+                    QueryOrderDetail(item.quote, item.symbol);
 
-                // 获取行情，
-                var coinInfos = OkApi.getdataAsync(instruments[key] + "-" + key);
-                RunTrade(coinInfos, key, instruments[key]);
+                    Console.WriteLine($"-------------");
+                    // 获取行情，
+                    var coinInfos = OkApi.getdataAsync(item.symbol + "-" + item.quote);
+                    RunTrade(coinInfos, item.quote, item.symbol);
 
-                // 每走一遍, 休眠一下
-                Thread.Sleep(1000 * 1);
+                    // 每走一遍, 休眠一下
+                    Thread.Sleep(1000 * 1);
+                }
             }
 
             Console.ReadLine();
         }
 
-        private static DateTime lastBuyDate = DateTime.Now;
-        private static DateTime lastSellDate = DateTime.Now;
+        private static DateTime lastBuyDate = DateTime.MinValue;
+        private static DateTime lastSellDate = DateTime.MinValue;
 
         static void RunTrade(List<CoinInfo> coinInfos, string quote, string symbol)
         {
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
+            Console.WriteLine(JsonConvert.SerializeObject(oldData));
             if (oldData.Count == 0 || coinInfos[0].close * (decimal)1.07 < oldData[0].BuyPrice)
             {
                 // 购买一单
+                Console.WriteLine("PrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuy");
                 PrepareBuy(quote, symbol, coinInfos[0].close);
                 return;
             }
@@ -92,7 +116,7 @@ namespace AutoTrade
             }
             else if (quote == "btc")
             {
-                buyAmount = (decimal)0.0007;
+                buyAmount = (decimal)0.0006;
             }
             else if (quote == "usdt")
             {
@@ -116,7 +140,7 @@ namespace AutoTrade
                     BuyQuantity = buySize,
                     BuyCreateAt = DateTime.Now.ToString("yyyy-MM-dd"),
                     BuyFilledNotional = (decimal)0,
-                    BuyStatus = "",
+                    BuyStatus = "prepare",
 
                     Quote = quote,
                     Symbol = symbol,
@@ -144,6 +168,11 @@ namespace AutoTrade
                 return;
             }
 
+            if (!string.IsNullOrEmpty(buyInfo.SellClientOid))
+            {
+                return;
+            }
+
             var percent = 1 + (1 - nowPrice / buyInfo.BuyPrice) / 3;
             var sellSize = buyInfo.BuyQuantity / percent;
             var sellPrice = nowPrice / (decimal)1.02; // 更低的价格出售， 是为了能够出售
@@ -157,6 +186,7 @@ namespace AutoTrade
                 buyInfo.SellClientOid = client_oid;
                 buyInfo.SellPrice = sellPrice;
                 buyInfo.SellQuantity = sellSize;
+                buyInfo.SellResult = sellResult.result;
                 new BuyInfoDao().UpdateBuyInfo(buyInfo);
 
                 logger.Error($"3: 添加记录完成");
@@ -198,13 +228,18 @@ namespace AutoTrade
 
         static void QueryBuyDetail(string quote, string symbol)
         {
+            Console.WriteLine($"{quote}-{symbol}");
             var notFillBuyList = new BuyInfoDao().ListNotFillBuy(quote, symbol);
+            Console.WriteLine($"notFillBuyList: {notFillBuyList.Count}");
+            Console.WriteLine(JsonConvert.SerializeObject(notFillBuyList));
             foreach (var item in notFillBuyList)
             {
                 try
                 {
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
+                    Console.WriteLine(1111111111111111);
+                    Console.WriteLine(JsonConvert.SerializeObject(orderInfo));
                     if (orderInfo == null)
                     {
                         continue;
@@ -212,8 +247,10 @@ namespace AutoTrade
 
                     if (orderInfo.status == "filled")
                     {
+                        Console.WriteLine(222222222);
                         // 如果成交了。
                         new BuyInfoDao().UpdateNotFillBuy(orderInfo);
+                        Console.WriteLine(3333);
                     }
                 }
                 catch (Exception ex)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharpDapper.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataDao
 {
+    [Table("t_buy_info")]
     public class BuyInfo
     {
         public long Id { get; set; }
