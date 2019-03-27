@@ -90,7 +90,9 @@ namespace AutoTrade
             // 判断是否交易。
             foreach (var item in oldData)
             {
-                // 没有超过9% 不考虑出售
+                // 这里的策略真的很重要
+                // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
+                // 如果超过7%, 站稳则需要等待3个小时
                 if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.09)
                 {
                     continue;
