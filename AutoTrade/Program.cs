@@ -14,11 +14,6 @@ using System.IO;
 namespace AutoTrade
 {
 
-    public class TradeItem
-    {
-        public string quote { get; set; }
-        public string symbol { get; set; }
-    }
 
     class Program
     {
@@ -35,14 +30,9 @@ namespace AutoTrade
         {
             // 注册日志
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
-            logger.Error("11111111111");
 
             // 初始化币种
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "eos" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "trx" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ada" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "qtum" });
+            instruments = InstrumentsUtils.GetAll();
 
             while (true)
             {
@@ -93,7 +83,7 @@ namespace AutoTrade
                 // 这里的策略真的很重要
                 // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
                 // 如果超过7%, 站稳则需要等待3个小时
-                if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.09)
+                if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.07)
                 {
                     continue;
                 }
