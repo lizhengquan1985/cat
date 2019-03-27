@@ -123,8 +123,7 @@ namespace AutoTrade
 
         #endregion
 
-
-        public static List<KLineData> getdataAsync(string instrument)
+        public static List<KLineData> GetKLineDataAsync(string instrument)
         {
             var url = $"{root}api/spot/v3/instruments/{instrument}/candles";
 
@@ -152,7 +151,7 @@ namespace AutoTrade
             {
                 logger.Error(e.Message, e);
                 Console.WriteLine(e);
-                throw;
+                return null;
             }
         }
 
