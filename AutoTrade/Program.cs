@@ -65,7 +65,7 @@ namespace AutoTrade
         private static DateTime lastBuyDate = DateTime.MinValue;
         private static DateTime lastSellDate = DateTime.MinValue;
 
-        static void RunTrade(List<CoinInfo> coinInfos, string quote, string symbol)
+        static void RunTrade(List<KLineData> coinInfos, string quote, string symbol)
         {
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);

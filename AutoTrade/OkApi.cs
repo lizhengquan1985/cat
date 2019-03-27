@@ -1,4 +1,5 @@
 ﻿using DataDao;
+using log4net;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
@@ -12,6 +13,8 @@ namespace AutoTrade
 {
     public class OkApi
     {
+        protected static ILog logger = LogManager.GetLogger(typeof(OkApi));
+
         static string root = "https://www.okex.com/";
 
         #region rest调用
@@ -30,13 +33,22 @@ namespace AutoTrade
 
         public static T Get<T>(string url)
         {
-            var client = new RestClient(url);
-            RestRequest req = new RestRequest(Method.GET);
-            //req.AddHeader("content-type", "application/json");
-            //req.AddHeader("cache-type", "no-cache");
-            var response = client.Execute(req);
-            var result = JsonConvert.DeserializeObject<T>(response.Content);
-            return result;
+            try
+            {
+                var client = new RestClient(url);
+                RestRequest req = new RestRequest(Method.GET);
+                //req.AddHeader("content-type", "application/json");
+                //req.AddHeader("cache-type", "no-cache");
+                var response = client.Execute(req);
+                var result = JsonConvert.DeserializeObject<T>(response.Content);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"get url --> {url}");
+                logger.Error(ex.Message, ex);
+                throw ex;
+            }
         }
 
         public static T GetSign<T>(string url, string pathAndQuery)
@@ -86,7 +98,7 @@ namespace AutoTrade
             var method = "POST";
             var now = DateTime.Now;
             var timeStamp = TimeZoneInfo.ConvertTimeToUtc(now).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-            var requestUrl = pathAndQuery; 
+            var requestUrl = pathAndQuery;
             string sign = "";
             if (!String.IsNullOrEmpty(_bodyStr))
             {
@@ -112,17 +124,17 @@ namespace AutoTrade
         #endregion
 
 
-        public static List<CoinInfo> getdataAsync(string instrument)
+        public static List<KLineData> getdataAsync(string instrument)
         {
             var url = $"{root}api/spot/v3/instruments/{instrument}/candles";
 
             try
             {
                 var res = Get<List<List<string>>>(url);
-                var coinInfos = new List<CoinInfo>();
+                var coinInfos = new List<KLineData>();
                 foreach (var item in res)
                 {
-                    CoinInfo coinInfo = new CoinInfo()
+                    KLineData coinInfo = new KLineData()
                     {
                         time = DateTime.Parse(item[0]),
                         open = decimal.Parse(item[1]),
@@ -138,6 +150,7 @@ namespace AutoTrade
             }
             catch (Exception e)
             {
+                logger.Error(e.Message, e);
                 Console.WriteLine(e);
                 throw;
             }
@@ -183,13 +196,13 @@ namespace AutoTrade
         {
             var pathAndQuery = $"api/spot/v3/orders/{client_oid}?instrument_id={instrument_id}";
             var url = $"{root}{pathAndQuery}";
-             
-            var res = GetSign<OrderInfo>(url, "/"+ pathAndQuery);
+
+            var res = GetSign<OrderInfo>(url, "/" + pathAndQuery);
             return res;
         }
     }
 
-    public class CoinInfo
+    public class KLineData
     {
         public DateTime time { get; set; }
         public decimal open { get; set; }
