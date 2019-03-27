@@ -26,16 +26,16 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "ada" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "aac" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "abl" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "abt" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "abt" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "act" });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "ae" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "ark" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ark" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "auto" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "bec" });
+            //instruments.Add(new TradeItem { quote = "eth", symbol = "bec" }); // xxxxxxx
             //instruments.Add(new TradeItem { quote = "eth", symbol = "bkx" });
 
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "bnt" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "bnt" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "btm" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "btt" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "cai" });
@@ -50,16 +50,16 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dgb" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dgd" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dpy" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "edo" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "edo" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "egt" });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "elf" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "fair" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "gas" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gas" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "gnt" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "gnx" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gnx" });
 
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "gto" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gto" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "hc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "hmc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "hpb" });
