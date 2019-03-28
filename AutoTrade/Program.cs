@@ -45,7 +45,7 @@ namespace AutoTrade
 
                     // 获取行情，
                     var coinInfos = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote);
-                    if(coinInfos == null || coinInfos.Count < 50)
+                    if (coinInfos == null || coinInfos.Count < 50)
                     {
                         continue;
                     }
@@ -78,8 +78,13 @@ namespace AutoTrade
             }
 
             // 判断是否交易。
-            foreach (var item in oldData)
+            var needSellOldData = new BuyInfoDao().List5NeedSell(quote, symbol);
+            foreach (var item in needSellOldData)
             {
+                if (item.BuyStatus != "filled")
+                {
+                    continue;
+                }
                 // 这里的策略真的很重要
                 // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
                 // 如果超过7%, 站稳则需要等待3个小时
@@ -229,7 +234,7 @@ namespace AutoTrade
         static void QueryBuyDetail(string quote, string symbol)
         {
             var notFillBuyList = new BuyInfoDao().ListNotFillBuy(quote, symbol);
-            if(notFillBuyList.Count == 0)
+            if (notFillBuyList.Count == 0)
             {
                 return;
             }
@@ -263,7 +268,7 @@ namespace AutoTrade
         static void QuerySellDetail(string quote, string symbol)
         {
             var notFillSellList = new BuyInfoDao().ListNotFillSell(quote, symbol);
-            if(notFillSellList == null || notFillSellList.Count == 0)
+            if (notFillSellList == null || notFillSellList.Count == 0)
             {
                 return;
             }

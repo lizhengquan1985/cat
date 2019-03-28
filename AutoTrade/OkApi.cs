@@ -117,6 +117,7 @@ namespace AutoTrade
 
 
             var response = client.Execute(req);
+            logger.Error($"PostSign--> {url} {JsonConvert.SerializeObject(param)}--> " + response.Content);
             var result = JsonConvert.DeserializeObject<T>(response.Content);
             return result;
         }
@@ -181,13 +182,13 @@ namespace AutoTrade
                 client_oid = client_oid,
                 type = "limit",
                 side = "sell",
-                instrument_id = "",
+                instrument_id = instrument_id,
                 order_type = "0",
                 margin_trading = "1",
                 price,
                 size
             };
-            var res = Post<TradeResult>(url, obj);
+            var res = PostSign<TradeResult>(url, obj, "/api/spot/v3/orders");
             return res;
         }
 
