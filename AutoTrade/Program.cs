@@ -93,12 +93,15 @@ namespace AutoTrade
                     continue;
                 }
 
+                Console.WriteLine("---------------");
+
                 // 找到最大的close
                 var maxClose = coinInfos.Max(it => it.close);
                 var percent = coinInfos[0].close / oldData[0].BuyPrice; // 现在的价格/购买的价格
                 var huidiaoPercent = 1 + (percent - 1) / 10;
                 if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
                 {
+                    Console.WriteLine($"---------{item.Quote}--{item.Symbol}----");
                     // 出售， 适当的回调，可以出售
                     PrepareSell(item, coinInfos[0].close);
                 }
