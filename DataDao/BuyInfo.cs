@@ -32,6 +32,9 @@ namespace DataDao
         public bool SellResult { get; set; }
         public string SellCreateAt { get; set; }
         public decimal SellFilledNotional { get; set; }
+        /// <summary>
+        /// -- sellstatus: nosell prepare, filled
+        /// </summary>
         public string SellStatus { get; set; }
 
 

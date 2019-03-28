@@ -11,7 +11,7 @@ namespace AutoTrade
         static List<TradeItem> instruments = new List<TradeItem>();
         public static List<TradeItem> GetAll()
         {
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ltc" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ltc", MaxBuyPrice = (decimal)0.6 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "okb" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "etc" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "eos" });
@@ -21,10 +21,10 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "dash" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "neo" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "qtum" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xlm" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xlm", MaxBuyPrice = (decimal)0.006 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "ada" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "aac" });
+            //instruments.Add(new TradeItem { quote = "eth", symbol = "aac" });  
             //instruments.Add(new TradeItem { quote = "eth", symbol = "abl" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "abt" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "act" });
@@ -73,9 +73,9 @@ namespace AutoTrade
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "iota" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "itc" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "kan" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "kan", MaxBuyPrice = (decimal)0.06 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "kcash" });
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "lba" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "lba", MaxBuyPrice = (decimal)0.5 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "let" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "light" });
@@ -143,7 +143,7 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "eth", symbol = "zen" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "zil" });
 
-            //instruments.Add(new TradeItem { quote = "eth", symbol = "zip" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "zip" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "zrx" });
 
             return instruments;
@@ -153,6 +153,18 @@ namespace AutoTrade
         {
 
         }
+
+        public static bool CheckMaxBuyPrice(string quote, string symbol, decimal nowPrice)
+        {
+            var item = instruments.Find(it => it.quote == quote && it.symbol == symbol);
+            if (item != null && item.MaxBuyPrice > 0 && item.MaxBuyPrice < nowPrice)
+            {
+                Console.WriteLine("价格太高，不能购买");
+                return false;
+            }
+
+            return true;
+        }
     }
 
 
@@ -160,5 +172,9 @@ namespace AutoTrade
     {
         public string quote { get; set; }
         public string symbol { get; set; }
+        /// <summary>
+        /// 最大的购入价格
+        /// </summary>
+        public decimal MaxBuyPrice { get; set; }
     }
 }

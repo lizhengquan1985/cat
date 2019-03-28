@@ -34,7 +34,7 @@ namespace DataDao
 
         public List<BuyInfo> List5NeedSell(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and SellStatus is null order by BuyPrice asc limit 8";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='nosell') order by BuyPrice asc limit 8";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -70,7 +70,7 @@ namespace DataDao
         public void UpdateNotFillSell(OrderInfo orderInfo)
         {
             var sql = $"update t_buy_info set SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, " +
-                $" SellFilledNotional=@SellFilledNotional, SellStatus=@BuyStatus where SellClientOid=@SellClientOid";
+                $" SellFilledNotional=@SellFilledNotional, SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {
                 SellPrice = orderInfo.price,

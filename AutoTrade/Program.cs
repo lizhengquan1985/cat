@@ -44,14 +44,19 @@ namespace AutoTrade
                     QueryOrderDetail(item.quote, item.symbol);
 
                     // 获取行情，
-                    var coinInfos = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote);
-                    if (coinInfos == null || coinInfos.Count < 50)
+                    var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote);
+                    if (klineDataList == null || klineDataList.Count < 50)
                     {
                         continue;
                     }
 
+                    if (item.MaxBuyPrice > 0 && item.MaxBuyPrice < klineDataList.Min(it => it.low))
+                    {
+                        Console.WriteLine($"MaxBuyPrice --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                    }
+
                     // 启动交易
-                    RunTrade(coinInfos, item.quote, item.symbol);
+                    RunTrade(klineDataList, item.quote, item.symbol);
 
                     // 每走一遍, 休眠一下
                     Thread.Sleep(1000 * 1);
@@ -68,13 +73,19 @@ namespace AutoTrade
         {
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            Console.WriteLine(JsonConvert.SerializeObject(oldData));
             if (oldData.Count == 0 || coinInfos[0].close * (decimal)1.07 < oldData[0].BuyPrice)
             {
-                // 购买一单
-                Console.WriteLine("PrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuy");
-                PrepareBuy(quote, symbol, coinInfos[0].close);
-                return;
+                // coinfInfos的最高价和最低价相差不能太大
+                var min = coinInfos.Min(it => it.low);
+                var max = coinInfos.Max(it => it.high);
+                // 是否超过了最大限价
+                if (max < 2 * min && InstrumentsUtils.CheckMaxBuyPrice(quote, symbol, coinInfos[0].close))
+                {
+                    // 购买一单
+                    Console.WriteLine("PrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuy");
+                    PrepareBuy(quote, symbol, coinInfos[0].close);
+                    return;
+                }
             }
 
             // 判断是否交易。
@@ -182,7 +193,7 @@ namespace AutoTrade
                 return;
             }
 
-            var percent = 1 + (1 - nowPrice / buyInfo.BuyPrice) / 3;
+            var percent = 1 + ((nowPrice / buyInfo.BuyPrice) - 1) / 3;
             var sellSize = buyInfo.BuyQuantity / percent;
             var sellPrice = nowPrice / (decimal)1.02; // 更低的价格出售， 是为了能够出售
             var client_oid = "sell" + DateTime.Now.Ticks;
