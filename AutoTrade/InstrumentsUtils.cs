@@ -13,8 +13,10 @@ namespace AutoTrade
 
         public static void InitAllCoins()
         {
-            InitEth();
             InitBtc();
+            InitEth();
+
+            Console.WriteLine($"总共这个多个交易对： {instruments.Count}");
         }
 
         public static void InitBtc()
