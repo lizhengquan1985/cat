@@ -32,14 +32,14 @@ namespace AutoTrade
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
 
             // 初始化币种
+            InstrumentsUtils.InitAllCoins();
             instruments = InstrumentsUtils.GetAll();
 
             while (true)
             {
+                Console.WriteLine($"-------------> 运行次数:{runCount++} ");
                 foreach (var item in instruments)
                 {
-                    Console.WriteLine($"-------------> 运行次数:{runCount++} quote:{item.quote}-symbol:{item.symbol}");
-
                     // 查询订单结果
                     QueryOrderDetail(item.quote, item.symbol);
 
@@ -47,19 +47,24 @@ namespace AutoTrade
                     var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote);
                     if (klineDataList == null || klineDataList.Count < 50)
                     {
+                        logger.Error($"获取行情数据有误 {item.symbol}, quote:{item.quote}");
                         continue;
                     }
 
-                    if (item.MaxBuyPrice > 0 && item.MaxBuyPrice < klineDataList.Min(it => it.low))
+                    if (item.MaxBuyPrice <= 0)
+                    {
+                        Console.WriteLine($"MaxBuyPrice -->set 0 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                    }
+                    else if (item.MaxBuyPrice < klineDataList[0].close * 2)
                     {
                         Console.WriteLine($"MaxBuyPrice --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
 
                     // 启动交易
-                    RunTrade(klineDataList, item.quote, item.symbol);
+                    RunTrade(klineDataList, item);
 
                     // 每走一遍, 休眠一下
-                    Thread.Sleep(1000 * 1);
+                    Thread.Sleep(500);
                 }
             }
 
@@ -69,21 +74,29 @@ namespace AutoTrade
         private static DateTime lastBuyDate = DateTime.MinValue;
         private static DateTime lastSellDate = DateTime.MinValue;
 
-        static void RunTrade(List<KLineData> coinInfos, string quote, string symbol)
+        static void RunTrade(List<KLineData> coinInfos, TradeItem tradeItem)
         {
+            string quote = tradeItem.quote;
+            string symbol = tradeItem.symbol;
+            decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            if (oldData.Count == 0 || coinInfos[0].close * (decimal)1.07 < oldData[0].BuyPrice)
+            if (oldData.Count == 0 || nowPrice * (decimal)1.07 < oldData[0].BuyPrice)
             {
                 // coinfInfos的最高价和最低价相差不能太大
                 var min = coinInfos.Min(it => it.low);
                 var max = coinInfos.Max(it => it.high);
+                if (tradeItem.MaxBuyPrice > 0 && nowPrice > tradeItem.MaxBuyPrice)
+                {
+                    logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
+                    return;
+                }
                 // 是否超过了最大限价
                 if (max < 2 * min && InstrumentsUtils.CheckMaxBuyPrice(quote, symbol, coinInfos[0].close))
                 {
                     // 购买一单
-                    Console.WriteLine("PrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuyPrepareBuy");
-                    PrepareBuy(quote, symbol, coinInfos[0].close);
+                    Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
+                    PrepareBuy(quote, symbol, nowPrice);
                     return;
                 }
             }
@@ -99,12 +112,10 @@ namespace AutoTrade
                 // 这里的策略真的很重要
                 // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
                 // 如果超过7%, 站稳则需要等待3个小时
-                if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.07)
+                if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.09)
                 {
                     continue;
                 }
-
-                Console.WriteLine("---------------");
 
                 // 找到最大的close
                 var maxClose = coinInfos.Max(it => it.close);
@@ -112,7 +123,7 @@ namespace AutoTrade
                 var huidiaoPercent = 1 + (percent - 1) / 10;
                 if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
                 {
-                    Console.WriteLine($"---------{item.Quote}--{item.Symbol}----");
+                    Console.WriteLine($"PrepareSell --> {item.Quote}--{item.Symbol}----");
                     // 出售， 适当的回调，可以出售
                     PrepareSell(item, coinInfos[0].close);
                 }
