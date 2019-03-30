@@ -77,7 +77,7 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "btc", symbol = "gnx", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "gto", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "gusd", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "hc", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "hc", MaxBuyPrice = (decimal)0.001 });
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "hmc", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "hpb", MaxBuyPrice = (decimal)0 });
@@ -87,9 +87,9 @@ namespace AutoTrade
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "insur", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "int", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "iost", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "iota", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "itc", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "iost", MaxBuyPrice = (decimal)0.00001 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "iota", MaxBuyPrice = (decimal)0.0003 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "itc", MaxBuyPrice = (decimal)0.0001 });
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "kan", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "kcash", MaxBuyPrice = (decimal)0 });
@@ -109,14 +109,14 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "btc", symbol = "mkr", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "mof", MaxBuyPrice = (decimal)0 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "nano", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "nano", MaxBuyPrice = (decimal)0.001 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "nas", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "nuls", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "nuls", MaxBuyPrice = (decimal)0.0005 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "nxt", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "of", MaxBuyPrice = (decimal)0 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "omg", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ont", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "omg", MaxBuyPrice = (decimal)0.001 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ont", MaxBuyPrice = (decimal)0.001 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "ors", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "pax", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "pay", MaxBuyPrice = (decimal)0 });
@@ -136,7 +136,7 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "btc", symbol = "stc", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "swftc", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "tct", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "theta", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "theta", MaxBuyPrice = (decimal)0.0001 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "trio", MaxBuyPrice = (decimal)0 });
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "true", MaxBuyPrice = (decimal)0 });
@@ -146,16 +146,16 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "btc", symbol = "vib", MaxBuyPrice = (decimal)0 });
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "vite", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "waves", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "waves", MaxBuyPrice = (decimal)0.002 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "win", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "wtc", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "xas", MaxBuyPrice = (decimal)0 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "xem", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "xmr", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xem", MaxBuyPrice = (decimal)0.00005 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xmr", MaxBuyPrice = (decimal)0.05 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "you", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "zco", MaxBuyPrice = (decimal)0 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "zec", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "zec", MaxBuyPrice = (decimal)0.05 });
 
             //instruments.Add(new TradeItem { quote = "btc", symbol = "zen", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "zil", MaxBuyPrice = (decimal)0 });
@@ -166,65 +166,65 @@ namespace AutoTrade
 
         public static void InitEth()
         {
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ltc", MaxBuyPrice = (decimal)0.6 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "okb" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "etc" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "eos" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ltc", MaxBuyPrice = (decimal)0.9 });
+            //instruments.Add(new TradeItem { quote = "eth", symbol = "okb", MaxBuyPrice = (decimal)0.9 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "etc", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "eos", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp", MaxBuyPrice = (decimal)0.01 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "trx" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "dash" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "neo" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "qtum" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xlm", MaxBuyPrice = (decimal)0.006 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "trx", MaxBuyPrice = (decimal)0.00051 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "dash", MaxBuyPrice = (decimal)2 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "neo", MaxBuyPrice = (decimal)0.2 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "qtum", MaxBuyPrice = (decimal)0.05 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xlm", MaxBuyPrice = (decimal)0.003 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ada" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ada", MaxBuyPrice = (decimal)0.002 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "aac" });  
             //instruments.Add(new TradeItem { quote = "eth", symbol = "abl" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "abt" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "abt", MaxBuyPrice = (decimal)0.0051 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "act" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ae" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ark" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ae", MaxBuyPrice = (decimal)0.01 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ark", MaxBuyPrice = (decimal)0.01 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "auto" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "bec" }); // xxxxxxx
             //instruments.Add(new TradeItem { quote = "eth", symbol = "bkx" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "bnt" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "btm" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "btt" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "bnt", MaxBuyPrice = (decimal)0.01 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "btm", MaxBuyPrice = (decimal)0.003 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "btt", MaxBuyPrice = (decimal)0.00002 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "cai" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "cic" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "cmt" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ctxc" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "cvc" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "cmt", MaxBuyPrice = (decimal)0.001 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ctxc", MaxBuyPrice = (decimal)0.0051 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "cvc", MaxBuyPrice = (decimal)0.0021 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dadi" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "dcr" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "dcr", MaxBuyPrice = (decimal)0.5 });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dgb" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dgd" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "dpy" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "edo" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "edo", MaxBuyPrice = (decimal)0.02 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "egt" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "elf" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "elf", MaxBuyPrice = (decimal)0.004 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "fair" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "gas" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "gnt" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "gnx" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gas", MaxBuyPrice = (decimal)0.08 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gnt", MaxBuyPrice = (decimal)0.003 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gnx", MaxBuyPrice = (decimal)0.00051 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "gto" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "hc" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "gto", MaxBuyPrice = (decimal)0.0011 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "hc", MaxBuyPrice = (decimal)0.03 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "hmc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "hpb" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "hyc" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "icx" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "icx", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "ins" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "insur" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "int" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "iost" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "iost", MaxBuyPrice = (decimal)0.1 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "iota" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "itc" });
@@ -232,29 +232,29 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "kcash" });
             instruments.Add(new TradeItem { quote = "eth", symbol = "lba", MaxBuyPrice = (decimal)0.5 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "let" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "let", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "light" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "link" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "link", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "lrc" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "lsk" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "lsk", MaxBuyPrice = (decimal)0.1 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "mana" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "mco" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "mana", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "mco", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "mdt" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "mith" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "mkr" });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "mof" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "mvp" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "nano" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "nas" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "nuls" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "nano", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "nas", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "nuls", MaxBuyPrice = (decimal)0.1 });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "of" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "omg" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ont" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "omg", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ont", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "ors" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "pay" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "pay", MaxBuyPrice = (decimal)0.1 });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "ppt" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "pra" });
@@ -268,13 +268,13 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "eth", symbol = "sda" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "snc" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "snt" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "snt", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "soc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "ssc" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "storj" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "storj", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "swftc" });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "theta" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "theta", MaxBuyPrice = (decimal)0.1 });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "topc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "tra" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "trio" });
@@ -284,22 +284,22 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "eth", symbol = "ugc" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "vib" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "vite" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "waves" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "waves", MaxBuyPrice = (decimal)0.1 });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "win" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "wtc" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xem" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xmr" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xuc" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xem", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xmr", MaxBuyPrice = (decimal)1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xuc", MaxBuyPrice = (decimal)0.1 });
 
             //instruments.Add(new TradeItem { quote = "eth", symbol = "you" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "zco" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "zec" });
             //instruments.Add(new TradeItem { quote = "eth", symbol = "zen" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "zil" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "zil", MaxBuyPrice = (decimal)0.1 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "zip" });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "zrx" });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "zip", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "zrx", MaxBuyPrice = (decimal)0.1 });
 
         }
 

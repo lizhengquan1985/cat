@@ -55,9 +55,15 @@ namespace AutoTrade
                     {
                         Console.WriteLine($"MaxBuyPrice -->set 0 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
-                    else if (item.MaxBuyPrice < klineDataList[0].close * 2)
+                    if (item.MaxBuyPrice < klineDataList[0].close * (decimal)1.5)
                     {
+                        // 这里只是做粗略记录和控制
                         Console.WriteLine($"MaxBuyPrice --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                    }
+                    if (item.MaxBuyPrice > klineDataList[0].close * 3)
+                    {
+                        // 这里只是做粗略记录和控制
+                        Console.WriteLine($"MaxBuyPrice xxxx --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
 
                     // 启动交易
