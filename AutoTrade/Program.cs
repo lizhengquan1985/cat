@@ -270,8 +270,6 @@ namespace AutoTrade
                 return;
             }
 
-            Console.WriteLine($"notFillBuyList: {notFillBuyList.Count}");
-
             foreach (var item in notFillBuyList)
             {
                 try
