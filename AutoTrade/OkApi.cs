@@ -81,6 +81,7 @@ namespace AutoTrade
 
 
             var response = client.Execute(req);
+            Console.WriteLine(response.Content);
             var result = JsonConvert.DeserializeObject<T>(response.Content);
             return result;
         }
