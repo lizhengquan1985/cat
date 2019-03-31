@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using log4net.Repository.Hierarchy;
+using Newtonsoft.Json;
 
 namespace AutoTrade
 {
@@ -16,6 +17,8 @@ namespace AutoTrade
         public static void InitAllCoins()
         {
             okInstruments = OkApi.Listinstruments();
+            Console.WriteLine("okInstruments -- > " + okInstruments.Count);
+            Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency == "btc")));
 
             InitBtc();
             InitEth();
