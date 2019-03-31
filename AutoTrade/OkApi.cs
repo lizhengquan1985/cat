@@ -174,7 +174,7 @@ namespace AutoTrade
             return res;
         }
 
-        public static TradeResult Sell(string client_oid, string instrument_id, decimal price, decimal size)
+        public static TradeResult Sell(string client_oid, string instrument_id, string price, string size)
         {
             var url = $"{root}api/spot/v3/orders";
             var obj = new

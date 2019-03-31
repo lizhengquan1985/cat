@@ -68,17 +68,17 @@ namespace AutoTrade
 
                     if (item.MaxBuyPrice <= 0)
                     {
-                        Console.WriteLine($"MaxBuyPrice -->set 0 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                        Console.WriteLine($"MaxBuyPrice -->没有设置 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
                     if (item.MaxBuyPrice < klineDataList[0].close * (decimal)1.5)
                     {
                         // 这里只是做粗略记录和控制
-                        Console.WriteLine($"MaxBuyPrice --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                        Console.WriteLine($"MaxBuyPrice -->设置的有点小 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
                     if (item.MaxBuyPrice > klineDataList[0].close * 3)
                     {
                         // 这里只是做粗略记录和控制
-                        Console.WriteLine($"MaxBuyPrice xxxx --> {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
+                        Console.WriteLine($"MaxBuyPrice xxxx -->设置的过大会接盘哦 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
 
                     // 启动交易
@@ -242,11 +242,22 @@ namespace AutoTrade
             var percent = 1 + ((nowPrice / buyInfo.BuyPrice) - 1) / 3;
             var sellSize = buyInfo.BuyQuantity / percent;
             var sellPrice = nowPrice / (decimal)1.02; // 更低的价格出售， 是为了能够出售
+
+            var okInstrument = InstrumentsUtils.GetOkInstruments(buyInfo.Quote, buyInfo.Symbol);
+            if (okInstrument == null)
+            {
+                logger.Error($"出售时候发现 不存在的交易对 {buyInfo.Quote},{buyInfo.Symbol}");
+                return;
+            }
+
+            sellPrice = decimal.Round(sellPrice, okInstrument.GetTickSizeNumber());
+            sellSize = decimal.Round(sellSize, okInstrument.GetSizeIncrementNumber());
+
             var client_oid = "sell" + DateTime.Now.Ticks;
             try
             {
-                logger.Error($"1: 准备出售 {buyInfo.Quote}-{buyInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice}, sellPrice:{sellPrice}, sellSize:{sellSize}");
-                var sellResult = OkApi.Sell(client_oid, buyInfo.Symbol + "-" + buyInfo.Quote, sellPrice, sellSize);
+                logger.Error($"1: 准备出售 {buyInfo.Quote}-{buyInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, sellPrice:{sellPrice.ToString()}, sellSize:{sellSize}");
+                var sellResult = OkApi.Sell(client_oid, buyInfo.Symbol + "-" + buyInfo.Quote, sellPrice.ToString(), sellSize.ToString());
                 logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(sellResult)}");
 
                 buyInfo.SellClientOid = client_oid;
