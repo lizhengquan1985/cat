@@ -184,6 +184,7 @@ namespace AutoTrade
             }
 
             buyPrice = decimal.Round(buyPrice, okInstrument.GetTickSizeNumber());
+            buySize = decimal.Round(buySize, okInstrument.GetSizeIncrementNumber());
 
             var client_oid = "buy" + DateTime.Now.Ticks;
 

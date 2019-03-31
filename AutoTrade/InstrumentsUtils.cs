@@ -18,7 +18,7 @@ namespace AutoTrade
         {
             okInstruments = OkApi.Listinstruments();
             Console.WriteLine("okInstruments -- > " + okInstruments.Count);
-            Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency == "btc")));
+            Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency.ToLower() == "btc")));
 
             InitBtc();
             InitEth();
@@ -61,10 +61,10 @@ namespace AutoTrade
             //instruments.Add(new TradeItem { quote = "btc", symbol = "bnt", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "btg", MaxBuyPrice = (decimal)0 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "btm", MaxBuyPrice = (decimal)0.00006 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "btt", MaxBuyPrice = (decimal)0.0000004 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "cai", MaxBuyPrice = (decimal)0.00000005 });
+            //instruments.Add(new TradeItem { quote = "btc", symbol = "btt", MaxBuyPrice = (decimal)0.0000004 }); -- 精度bug
+            //instruments.Add(new TradeItem { quote = "btc", symbol = "cai", MaxBuyPrice = (decimal)0.00000005 }); --精度bug
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "chat", MaxBuyPrice = (decimal)0.000002 });
+            //instruments.Add(new TradeItem { quote = "btc", symbol = "chat", MaxBuyPrice = (decimal)0.000002 }); --精度bug
             //instruments.Add(new TradeItem { quote = "btc", symbol = "cic", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "cmt", MaxBuyPrice = (decimal)0 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "ctxc", MaxBuyPrice = (decimal)0 });
@@ -324,7 +324,7 @@ namespace AutoTrade
 
         public static instruments GetOkInstruments(string quote, string symbol)
         {
-            return okInstruments.Find(it => it.quote_currency == quote && it.base_currency == symbol);
+            return okInstruments.Find(it => it.quote_currency.ToLower() == quote && it.base_currency.ToLower() == symbol);
         }
 
         public static void AddItem(string quote, string symbol)
@@ -376,6 +376,15 @@ namespace AutoTrade
 
         public int GetTickSizeNumber()
         {
+            if (quote_currency.ToLower() == "btc" && base_currency.ToLower() == "btt")
+            {
+                return 8;
+            }
+
+            if (tick_size == "1")
+            {
+                return 0;
+            }
             if (tick_size == "0.1")
             {
                 return 1;
@@ -408,8 +417,68 @@ namespace AutoTrade
             {
                 return 8;
             }
+            if (tick_size == "0.000000001")
+            {
+                return 9;
+            }
             Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
-            throw new ApplicationException("----------错误的精度 --");
+            Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
+            return 10;
+        }
+
+        public int GetSizeIncrementNumber()
+        {
+
+
+            if (size_increment == "1")
+            {
+                return 0;
+            }
+            if (size_increment == "0.1")
+            {
+                return 1;
+            }
+            if (size_increment == "0.01")
+            {
+                return 2;
+            }
+            if (size_increment == "0.001")
+            {
+                return 3;
+            }
+            if (size_increment == "0.0001")
+            {
+                return 4;
+            }
+            if (size_increment == "0.00001")
+            {
+                return 5;
+            }
+            if (size_increment == "0.000001")
+            {
+                return 6;
+            }
+            if (size_increment == "0.0000001")
+            {
+                return 7;
+            }
+            if (size_increment == "0.00000001")
+            {
+                return 8;
+            }
+            if (size_increment == "0.000000001")
+            {
+                return 9;
+            }
+            Console.WriteLine($"错误的精度精度size_increment: {size_increment}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度size_increment: {size_increment}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度size_increment: {size_increment}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度size_increment: {size_increment}, {quote_currency},{base_currency}");
+            Console.WriteLine($"错误的精度精度size_increment: {size_increment}, {quote_currency},{base_currency}");
+            return 10;
         }
     }
 
