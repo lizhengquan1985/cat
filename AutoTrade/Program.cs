@@ -191,8 +191,8 @@ namespace AutoTrade
 
             try
             {
-                logger.Error($"1: 准备购买 {quote}-{symbol}, client_oid:{client_oid},  nowPrice:{nowPrice}, buyPrice:{buyPrice}, buySize:{buySize}");
-                var tradeResult = OkApi.Buy(client_oid, symbol + "-" + quote, buyPrice, buySize);
+                logger.Error($"1: 准备购买 {quote}-{symbol}, client_oid:{client_oid},  nowPrice:{nowPrice}, buyPrice:{buyPrice.ToString()}, buySize:{buySize.ToString()}");
+                var tradeResult = OkApi.Buy(client_oid, symbol + "-" + quote, buyPrice.ToString(), buySize.ToString());
                 logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(tradeResult)}");
 
                 new BuyInfoDao().CreateBuyInfo(new BuyInfo
