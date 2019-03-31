@@ -164,7 +164,11 @@ namespace AutoTrade
             var buyAmount = (decimal)0.07;
             if (quote == "eth")
             {
+                // 获取没有出售的数量
+                var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
+
                 buyAmount = (decimal)0.009;
+                buyAmount = buyAmount * (1 + count / 100);
             }
             else if (quote == "btc")
             {

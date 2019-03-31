@@ -32,6 +32,20 @@ namespace DataDao
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
+        public int GetNotSellCount(string quote, string symbol)
+        {
+            try
+            {
+                var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) and BuyStatus='filled'";
+                return Database.ExecuteScalar<int>(sql, new { Quote = quote, Symbol = symbol });
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message, e);
+                return 0;
+            }
+        }
+
         public List<BuyInfo> List5NeedSell(string quote, string symbol)
         {
             var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='nosell') order by BuyPrice asc limit 8";
