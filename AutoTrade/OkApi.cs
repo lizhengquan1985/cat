@@ -200,6 +200,23 @@ namespace AutoTrade
             var res = GetSign<OrderInfo>(url, "/" + pathAndQuery);
             return res;
         }
+
+        public static List<instruments> Listinstruments()
+        {
+            var url = $"{root}api/spot/v3/instruments";
+
+            try
+            {
+                return Get<List<instruments>>(url);
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message, e);
+                Console.WriteLine(e);
+                return null;
+            }
+        }
+
     }
 
     public class KLineData

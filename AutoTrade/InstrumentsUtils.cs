@@ -4,15 +4,19 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using log4net.Repository.Hierarchy;
 
 namespace AutoTrade
 {
     public class InstrumentsUtils
     {
         private static List<TradeItem> instruments = new List<TradeItem>();
+        private static List<instruments> okInstruments = new List<instruments>();
 
         public static void InitAllCoins()
         {
+            okInstruments = OkApi.Listinstruments();
+
             InitBtc();
             InitEth();
 
@@ -310,6 +314,16 @@ namespace AutoTrade
             return instruments;
         }
 
+        public static List<instruments> GetOkInstruments()
+        {
+            return okInstruments;
+        }
+
+        public static instruments GetOkInstruments(string quote, string symbol)
+        {
+            return okInstruments.Find(it => it.quote_currency == quote && it.base_currency == symbol);
+        }
+
         public static void AddItem(string quote, string symbol)
         {
 
@@ -338,4 +352,62 @@ namespace AutoTrade
         /// </summary>
         public decimal MaxBuyPrice { get; set; }
     }
+
+    public class instruments
+    {
+        public string instrument_id { get; set; }
+        public string base_currency { get; set; }
+        public string quote_currency { get; set; }
+        /// <summary>
+        /// 	最小交易数量
+        /// </summary>
+        public string min_size { get; set; }
+        /// <summary>
+        /// 交易货币数量精度
+        /// </summary>
+        public string size_increment { get; set; }
+        /// <summary>
+        /// 	交易价格精度
+        /// </summary>
+        public string tick_size { get; set; }
+
+        public int GetTickSizeNumber()
+        {
+            if (tick_size == "0.1")
+            {
+                return 1;
+            }
+            if (tick_size == "0.01")
+            {
+                return 2;
+            }
+            if (tick_size == "0.001")
+            {
+                return 3;
+            }
+            if (tick_size == "0.0001")
+            {
+                return 4;
+            }
+            if (tick_size == "0.00001")
+            {
+                return 5;
+            }
+            if (tick_size == "0.000001")
+            {
+                return 6;
+            }
+            if (tick_size == "0.0000001")
+            {
+                return 7;
+            }
+            if (tick_size == "0.00000001")
+            {
+                return 8;
+            }
+            Console.WriteLine($"错误的精度精度 {tick_size}, {quote_currency},{base_currency}");
+            throw new ApplicationException("----------错误的精度 --");
+        }
+    }
+
 }

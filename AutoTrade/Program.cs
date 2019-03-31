@@ -54,12 +54,12 @@ namespace AutoTrade
                     if (runCount < 3)
                     {
                         var totalAmount = klineDataList.Sum(it => it.volume * (it.open + it.close) / 2);
-                        if (item.quote == "btc" && totalAmount < (decimal)0.5)
+                        if (item.quote == "btc" && totalAmount < (decimal)0.2)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
 
-                        if (item.quote == "eth" && totalAmount < 10)
+                        if (item.quote == "eth" && totalAmount < 5)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
@@ -176,6 +176,15 @@ namespace AutoTrade
 
             var buySize = buyAmount / nowPrice;
             var buyPrice = nowPrice * (decimal)1.02;
+            var okInstrument = InstrumentsUtils.GetOkInstruments(quote, symbol);
+            if (okInstrument == null)
+            {
+                logger.Error($"不存在的交易对 {quote},{symbol}");
+                return;
+            }
+
+            buyPrice = decimal.Round(buyPrice, okInstrument.GetTickSizeNumber());
+
             var client_oid = "buy" + DateTime.Now.Ticks;
 
             try
