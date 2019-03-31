@@ -34,6 +34,7 @@ namespace AutoTrade
             // 初始化币种
             InstrumentsUtils.InitAllCoins();
             instruments = InstrumentsUtils.GetAll();
+            //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 
             while (true)
             {

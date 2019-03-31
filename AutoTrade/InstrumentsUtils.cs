@@ -18,7 +18,7 @@ namespace AutoTrade
         {
             okInstruments = OkApi.Listinstruments();
             Console.WriteLine("okInstruments -- > " + okInstruments.Count);
-            Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency.ToLower() == "btc")));
+            //Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency.ToLower() == "btc")));
 
             InitBtc();
             InitEth();
@@ -431,8 +431,6 @@ namespace AutoTrade
 
         public int GetSizeIncrementNumber()
         {
-
-
             if (size_increment == "1")
             {
                 return 0;
