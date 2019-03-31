@@ -201,7 +201,7 @@ namespace AutoTrade
         {
             if (lastSellDate > DateTime.Now.AddMinutes(-1))
             {
-                // 如果1分钟内购买过一单， 则不能再次购买
+                // 如果1分钟内购出售一单， 则不能再次出售
                 return;
             }
 
@@ -281,6 +281,8 @@ namespace AutoTrade
                         continue;
                     }
 
+                    Console.WriteLine($"QueryBuyDetail--> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
+
                     // 如果成交了。
                     if (orderInfo.status == "filled")
                     {
@@ -302,8 +304,6 @@ namespace AutoTrade
                 return;
             }
 
-            Console.WriteLine($"notFillSellList: {notFillSellList.Count}");
-
             foreach (var item in notFillSellList)
             {
                 try
@@ -314,6 +314,8 @@ namespace AutoTrade
                     {
                         continue;
                     }
+
+                    Console.WriteLine($"QuerySellDetail --> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
 
                     // 如果成交了。
                     if (orderInfo.status == "filled")

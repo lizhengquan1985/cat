@@ -63,7 +63,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNotFillSell(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus and SellStatus!='nosell'";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol, SellStatus = "filled" }).ToList();
         }
 
