@@ -52,11 +52,11 @@ namespace AutoTrade
                     }
 
                     var totalAmount = klineDataList.Sum(it => it.volume * (it.open + it.close) / 2);
-                    if (item.quote == "btc" && totalAmount < 10)
+                    if (item.quote == "btc" && totalAmount < (decimal)0.5)
                     {
                         Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                     }
-                    if (item.quote == "eth" && totalAmount < 100)
+                    if (item.quote == "eth" && totalAmount < 10)
                     {
                         Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                     }
