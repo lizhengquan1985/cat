@@ -51,6 +51,16 @@ namespace AutoTrade
                         continue;
                     }
 
+                    var totalAmount = klineDataList.Sum(it => it.volume * (it.open + it.close) / 2);
+                    if (item.quote == "btc" && totalAmount < 10)
+                    {
+                        Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
+                    }
+                    if (item.quote == "eth" && totalAmount < 100)
+                    {
+                        Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
+                    }
+
                     if (item.MaxBuyPrice <= 0)
                     {
                         Console.WriteLine($"MaxBuyPrice -->set 0 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
