@@ -133,14 +133,14 @@ namespace AutoTrade
                 // 这里的策略真的很重要
                 // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
                 // 如果超过7%, 站稳则需要等待3个小时
-                if (coinInfos[0].close < oldData[0].BuyPrice * (decimal)1.09)
+                if (coinInfos[0].close < item.BuyPrice * (decimal)1.09)
                 {
                     continue;
                 }
 
                 // 找到最大的close
                 var maxClose = coinInfos.Max(it => it.close);
-                var percent = coinInfos[0].close / oldData[0].BuyPrice; // 现在的价格/购买的价格
+                var percent = coinInfos[0].close / item.BuyPrice; // 现在的价格/购买的价格
                 var huidiaoPercent = 1 + (percent - 1) / 10;
                 if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
                 {
@@ -261,6 +261,10 @@ namespace AutoTrade
             var client_oid = "sell" + DateTime.Now.Ticks;
             try
             {
+                logger.Error($"");
+                logger.Error($"");
+                logger.Error($"{JsonConvert.SerializeObject(buyInfo)}");
+                logger.Error($"");
                 logger.Error($"1: 准备出售 {buyInfo.Quote}-{buyInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, sellPrice:{sellPrice.ToString()}, sellSize:{sellSize}");
                 var sellResult = OkApi.Sell(client_oid, buyInfo.Symbol + "-" + buyInfo.Quote, sellPrice.ToString(), sellSize.ToString());
                 logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(sellResult)}");
