@@ -102,7 +102,7 @@ namespace AutoTrade
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            if (oldData.Count == 0 || nowPrice * (decimal)1.07 < oldData[0].BuyPrice)
+            if (oldData.Count == 0 || nowPrice * (decimal)1.066 < oldData[0].BuyPrice)
             {
                 // coinfInfos的最高价和最低价相差不能太大
                 var min = coinInfos.Min(it => it.low);
@@ -162,7 +162,7 @@ namespace AutoTrade
             }
 
             var buyAmount = (decimal)0.07;
-            if (quote == "eth")
+            if (quote.ToLower() == "eth")
             {
                 // 获取没有出售的数量
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
@@ -170,13 +170,18 @@ namespace AutoTrade
                 buyAmount = (decimal)0.009;
                 buyAmount = buyAmount * (1 + count / 100);
             }
-            else if (quote == "btc")
+            else if (quote.ToLower() == "btc")
             {
                 buyAmount = (decimal)0.0006;
             }
             else if (quote == "usdt")
             {
                 buyAmount = (decimal)2;
+            }
+            else
+            {
+                logger.Error("000000000000000");
+                return;
             }
 
             var buySize = buyAmount / nowPrice;
