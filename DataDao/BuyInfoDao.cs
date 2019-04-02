@@ -75,6 +75,16 @@ namespace DataDao
             });
         }
 
+        public void UpdateNotFillBuyToCancel(OrderInfo orderInfo)
+        {
+            var sql = $"update t_buy_info set BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
+            Database.Execute(sql, new
+            {
+                BuyStatus = orderInfo.status,
+                BuyClientOid = orderInfo.client_oid
+            });
+        }
+
         public List<BuyInfo> ListNotFillSell(string quote, string symbol)
         {
             var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus and SellStatus!='nosell'";

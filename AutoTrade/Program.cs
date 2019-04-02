@@ -341,6 +341,10 @@ namespace AutoTrade
                     {
                         new BuyInfoDao().UpdateNotFillBuy(orderInfo);
                     }
+                    if (orderInfo.status == "cancelled")
+                    {
+                        new BuyInfoDao().UpdateNotFillBuyToCancel(orderInfo);
+                    }
                 }
                 catch (Exception ex)
                 {
