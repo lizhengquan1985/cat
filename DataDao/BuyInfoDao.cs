@@ -36,7 +36,7 @@ namespace DataDao
         {
             try
             {
-                var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) and BuyStatus='filled'";
+                var sql = $"select count(1) from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) and BuyStatus='filled'";
                 return Database.ExecuteScalar<int>(sql, new { Quote = quote, Symbol = symbol });
             }
             catch (Exception e)
