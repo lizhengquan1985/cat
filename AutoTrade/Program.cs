@@ -102,7 +102,7 @@ namespace AutoTrade
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            if (oldData.Count == 0 || nowPrice * (decimal)1.066 < oldData[0].BuyPrice)
+            if (oldData.Count == 0 || nowPrice * (decimal)1.07 < oldData[0].BuyPrice)
             {
                 // coinfInfos的最高价和最低价相差不能太大
                 var min = coinInfos.Min(it => it.low);
