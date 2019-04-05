@@ -46,17 +46,17 @@ namespace DataDao
             }
         }
 
-        public List<BuyInfo> List5NeedSell(string quote, string symbol)
+        public List<BuyInfo> ListNeedSellOrder(string quote, string symbol, int count = 5)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='nosell') order by BuyPrice asc limit 8";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.open}' or SellStatus='{OrderStatus.cancelled}') order by BuyPrice asc limit {count}";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
         #region 订单结果查询以及匹配
 
-        public List<BuyInfo> ListNotFillBuy(string quote, string symbol)
+        public List<BuyInfo> ListNeedQueryBuyDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus!=@BuyStatus";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus!=@BuyStatus and BuyStatus!='{OrderStatus.cancelled}'";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol, BuyStatus = "filled" }).ToList();
         }
 
@@ -85,9 +85,9 @@ namespace DataDao
             });
         }
 
-        public List<BuyInfo> ListNotFillSell(string quote, string symbol)
+        public List<BuyInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus and SellStatus!='nosell'";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus and SellStatus!='{OrderStatus.cancelled}'";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol, SellStatus = "filled" }).ToList();
         }
 
@@ -101,6 +101,16 @@ namespace DataDao
                 SellQuantity = orderInfo.size,
                 SellCreateAt = orderInfo.created_at,
                 SellFilledNotional = orderInfo.filled_notional,
+                SellStatus = orderInfo.status,
+                SellClientOid = orderInfo.client_oid
+            });
+        }
+
+        public void UpdateNotFillSellToCancel(OrderInfo orderInfo)
+        {
+            var sql = $"update t_buy_info set SellStatus=@SellStatus where SellClientOid=@SellClientOid";
+            Database.Execute(sql, new
+            {
                 SellStatus = orderInfo.status,
                 SellClientOid = orderInfo.client_oid
             });

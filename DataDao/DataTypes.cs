@@ -27,4 +27,11 @@ namespace DataDao
         public string timestamp { get; set; }
         public string type { get; set; }
     }
+
+    public class OrderStatus
+    {
+        public static string cancelled = "cancelled";
+        public static string filled = "filled";
+        public static string open = "open";
+    }
 }

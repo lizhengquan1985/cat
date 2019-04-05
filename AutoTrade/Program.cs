@@ -123,7 +123,7 @@ namespace AutoTrade
             }
 
             // 判断是否交易。
-            var needSellOldData = new BuyInfoDao().List5NeedSell(quote, symbol);
+            var needSellOldData = new BuyInfoDao().ListNeedSellOrder(quote, symbol);
             foreach (var item in needSellOldData)
             {
                 if (item.BuyStatus != "filled")
@@ -171,7 +171,7 @@ namespace AutoTrade
                     count = 50;
                 }
 
-                buyAmount = (decimal)0.012;
+                buyAmount = (decimal)0.013;
                 buyAmount = buyAmount * (1 + count / 50);
             }
             else if (quote.ToLower() == "btc")
@@ -210,6 +210,7 @@ namespace AutoTrade
 
             try
             {
+                logger.Error($"");
                 logger.Error($"1: 准备购买 {quote}-{symbol}, client_oid:{client_oid},  nowPrice:{nowPrice}, buyPrice:{buyPrice.ToString()}, buySize:{buySize.ToString()}");
                 var tradeResult = OkApi.Buy(client_oid, symbol + "-" + quote, buyPrice.ToString(), buySize.ToString());
                 logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(tradeResult)}");
@@ -231,6 +232,7 @@ namespace AutoTrade
                     BuyResult = tradeResult.result
                 });
                 logger.Error($"3: 添加记录完成");
+                logger.Error($"");
                 lastBuyDate = DateTime.Now;
             }
             catch (Exception e)
@@ -272,7 +274,6 @@ namespace AutoTrade
             try
             {
                 logger.Error($"");
-                logger.Error($"");
                 logger.Error($"{JsonConvert.SerializeObject(buyInfo)}");
                 logger.Error($"");
                 logger.Error($"1: 准备出售 {buyInfo.Quote}-{buyInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, sellPrice:{sellPrice.ToString()}, sellSize:{sellSize}");
@@ -286,6 +287,7 @@ namespace AutoTrade
                 new BuyInfoDao().UpdateBuyInfo(buyInfo);
 
                 logger.Error($"3: 添加记录完成");
+                logger.Error($"");
 
                 lastSellDate = DateTime.Now;
             }
@@ -323,7 +325,7 @@ namespace AutoTrade
 
         static void QueryBuyDetail(string quote, string symbol)
         {
-            var notFillBuyList = new BuyInfoDao().ListNotFillBuy(quote, symbol);
+            var notFillBuyList = new BuyInfoDao().ListNeedQueryBuyDetail(quote, symbol);
             if (notFillBuyList.Count == 0)
             {
                 return;
@@ -361,7 +363,7 @@ namespace AutoTrade
 
         static void QuerySellDetail(string quote, string symbol)
         {
-            var notFillSellList = new BuyInfoDao().ListNotFillSell(quote, symbol);
+            var notFillSellList = new BuyInfoDao().ListNeedQuerySellDetail(quote, symbol);
             if (notFillSellList == null || notFillSellList.Count == 0)
             {
                 return;
@@ -384,6 +386,10 @@ namespace AutoTrade
                     if (orderInfo.status == "filled")
                     {
                         new BuyInfoDao().UpdateNotFillSell(orderInfo);
+                    }
+                    if (orderInfo.status == "cancelled")
+                    {
+                        new BuyInfoDao().UpdateNotFillSellToCancel(orderInfo);
                     }
                 }
                 catch (Exception ex)
