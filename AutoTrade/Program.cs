@@ -10,6 +10,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using log4net.Config;
 using System.IO;
+using log4net.Repository.Hierarchy;
 
 namespace AutoTrade
 {
@@ -28,13 +29,25 @@ namespace AutoTrade
 
         static void Main(string[] args)
         {
+            Console.WriteLine(1);
             // 注册日志
             XmlConfigurator.Configure(new FileInfo("log4net.config"));
+            Console.WriteLine(2);
 
             // 初始化币种
             InstrumentsUtils.InitAllCoins();
+            Console.WriteLine(3);
             instruments = InstrumentsUtils.GetAll();
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
+
+            try
+            {
+                OkApi.ListFilledOrder("XRP-BTC");
+            }
+            catch (Exception e)
+            {
+                logger.Error(e.Message, e);
+            }
 
             while (true)
             {
@@ -166,7 +179,7 @@ namespace AutoTrade
             {
                 // 获取没有出售的数量
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-                if(count > 50)
+                if (count > 50)
                 {
                     count = 50;
                 }

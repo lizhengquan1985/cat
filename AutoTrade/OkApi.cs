@@ -53,6 +53,7 @@ namespace AutoTrade
 
         public static T GetSign<T>(string url, string pathAndQuery)
         {
+            Console.WriteLine(url, pathAndQuery);
             var client = new RestClient(url);
             RestRequest req = new RestRequest(Method.GET);
             req.AddHeader("content-type", "application/json");
@@ -190,6 +191,15 @@ namespace AutoTrade
                 size
             };
             var res = PostSign<TradeResult>(url, obj, "/api/spot/v3/orders");
+            return res;
+        }
+
+        public static object ListFilledOrder(string instrument_id)
+        {
+            var pathAndQuery = $"api/spot/v3/orders?instrument_id={instrument_id}&status=filled&limit=20";
+            var url = $"{root}{pathAndQuery}";
+            var res = GetSign<object>(url, "/"+ pathAndQuery);
+            logger.Error(JsonConvert.SerializeObject(res));
             return res;
         }
 
