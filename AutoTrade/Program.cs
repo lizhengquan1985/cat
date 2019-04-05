@@ -98,7 +98,7 @@ namespace AutoTrade
                     RunTrade(klineDataList, item);
 
                     // 每走一遍, 休眠一下
-                    Thread.Sleep(500);
+                    Thread.Sleep(600);
                 }
             }
 
