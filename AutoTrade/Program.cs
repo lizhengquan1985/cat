@@ -166,13 +166,13 @@ namespace AutoTrade
             {
                 // 获取没有出售的数量
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-                if(count > 5)
+                if(count > 50)
                 {
-                    count = 5;
+                    count = 50;
                 }
 
                 buyAmount = (decimal)0.012;
-                buyAmount = buyAmount * (1 + count / 100);
+                buyAmount = buyAmount * (1 + count / 50);
             }
             else if (quote.ToLower() == "btc")
             {
