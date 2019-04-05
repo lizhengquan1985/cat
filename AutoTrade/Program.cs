@@ -176,7 +176,13 @@ namespace AutoTrade
             }
             else if (quote.ToLower() == "btc")
             {
-                buyAmount = (decimal)0.0006;
+                var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
+                if (count > 50)
+                {
+                    count = 50;
+                }
+                buyAmount = (decimal)0.0005;
+                buyAmount = buyAmount * (1 + count / 50);
             }
             else if (quote == "usdt")
             {
