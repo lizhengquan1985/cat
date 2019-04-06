@@ -248,7 +248,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "lrc", MaxBuyPrice = (decimal)0.000962 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "lsk", MaxBuyPrice = (decimal)0.03 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "mana", MaxBuyPrice = (decimal)0.00071 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "mana", MaxBuyPrice = (decimal)0.00051 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "mco", MaxBuyPrice = (decimal)0.06 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "mdt", MaxBuyPrice = (decimal)0.0001371 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "mith", MaxBuyPrice = (decimal)0.000837 });
