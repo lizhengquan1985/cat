@@ -194,7 +194,7 @@ namespace AutoTrade
 
         public static List<OrderInfo> ListFilledOrder(string instrument_id)
         {
-            var pathAndQuery = $"api/spot/v3/orders?instrument_id={instrument_id}&status=filled&limit=10";
+            var pathAndQuery = $"api/spot/v3/orders?instrument_id={instrument_id}&status=filled&limit=5";
             var url = $"{root}{pathAndQuery}";
             var res = GetSign<List<OrderInfo>>(url, "/"+ pathAndQuery);
             return res;
