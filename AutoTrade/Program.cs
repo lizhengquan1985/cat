@@ -40,15 +40,6 @@ namespace AutoTrade
             instruments = InstrumentsUtils.GetAll();
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 
-            try
-            {
-                OkApi.ListFilledOrder("XRP-BTC");
-            }
-            catch (Exception e)
-            {
-                logger.Error(e.Message, e);
-            }
-
             while (true)
             {
                 Console.WriteLine($"-------------> 运行次数:{runCount++} ");
@@ -56,6 +47,9 @@ namespace AutoTrade
                 {
                     // 查询订单结果
                     QueryOrderDetail(item.quote, item.symbol);
+
+                    // 核实订单
+                    CheckOrderUtils.Check(item);
 
                     // 获取行情，
                     var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote);

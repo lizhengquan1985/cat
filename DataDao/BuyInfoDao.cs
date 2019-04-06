@@ -48,7 +48,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedSellOrder(string quote, string symbol, int count = 5)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.open}' or SellStatus='{OrderStatus.cancelled}') order by BuyPrice asc limit {count}";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.cancelled}') order by BuyPrice asc limit {count}";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -87,17 +87,18 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and SellStatus!=@SellStatus and SellStatus!='{OrderStatus.cancelled}'";
-            return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol, SellStatus = "filled" }).ToList();
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare')";
+            return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
         public void UpdateNotFillSell(OrderInfo orderInfo)
         {
-            var sql = $"update t_buy_info set SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, " +
+            var sql = $"update t_buy_info set SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, SellOrderId=@SellOrderId, " +
                 $" SellFilledNotional=@SellFilledNotional, SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {
                 SellPrice = orderInfo.price,
+                SellOrderId = orderInfo.order_id,
                 SellQuantity = orderInfo.size,
                 SellCreateAt = orderInfo.created_at,
                 SellFilledNotional = orderInfo.filled_notional,
@@ -117,5 +118,17 @@ namespace DataDao
         }
 
         #endregion
+
+        public BuyInfo GetBuyOrder(string buyClientOid)
+        {
+            var sql = $"select * from t_buy_info where BuyClientOid=@BuyClientOid";
+            return Database.Query<BuyInfo>(sql, new { BuyClientOid = buyClientOid }).FirstOrDefault();
+        }
+
+        public BuyInfo GetSellOrder(string sellClientOid)
+        {
+            var sql = $"select * from t_buy_info where SellClientOid=@SellClientOid";
+            return Database.Query<BuyInfo>(sql, new { SellClientOid = sellClientOid }).FirstOrDefault();
+        }
     }
 }
