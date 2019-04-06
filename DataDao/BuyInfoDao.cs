@@ -72,11 +72,11 @@ namespace DataDao
 
         public void UpdateNotFillBuy(OrderInfo orderInfo)
         {
-            var sql = $"update t_buy_info set BuyQuantity=@BuyQuantity, BuyCreateAt=@BuyCreateAt, " +
+            var sql = $"update t_buy_info set BuyQuantity=@BuyQuantity, BuyCreateAt=@BuyCreateAt, BuyTradePrice=@BuyTradePrice, " +
                 $" BuyFilledNotional=@BuyFilledNotional, BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
             Database.Execute(sql, new
             {
-                BuyPrice = orderInfo.price,
+                BuyTradePrice = orderInfo.price,
                 BuyQuantity = orderInfo.size,
                 BuyCreateAt = orderInfo.created_at,
                 BuyFilledNotional = orderInfo.filled_notional,
@@ -103,10 +103,11 @@ namespace DataDao
 
         public void UpdateNotFillSell(OrderInfo orderInfo)
         {
-            var sql = $"update t_buy_info set SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, SellOrderId=@SellOrderId, " +
+            var sql = $"update t_buy_info set SellQuantity=@SellQuantity, SellCreateAt=@SellCreateAt, SellOrderId=@SellOrderId, SellTradePrice=@SellTradePrice, " +
                 $" SellFilledNotional=@SellFilledNotional, SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {
+                SellTradePrice = orderInfo.price,
                 SellOrderId = orderInfo.order_id,
                 SellQuantity = orderInfo.size,
                 SellCreateAt = orderInfo.created_at,

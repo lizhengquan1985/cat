@@ -124,6 +124,10 @@ namespace AutoTrade
                 {
                     // 购买一单
                     Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
+                    if (oldData.Count > 0)
+                    {
+                        logger.Error($"相差间隔 lastPrice: {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {nowPrice / oldData[0].BuyTradePrice} --  { oldData[0].BuyTradePrice / nowPrice}");
+                    }
                     PrepareBuy(quote, symbol, nowPrice);
                     return;
                 }

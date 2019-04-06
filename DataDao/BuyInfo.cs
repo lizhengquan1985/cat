@@ -16,6 +16,7 @@ namespace DataDao
         public string Symbol { get; set; }
 
         public decimal BuyPrice { get; set; }
+        public decimal BuyTradePrice { get; set; }
         public decimal BuyQuantity { get; set; }
         public string BuyClientOid { get; set; }
         public string BuyOrderId { get; set; }
@@ -26,6 +27,7 @@ namespace DataDao
 
 
         public decimal SellPrice { get; set; }
+        public decimal SellTradePrice { get; set; }
         public decimal SellQuantity { get; set; }
         public string SellOrderId { get; set; }
         public string SellClientOid { get; set; }
