@@ -20,12 +20,22 @@ namespace DataDao
             Database.Insert(buyInfo);
         }
 
-        public void UpdateBuyInfo(BuyInfo buyInfo)
+        /// <summary>
+        /// 出售之后，修改下数据。
+        /// </summary>
+        /// <param name="buyInfo"></param>
+        public void UpdateBuyInfoWhenSell(BuyInfo buyInfo)
         {
-            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellResult=@SellResult, SellStatus='prepare' where Id=@Id and BuyClientOid=@BuyClientOid";
-            Database.Execute(sql, new { buyInfo.SellClientOid, buyInfo.SellPrice, buyInfo.SellQuantity, buyInfo.SellResult, buyInfo.Id, buyInfo.BuyClientOid });
+            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellOrderId=@SellOrderId, SellResult=@SellResult, SellStatus='prepare' where Id=@Id and BuyClientOid=@BuyClientOid";
+            Database.Execute(sql, new { buyInfo.SellClientOid, buyInfo.SellPrice, buyInfo.SellQuantity, buyInfo.SellOrderId, buyInfo.SellResult, buyInfo.Id, buyInfo.BuyClientOid });
         }
 
+        /// <summary>
+        /// 列出5个最低的购买且未出售的记录，
+        /// </summary>
+        /// <param name="quote"></param>
+        /// <param name="symbol"></param>
+        /// <returns></returns>
         public List<BuyInfo> List5LowertBuy(string quote, string symbol)
         {
             var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) order by BuyPrice asc limit 8";
@@ -97,7 +107,6 @@ namespace DataDao
                 $" SellFilledNotional=@SellFilledNotional, SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {
-                SellPrice = orderInfo.price,
                 SellOrderId = orderInfo.order_id,
                 SellQuantity = orderInfo.size,
                 SellCreateAt = orderInfo.created_at,

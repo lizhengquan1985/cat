@@ -291,7 +291,8 @@ namespace AutoTrade
                 buyInfo.SellPrice = sellPrice;
                 buyInfo.SellQuantity = sellSize;
                 buyInfo.SellResult = sellResult.result;
-                new BuyInfoDao().UpdateBuyInfo(buyInfo);
+                buyInfo.SellOrderId = sellResult.order_id;
+                new BuyInfoDao().UpdateBuyInfoWhenSell(buyInfo);
 
                 logger.Error($"3: 添加记录完成");
                 logger.Error($"");
