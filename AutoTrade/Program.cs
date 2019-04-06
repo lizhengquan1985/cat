@@ -217,6 +217,15 @@ namespace AutoTrade
             buyPrice = decimal.Round(buyPrice, okInstrument.GetTickSizeNumber());
             buySize = decimal.Round(buySize, okInstrument.GetSizeIncrementNumber());
 
+            if (buySize < okInstrument.min_size)
+            {
+                logger.Error($"购买最小额度有问题 ----> buySize: {buySize}, min_size:{okInstrument.min_size}");
+                if (buySize * (decimal)1.4 > okInstrument.min_size)
+                {
+                    buySize = buySize * (decimal)1.4;
+                }
+            }
+
             var client_oid = "buy" + DateTime.Now.Ticks;
 
             try

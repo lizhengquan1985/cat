@@ -363,9 +363,9 @@ namespace AutoTrade
         public string base_currency { get; set; }
         public string quote_currency { get; set; }
         /// <summary>
-        /// 	最小交易数量
+        /// 最小交易数量
         /// </summary>
-        public string min_size { get; set; }
+        public decimal min_size { get; set; }
         /// <summary>
         /// 交易货币数量精度
         /// </summary>
