@@ -68,6 +68,7 @@
     <Compile Include="BuyInfo.cs" />
     <Compile Include="BuyInfoDao.cs" />
     <Compile Include="DataTypes.cs" />
+    <Compile Include="MaxInputPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
