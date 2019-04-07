@@ -25,6 +25,20 @@ namespace AutoTrade
             Console.WriteLine("btc count -- > " + instruments.Count);
             InitEth();
 
+            // 查找没有加入交易的信息
+            var findNoTrade = okInstruments.FindAll(it => instruments.Find(item => item.quote == it.quote_currency && item.symbol == it.base_currency) == null);
+            if (findNoTrade != null && findNoTrade.Count > 0)
+            {
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("-------------------------");
+                foreach (var item in findNoTrade)
+                {
+                    Console.WriteLine($"未加入: {item.quote_currency}- {item.base_currency}");
+                }
+                Console.WriteLine("-------------------------");
+                Console.WriteLine("-------------------------");
+            }
+
             var maxInputPriceList = new MaxInputPrice().ListMaxInputPriceInfo();
             foreach (var item in instruments)
             {
