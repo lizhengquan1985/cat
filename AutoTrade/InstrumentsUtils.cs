@@ -24,9 +24,10 @@ namespace AutoTrade
             InitBtc();
             Console.WriteLine("btc count -- > " + instruments.Count);
             InitEth();
+            Console.WriteLine($"总共这个多个交易对： {instruments.Count}");
 
             // 查找没有加入交易的信息
-            var findNoTrade = okInstruments.FindAll(it => instruments.Find(item => item.quote == it.quote_currency && item.symbol == it.base_currency) == null);
+            var findNoTrade = okInstruments.FindAll(it => it.quote_currency.ToLower() != "usdt" && instruments.Find(item => item.quote.ToLower() == it.quote_currency.ToLower() && item.symbol.ToLower() == it.base_currency.ToLower()) == null);
             if (findNoTrade != null && findNoTrade.Count > 0)
             {
                 Console.WriteLine("-------------------------");
@@ -48,8 +49,6 @@ namespace AutoTrade
                     item.MaxBuyPrice = findItem.MaxInputPrice;
                 }
             }
-
-            Console.WriteLine($"总共这个多个交易对： {instruments.Count}");
         }
 
         public static void InitBtc()
@@ -197,6 +196,11 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "zip", MaxBuyPrice = (decimal)0.000000362 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "zrx", MaxBuyPrice = (decimal)0.00017776 });
 
+            instruments.Add(new TradeItem { quote = "btc", symbol = "bcx", MaxBuyPrice = (decimal)0.00000032 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xuc", MaxBuyPrice = (decimal)0.0008 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "yoyo", MaxBuyPrice = (decimal)0.000007 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "fun", MaxBuyPrice = (decimal)0.0000022 });
+
         }
 
         public static void InitEth()
@@ -296,6 +300,10 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "pst", MaxBuyPrice = (decimal)0.001963 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "qun", MaxBuyPrice = (decimal)0.0000887 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "r", MaxBuyPrice = (decimal)0.00189 });
+
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ref", MaxBuyPrice = (decimal)0.0051 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "rct", MaxBuyPrice = (decimal)0.000012 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "yoyo", MaxBuyPrice = (decimal)0.0003 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "rfr", MaxBuyPrice = (decimal)0.000031488 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "rnt", MaxBuyPrice = (decimal)0.000764 });
