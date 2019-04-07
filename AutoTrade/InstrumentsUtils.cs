@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using DataDao;
 using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
 
@@ -23,6 +24,16 @@ namespace AutoTrade
             InitBtc();
             Console.WriteLine("btc count -- > " + instruments.Count);
             InitEth();
+
+            var maxInputPriceList = new MaxInputPrice().ListMaxInputPriceInfo();
+            foreach (var item in instruments)
+            {
+                var findItem = maxInputPriceList.Find(it => it.Quote == item.quote && it.Symbol == item.symbol);
+                if (findItem != null)
+                {
+                    item.MaxBuyPrice = findItem.MaxInputPrice;
+                }
+            }
 
             Console.WriteLine($"总共这个多个交易对： {instruments.Count}");
         }
