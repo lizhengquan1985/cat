@@ -88,8 +88,15 @@ namespace AutoTrade
                         Console.WriteLine($"MaxBuyPrice xxxx -->设置的过大会接盘哦 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
 
-                    // 启动交易
-                    RunTrade(klineDataList, item);
+                    try
+                    {
+                        // 启动交易
+                        RunTrade(klineDataList, item);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex.Message, ex);
+                    }
 
                     // 每走一遍, 休眠一下
                     Thread.Sleep(600);
