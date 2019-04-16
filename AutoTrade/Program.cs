@@ -47,6 +47,11 @@ namespace AutoTrade
                 var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
                 var max = klineDataList.Max(it => it.open);
                 var min = klineDataList.Min(it => it.low);
+                var avg = klineDataList.Sum(it => it.open)/ klineDataList.Count;
+                if (item.MaxBuyPrice > avg)
+                {
+                    Console.WriteLine($"大于加权平均 --> avg:{avg}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+                }
                 if (item.MaxBuyPrice > max)
                 {
                     Console.WriteLine($"超过历史最大值 --> max:{max},min:{min}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");

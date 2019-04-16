@@ -53,31 +53,31 @@ namespace AutoTrade
 
         public static void InitBtc()
         {
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ltc", MaxBuyPrice = (decimal)0.03 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ltc", MaxBuyPrice = (decimal)0.022 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "eth", MaxBuyPrice = (decimal)0.08 });
             //instruments.Add(new TradeItem { quote = "btc", symbol = "okb", MaxBuyPrice = (decimal)0 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "etc", MaxBuyPrice = (decimal)0.003 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "bch", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "bch", MaxBuyPrice = (decimal)0.05 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "eos", MaxBuyPrice = (decimal)0.0028 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "xrp", MaxBuyPrice = (decimal)0.0002 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "eos", MaxBuyPrice = (decimal)0.0022 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xrp", MaxBuyPrice = (decimal)0.00016 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "trx", MaxBuyPrice = (decimal)0.00001 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "bsv", MaxBuyPrice = (decimal)0.03 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "bsv", MaxBuyPrice = (decimal)0.027 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "dash", MaxBuyPrice = (decimal)0.05 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "neo", MaxBuyPrice = (decimal)0.004 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "qtum", MaxBuyPrice = (decimal)0.0014 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "xlm", MaxBuyPrice = (decimal)0.00006 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ada", MaxBuyPrice = (decimal)0.0000361 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xlm", MaxBuyPrice = (decimal)0.000052 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ada", MaxBuyPrice = (decimal)0.000022 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "aac", MaxBuyPrice = (decimal)0.000001820 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "abl", MaxBuyPrice = (decimal)0.00001 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "abl", MaxBuyPrice = (decimal)0.00000557 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "abt", MaxBuyPrice = (decimal)0.0000950 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "ace", MaxBuyPrice = (decimal)0.00000813 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "act", MaxBuyPrice = (decimal)0.0000081 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "ae", MaxBuyPrice = (decimal)0.0003 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ardr", MaxBuyPrice = (decimal)0.00005 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ardr", MaxBuyPrice = (decimal)0.000026 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "ark", MaxBuyPrice = (decimal)0.000150 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "bcd", MaxBuyPrice = (decimal)0.000354 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "bec", MaxBuyPrice = (decimal)0.00002 });
@@ -86,7 +86,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "bnt", MaxBuyPrice = (decimal)0.000338 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "btg", MaxBuyPrice = (decimal)0.00481 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "btm", MaxBuyPrice = (decimal)0.00006 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "btt", MaxBuyPrice = (decimal)0.0000004 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "btt", MaxBuyPrice = (decimal)0.00000024 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "cai", MaxBuyPrice = (decimal)0.00000005 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "chat", MaxBuyPrice = (decimal)0.000002 });
@@ -132,21 +132,21 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "let", MaxBuyPrice = (decimal)0.0000026 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "light", MaxBuyPrice = (decimal)0.0000000171 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "link", MaxBuyPrice = (decimal)0.0003 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "link", MaxBuyPrice = (decimal)0.00013 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "lrc", MaxBuyPrice = (decimal)0.00003668 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "lsk", MaxBuyPrice = (decimal)0.001 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "mana", MaxBuyPrice = (decimal)0.000029 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "mana", MaxBuyPrice = (decimal)0.000018 });
 
-            instruments.Add(new TradeItem { quote = "btc", symbol = "mco", MaxBuyPrice = (decimal)0.0019 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "mco", MaxBuyPrice = (decimal)0.0014 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "mdt", MaxBuyPrice = (decimal)0.00000527 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "mith", MaxBuyPrice = (decimal)0.000022 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "mkr", MaxBuyPrice = (decimal)0.3 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "mkr", MaxBuyPrice = (decimal)0.183 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "mof", MaxBuyPrice = (decimal)0.00003 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "nano", MaxBuyPrice = (decimal)0.0005 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "nas", MaxBuyPrice = (decimal)0.0005 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "nuls", MaxBuyPrice = (decimal)0.0005 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "nxt", MaxBuyPrice = (decimal)0.00001763 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "nxt", MaxBuyPrice = (decimal)0.000016 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "of", MaxBuyPrice = (decimal)0.0000001208 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "omg", MaxBuyPrice = (decimal)0.001 });
@@ -169,8 +169,8 @@ namespace AutoTrade
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "stc", MaxBuyPrice = (decimal)0.000000971 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "swftc", MaxBuyPrice = (decimal)0.000000827 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "tct", MaxBuyPrice = (decimal)0.00002055 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "theta", MaxBuyPrice = (decimal)0.00006 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "tct", MaxBuyPrice = (decimal)0.0000107 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "theta", MaxBuyPrice = (decimal)0.000045 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "trio", MaxBuyPrice = (decimal)0.000001228 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "true", MaxBuyPrice = (decimal)0.0001185 });
