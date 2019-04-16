@@ -49,25 +49,21 @@ namespace AutoTrade
                 var max = klineDataList.Max(it => it.open);
                 var min = klineDataList.Min(it => it.low);
                 var avg = klineDataList.Sum(it => it.open) / klineDataList.Count;
+                if (close > item.MaxBuyPrice)
+                {
+                    logger.Error($"现在价格大于MaxBuyPrice --> close:{close}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+                }
                 if (item.MaxBuyPrice > avg)
                 {
                     Console.WriteLine($"大于加权平均 --> avg:{avg}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
-                }
-                if (close > item.MaxBuyPrice)
-                {
-                    Console.WriteLine($"现在价格大于MaxBuyPrice --> close:{close}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
                 }
                 if (item.MaxBuyPrice > max)
                 {
                     Console.WriteLine($"超过历史最大值 --> max:{max},min:{min}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
                 }
-                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.8)
+                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.7)
                 {
-                    Console.WriteLine($"超过0.8 --> max:{max}, {item.quote}-{item.symbol}");
-                }
-                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.6)
-                {
-                    Console.WriteLine($"超过0.6 --> max:{max}, {item.quote}-{item.symbol}");
+                    Console.WriteLine($"超过0.7 --> max:{max}, {item.quote}-{item.symbol}");
                 }
             }
 
