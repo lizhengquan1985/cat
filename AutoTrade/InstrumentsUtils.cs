@@ -43,11 +43,11 @@ namespace AutoTrade
             var maxInputPriceList = new MaxInputPrice().ListMaxInputPriceInfo();
             foreach (var item in instruments)
             {
-                var findItem = maxInputPriceList.Find(it => it.Quote == item.quote && it.Symbol == item.symbol);
-                if (findItem != null)
-                {
-                    item.MaxBuyPrice = findItem.MaxInputPrice;
-                }
+                //var findItem = maxInputPriceList.Find(it => it.Quote == item.quote && it.Symbol == item.symbol);
+                //if (findItem != null)
+                //{
+                //    item.MaxBuyPrice = findItem.MaxInputPrice;
+                //}
             }
         }
 

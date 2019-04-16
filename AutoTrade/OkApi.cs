@@ -124,9 +124,13 @@ namespace AutoTrade
 
         #endregion
 
-        public static List<KLineData> GetKLineDataAsync(string instrument)
+        public static List<KLineData> GetKLineDataAsync(string instrument, string granularity = null)
         {
             var url = $"{root}api/spot/v3/instruments/{instrument}/candles";
+            if(granularity != null)
+            {
+                url += $"?granularity={granularity}";
+            }
 
             try
             {

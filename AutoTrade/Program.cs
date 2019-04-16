@@ -40,6 +40,31 @@ namespace AutoTrade
             instruments = InstrumentsUtils.GetAll();
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 
+            // 判断设置是否合理
+            foreach (var item in instruments)
+            {
+                // 获取行情，
+                var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
+                var max = klineDataList.Max(it => it.open);
+                var min = klineDataList.Min(it => it.low);
+                if (item.MaxBuyPrice > max)
+                {
+                    Console.WriteLine($"超过历史最大值 --> max:{max},min:{min}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+                }
+                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.8)
+                {
+                    Console.WriteLine($"超过0.8 --> max:{max}, {item.quote}-{item.symbol}");
+                }
+                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.6)
+                {
+                    Console.WriteLine($"超过0.6 --> max:{max}, {item.quote}-{item.symbol}");
+                }
+                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.4)
+                {
+                    Console.WriteLine($"超过0.4 --> max:{max}, {item.quote}-{item.symbol}");
+                }
+            }
+
             while (true)
             {
                 Console.WriteLine($"-------------> 运行次数:{runCount++} ");
@@ -133,7 +158,7 @@ namespace AutoTrade
                     Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
                     if (oldData.Count > 0)
                     {
-                        logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].BuyTradePrice == 0? 0: (nowPrice / oldData[0].BuyTradePrice))} --  { oldData[0].BuyTradePrice / nowPrice}");
+                        logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].BuyTradePrice == 0 ? 0 : (nowPrice / oldData[0].BuyTradePrice))} --  { oldData[0].BuyTradePrice / nowPrice}");
                     }
                     PrepareBuy(quote, symbol, nowPrice);
                     return;
