@@ -45,12 +45,17 @@ namespace AutoTrade
             {
                 // 获取行情，
                 var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
+                var close = klineDataList[0].close;
                 var max = klineDataList.Max(it => it.open);
                 var min = klineDataList.Min(it => it.low);
-                var avg = klineDataList.Sum(it => it.open)/ klineDataList.Count;
+                var avg = klineDataList.Sum(it => it.open) / klineDataList.Count;
                 if (item.MaxBuyPrice > avg)
                 {
                     Console.WriteLine($"大于加权平均 --> avg:{avg}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+                }
+                if (close > item.MaxBuyPrice)
+                {
+                    Console.WriteLine($"现在价格大于MaxBuyPrice --> close:{close}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
                 }
                 if (item.MaxBuyPrice > max)
                 {
@@ -63,10 +68,6 @@ namespace AutoTrade
                 else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.6)
                 {
                     Console.WriteLine($"超过0.6 --> max:{max}, {item.quote}-{item.symbol}");
-                }
-                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.4)
-                {
-                    Console.WriteLine($"超过0.4 --> max:{max}, {item.quote}-{item.symbol}");
                 }
             }
 
