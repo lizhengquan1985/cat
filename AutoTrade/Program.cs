@@ -45,6 +45,11 @@ namespace AutoTrade
             {
                 // 获取行情，
                 var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
+                if(klineDataList.Count == 0)
+                {
+                    logger.Error($"获取行情数据有误 {item.quote},{item.symbol}");
+                    continue;
+                }
                 var close = klineDataList[0].close;
                 var max = klineDataList.Max(it => it.open);
                 var min = klineDataList.Min(it => it.low);
@@ -65,6 +70,7 @@ namespace AutoTrade
                 {
                     Console.WriteLine($"超过0.7 --> max:{max}, {item.quote}-{item.symbol}");
                 }
+                Thread.Sleep(200);
             }
 
             while (true)
