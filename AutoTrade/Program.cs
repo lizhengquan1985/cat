@@ -150,10 +150,14 @@ namespace AutoTrade
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
             // 判断是否阶梯
-            var smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyPrice;
-            if (oldData[0].BuyTradePrice > 0 && oldData[0].BuyTradePrice <= oldData[0].BuyPrice)
+            var smallThenBuyPrice = false;
+            if (oldData.Count > 0)
             {
-                smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyTradePrice;
+                smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyPrice;
+                if (oldData[0].BuyTradePrice > 0 && oldData[0].BuyTradePrice <= oldData[0].BuyPrice)
+                {
+                    smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyTradePrice;
+                }
             }
             if (oldData.Count == 0 || smallThenBuyPrice)
             {
