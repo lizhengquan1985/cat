@@ -235,6 +235,16 @@ namespace AutoTrade
                 buyAmount = (decimal)0.0005;
                 buyAmount = buyAmount * (1 + count / 50);
             }
+            else if (quote == "okb")
+            {
+                var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
+                if (count > 50)
+                {
+                    count = 50;
+                }
+                buyAmount = (decimal)1;
+                buyAmount = buyAmount * (1 + count / 50);
+            }
             else if (quote == "usdt")
             {
                 buyAmount = (decimal)2;

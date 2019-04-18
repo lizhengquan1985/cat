@@ -22,8 +22,14 @@ namespace AutoTrade
             //Console.WriteLine(JsonConvert.SerializeObject(okInstruments.FindAll(it=>it.quote_currency.ToLower() == "btc")));
 
             InitBtc();
-            Console.WriteLine("btc count -- > " + instruments.Count);
+            var btcCount = instruments.Count;
+            Console.WriteLine("btc count -- > " + btcCount);
+            InitOKB();
+            var okbCount = instruments.Count - btcCount;
+            Console.WriteLine("okb count -- > " + okbCount);
             InitEth();
+            var ethCount = instruments.Count - okbCount - btcCount;
+            Console.WriteLine("eth count -- > " + ethCount);
             Console.WriteLine($"总共这个多个交易对： {instruments.Count}");
 
             // 查找没有加入交易的信息
@@ -49,6 +55,24 @@ namespace AutoTrade
                 //    item.MaxBuyPrice = findItem.MaxInputPrice;
                 //}
             }
+        }
+
+        public static void InitOKB()
+        {
+            instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0 });
+
+
+            instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "qtum", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "ada", MaxBuyPrice = (decimal)0 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "ae", MaxBuyPrice = (decimal)0 });
+
+            instruments.Add(new TradeItem { quote = "okb", symbol = "iota", MaxBuyPrice = (decimal)0 });
         }
 
         public static void InitBtc()
