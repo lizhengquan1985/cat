@@ -45,7 +45,7 @@ namespace AutoTrade
             {
                 // 获取行情，
                 var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
-                if(klineDataList.Count == 0)
+                if (klineDataList.Count == 0)
                 {
                     logger.Error($"获取行情数据有误 {item.quote},{item.symbol}");
                     continue;
@@ -149,7 +149,13 @@ namespace AutoTrade
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
-            if (oldData.Count == 0 || nowPrice * (decimal)1.07 < oldData[0].BuyPrice)
+            // 判断是否阶梯
+            var smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyPrice;
+            if (oldData[0].BuyTradePrice > 0 && oldData[0].BuyTradePrice <= oldData[0].BuyPrice)
+            {
+                smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyTradePrice;
+            }
+            if (oldData.Count == 0 || smallThenBuyPrice)
             {
                 // coinfInfos的最高价和最低价相差不能太大
                 var min = coinInfos.Min(it => it.low);
