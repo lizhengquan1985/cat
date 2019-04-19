@@ -433,6 +433,7 @@ namespace AutoTrade
         /// 最大的购入价格
         /// </summary>
         public decimal MaxBuyPrice { get; set; }
+        public decimal BuyLadderRatio { get; set; }
     }
 
     public class instruments

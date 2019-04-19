@@ -154,6 +154,10 @@ namespace AutoTrade
             if (oldData.Count > 0)
             {
                 var rateDecimal = (decimal)1.075;
+                if (tradeItem.BuyLadderRatio > (decimal)1.066)
+                {
+                    rateDecimal = tradeItem.BuyLadderRatio;
+                }
                 smallThenBuyPrice = nowPrice * rateDecimal < oldData[0].BuyPrice;
                 if (oldData[0].BuyTradePrice > 0 && oldData[0].BuyTradePrice <= oldData[0].BuyPrice)
                 {
