@@ -271,7 +271,7 @@ namespace AutoTrade
             }
 
             var buySize = buyAmount / nowPrice;
-            var buyPrice = nowPrice * (decimal)1.02;
+            var buyPrice = nowPrice * (decimal)1.01;
             var okInstrument = InstrumentsUtils.GetOkInstruments(quote, symbol);
             if (okInstrument == null)
             {
@@ -343,7 +343,7 @@ namespace AutoTrade
 
             var percent = 1 + ((nowPrice / buyInfo.BuyPrice) - 1) / 3;
             var sellSize = buyInfo.BuyQuantity / percent;
-            var sellPrice = nowPrice / (decimal)1.02; // 更低的价格出售， 是为了能够出售
+            var sellPrice = nowPrice / (decimal)1.01; // 更低的价格出售， 是为了能够出售
 
             var okInstrument = InstrumentsUtils.GetOkInstruments(buyInfo.Quote, buyInfo.Symbol);
             if (okInstrument == null)
