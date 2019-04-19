@@ -153,10 +153,11 @@ namespace AutoTrade
             var smallThenBuyPrice = false;
             if (oldData.Count > 0)
             {
-                smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyPrice;
+                var rateDecimal = (decimal)1.075;
+                smallThenBuyPrice = nowPrice * rateDecimal < oldData[0].BuyPrice;
                 if (oldData[0].BuyTradePrice > 0 && oldData[0].BuyTradePrice <= oldData[0].BuyPrice)
                 {
-                    smallThenBuyPrice = nowPrice * (decimal)1.072 < oldData[0].BuyTradePrice;
+                    smallThenBuyPrice = nowPrice * rateDecimal < oldData[0].BuyTradePrice;
                 }
             }
             if (oldData.Count == 0 || smallThenBuyPrice)
