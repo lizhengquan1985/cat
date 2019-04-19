@@ -41,37 +41,37 @@ namespace AutoTrade
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 
             // 判断设置是否合理
-            foreach (var item in instruments)
-            {
-                // 获取行情，
-                var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
-                if (klineDataList.Count == 0)
-                {
-                    logger.Error($"获取行情数据有误 {item.quote},{item.symbol}");
-                    continue;
-                }
-                var close = klineDataList[0].close;
-                var max = klineDataList.Max(it => it.open);
-                var min = klineDataList.Min(it => it.low);
-                var avg = klineDataList.Sum(it => it.open) / klineDataList.Count;
-                if (close > item.MaxBuyPrice)
-                {
-                    logger.Error($"现在价格大于MaxBuyPrice --> close:{close}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
-                }
-                if (item.MaxBuyPrice > avg)
-                {
-                    Console.WriteLine($"大于加权平均 --> avg:{avg}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
-                }
-                if (item.MaxBuyPrice > max)
-                {
-                    Console.WriteLine($"超过历史最大值 --> max:{max},min:{min}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
-                }
-                else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.7)
-                {
-                    Console.WriteLine($"超过0.7 --> max:{max}, {item.quote}-{item.symbol}");
-                }
-                Thread.Sleep(200);
-            }
+            //foreach (var item in instruments)
+            //{
+            //    // 获取行情，
+            //    var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, "604800");
+            //    if (klineDataList.Count == 0)
+            //    {
+            //        logger.Error($"获取行情数据有误 {item.quote},{item.symbol}");
+            //        continue;
+            //    }
+            //    var close = klineDataList[0].close;
+            //    var max = klineDataList.Max(it => it.open);
+            //    var min = klineDataList.Min(it => it.low);
+            //    var avg = klineDataList.Sum(it => it.open) / klineDataList.Count;
+            //    if (close > item.MaxBuyPrice)
+            //    {
+            //        logger.Error($"现在价格大于MaxBuyPrice --> close:{close}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+            //    }
+            //    if (item.MaxBuyPrice > avg)
+            //    {
+            //        Console.WriteLine($"大于加权平均 --> avg:{avg}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+            //    }
+            //    if (item.MaxBuyPrice > max)
+            //    {
+            //        Console.WriteLine($"超过历史最大值 --> max:{max},min:{min}, {item.quote}-{item.symbol} -- MaxBuyPrice: {item.MaxBuyPrice}");
+            //    }
+            //    else if (item.MaxBuyPrice > min + (max - min) * (decimal)0.7)
+            //    {
+            //        Console.WriteLine($"超过0.7 --> max:{max}, {item.quote}-{item.symbol}");
+            //    }
+            //    Thread.Sleep(200);
+            //}
 
             while (true)
             {
