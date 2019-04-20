@@ -36,9 +36,9 @@ namespace DataDao
         /// <param name="quote"></param>
         /// <param name="symbol"></param>
         /// <returns></returns>
-        public List<BuyInfo> List5LowertBuy(string quote, string symbol)
+        public List<BuyInfo> List5LowertBuyForBuy(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) order by BuyPrice asc limit 8";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus!='filled' or SellStatus is null) and BuyStatus!='{OrderStatus.cancelled}' order by BuyPrice asc limit 8";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -58,7 +58,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedSellOrder(string quote, string symbol, int count = 5)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.cancelled}') order by BuyPrice asc limit {count}";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.cancelled}' or SellStatus='{OrderStatus.open}') order by BuyPrice asc limit {count}";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
