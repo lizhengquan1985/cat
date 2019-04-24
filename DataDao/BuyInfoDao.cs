@@ -26,7 +26,7 @@ namespace DataDao
         /// <param name="buyInfo"></param>
         public void UpdateBuyInfoWhenSell(BuyInfo buyInfo)
         {
-            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellOrderId=@SellOrderId, SellResult=@SellResult, SellStatus='prepare' where Id=@Id and BuyClientOid=@BuyClientOid";
+            var sql = $"update t_buy_info set SellClientOid=@SellClientOid, SellPrice=@SellPrice, SellQuantity=@SellQuantity, SellOrderId=@SellOrderId, SellResult=@SellResult, SellStatus='{OrderStatus.prepare}' where Id=@Id and BuyClientOid=@BuyClientOid";
             Database.Execute(sql, new { buyInfo.SellClientOid, buyInfo.SellPrice, buyInfo.SellQuantity, buyInfo.SellOrderId, buyInfo.SellResult, buyInfo.Id, buyInfo.BuyClientOid });
         }
 
@@ -38,7 +38,7 @@ namespace DataDao
         /// <returns></returns>
         public List<BuyInfo> List5LowerBuyForBuy(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and ((SellStatus!='{OrderStatus.filled}' and SellStatus!='{OrderStatus.part_filled}') or SellStatus is null) and BuyStatus!='{OrderStatus.cancelled}' order by BuyPrice asc limit 8";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.cancelled}' or SellStatus='{OrderStatus.open}' or SellStatus='{OrderStatus.prepare}' or SellStatus is null) and BuyStatus!='{OrderStatus.cancelled}' order by BuyPrice asc limit 8";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -97,7 +97,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare' or SellStatus='{OrderStatus.part_filled}' or (SellTradePrice is null and SellStatus='filled'))";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='{OrderStatus.prepare}' or SellStatus='{OrderStatus.part_filled}' or (SellTradePrice is null and SellStatus='filled'))";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 

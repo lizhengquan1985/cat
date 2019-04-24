@@ -34,5 +34,6 @@ namespace DataDao
         public static string filled = "filled";
         public static string open = "open";
         public static string part_filled = "part_filled";
+        public static string prepare = "prepare";
     }
 }
