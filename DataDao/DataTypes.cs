@@ -33,5 +33,6 @@ namespace DataDao
         public static string cancelled = "cancelled";
         public static string filled = "filled";
         public static string open = "open";
+        public static string part_filled = "part_filled";
     }
 }

@@ -148,7 +148,7 @@ namespace AutoTrade
             string symbol = tradeItem.symbol;
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
-            var oldData = new BuyInfoDao().List5LowertBuy(quote, symbol);
+            var oldData = new BuyInfoDao().List5LowertBuyForBuy(quote, symbol);
             // 判断是否阶梯
             var smallThenBuyPrice = false;
             if (oldData.Count > 0)
@@ -216,8 +216,6 @@ namespace AutoTrade
                     // 出售， 适当的回调，可以出售
                     PrepareSell(item, coinInfos[0].close);
                 }
-
-                // 如果上涨了过多，则也可以考虑适当的出售 TODO
             }
         }
 
@@ -259,7 +257,7 @@ namespace AutoTrade
                 {
                     count = 50;
                 }
-                buyAmount = (decimal)1.1;
+                buyAmount = (decimal)1.2;
                 buyAmount = buyAmount * (1 + count / 50);
             }
             else if (quote == "usdt")
@@ -554,7 +552,7 @@ namespace AutoTrade
                     {
                         new BuyInfoDao().UpdateNotFillBuy(orderInfo);
                     }
-                    if (orderInfo.status == "cancelled")
+                    else
                     {
                         new BuyInfoDao().UpdateNotFillBuyToCancel(orderInfo);
                     }
@@ -592,7 +590,7 @@ namespace AutoTrade
                     {
                         new BuyInfoDao().UpdateNotFillSell(orderInfo);
                     }
-                    if (orderInfo.status == "cancelled")
+                    else
                     {
                         new BuyInfoDao().UpdateNotFillSellToCancel(orderInfo);
                     }
