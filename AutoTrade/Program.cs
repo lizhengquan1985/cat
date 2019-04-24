@@ -612,16 +612,37 @@ namespace AutoTrade
             try
             {
                 // 查询购买结果
-                QueryBuyDetail(quote, symbol);
+                QueryBuyDetailForMore(quote, symbol);
             }
             catch (Exception ex)
             {
                 logger.Error("查询购买结果 --> " + ex.Message, ex);
             }
+
             try
             {
                 // 查询出售结果
-                QuerySellDetail(quote, symbol);
+                QuerySellDetailForMore(quote, symbol);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("查询出售结果 --> " + ex.Message, ex);
+            }
+
+            try
+            {
+                // 查询出售结果
+                QueryBuyDetailForEmpty(quote, symbol);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("查询出售结果 --> " + ex.Message, ex);
+            }
+
+            try
+            {
+                // 查询出售结果
+                QuerySellDetailForEmpty(quote, symbol);
             }
             catch (Exception ex)
             {
@@ -629,7 +650,7 @@ namespace AutoTrade
             }
         }
 
-        static void QueryBuyDetail(string quote, string symbol)
+        static void QueryBuyDetailForMore(string quote, string symbol)
         {
             var notFillBuyList = new BuyInfoDao().ListNeedQueryBuyDetail(quote, symbol);
             if (notFillBuyList.Count == 0)
@@ -667,7 +688,7 @@ namespace AutoTrade
             }
         }
 
-        static void QuerySellDetail(string quote, string symbol)
+        static void QuerySellDetailForMore(string quote, string symbol)
         {
             var notFillSellList = new BuyInfoDao().ListNeedQuerySellDetail(quote, symbol);
             if (notFillSellList == null || notFillSellList.Count == 0)
@@ -696,6 +717,82 @@ namespace AutoTrade
                     else
                     {
                         new BuyInfoDao().UpdateNotFillSellToCancel(orderInfo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+                }
+            }
+        }
+
+        static void QueryBuyDetailForEmpty(string quote, string symbol)
+        {
+            var notFillBuyList = new SellInfoDao().ListNeedQueryBuyDetail(quote, symbol);
+            if (notFillBuyList.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var item in notFillBuyList)
+            {
+                try
+                {
+                    // 查询我的购买结果
+                    var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
+                    if (orderInfo == null)
+                    {
+                        continue;
+                    }
+
+                    Console.WriteLine($"QueryBuyDetail--> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
+
+                    // 如果成交了。
+                    if (orderInfo.status == "filled")
+                    {
+                        new SellInfoDao().UpdateNotFillBuy(orderInfo);
+                    }
+                    else
+                    {
+                        new SellInfoDao().UpdateNotFillBuyToCancel(orderInfo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+                }
+            }
+        }
+
+        static void QuerySellDetailForEmpty(string quote, string symbol)
+        {
+            var notFillSellList = new SellInfoDao().ListNeedQuerySellDetail(quote, symbol);
+            if (notFillSellList == null || notFillSellList.Count == 0)
+            {
+                return;
+            }
+
+            foreach (var item in notFillSellList)
+            {
+                try
+                {
+                    // 查询我的购买结果
+                    var orderInfo = OkApi.QueryOrderDetail(item.SellClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
+                    if (orderInfo == null)
+                    {
+                        continue;
+                    }
+
+                    Console.WriteLine($"QuerySellDetail --> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
+
+                    // 如果成交了。
+                    if (orderInfo.status == "filled")
+                    {
+                        new SellInfoDao().UpdateNotFillSell(orderInfo);
+                    }
+                    else
+                    {
+                        new SellInfoDao().UpdateNotFillSellToCancel(orderInfo);
                     }
                 }
                 catch (Exception ex)
