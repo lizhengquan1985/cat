@@ -219,6 +219,8 @@ namespace AutoTrade
             }
         }
 
+        #region 多
+
         static void PrepareBuy(string quote, string symbol, decimal nowPrice)
         {
             if (lastBuyDate > DateTime.Now.AddMinutes(-1))
@@ -385,6 +387,8 @@ namespace AutoTrade
             }
         }
 
+        #endregion
+
         #region 空
 
         private static DateTime lastBuyForEmptyDate = DateTime.MinValue;
@@ -497,6 +501,96 @@ namespace AutoTrade
             {
                 logger.Error("做空出售异常 严重 --> " + e.Message, e);
                 Thread.Sleep(1000 * 60 * 10);
+            }
+        }
+
+        static void PrepareBuyForEmpty(List<KLineData> coinInfos, TradeItem tradeItem)
+        {
+            string quote = tradeItem.quote;
+            string symbol = tradeItem.symbol;
+            // 判断是否交易。
+            var needBuyOldData = new SellInfoDao().ListNeedBuyOrder(quote, symbol);
+            foreach (var item in needBuyOldData)
+            {
+                if (item.SellStatus != "filled")
+                {
+                    continue;
+                }
+                // 这里的策略真的很重要
+                // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
+                // 如果超过7%, 站稳则需要等待3个小时
+                if (coinInfos[0].close * (decimal)1.09 > item.SellPrice)
+                {
+                    continue;
+                }
+
+                // 找到最大的close
+                var minClose = coinInfos.Min(it => it.close);
+                var percent = item.SellPrice / coinInfos[0].close; // 现在的价格/出售的价格
+                var huidiaoPercent = 1 + (percent - 1) / 10;
+                if (coinInfos[0].close > minClose * (decimal)1.03 || coinInfos[0].close > minClose * huidiaoPercent)
+                {
+                    Console.WriteLine($"PrepareSell --> {item.Quote}--{item.Symbol}----");
+                    // 出售， 适当的回调，可以出售
+                    DoBuyForEmpty(item, coinInfos[0].close);
+                }
+            }
+        }
+
+        static void DoBuyForEmpty(SellInfo sellInfo, decimal nowPrice)
+        {
+            if (lastBuyForEmptyDate > DateTime.Now.AddSeconds(-20))
+            {
+                // 如果20秒内购购买一单， 则不能再次购买
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(sellInfo.BuyClientOid))
+            {
+                return;
+            }
+
+            var percent = 1 + ((sellInfo.SellPrice / nowPrice) - 1) / 3;
+            var buySize = sellInfo.BuyQuantity / percent;
+            var buyPrice = nowPrice / (decimal)1.01; // 更低的价格出售， 是为了能够出售
+
+            var okInstrument = InstrumentsUtils.GetOkInstruments(sellInfo.Quote, sellInfo.Symbol);
+            if (okInstrument == null)
+            {
+                logger.Error($"出售时候发现 不存在的交易对 {sellInfo.Quote},{sellInfo.Symbol}");
+                return;
+            }
+
+            buyPrice = decimal.Round(buyPrice, okInstrument.GetTickSizeNumber());
+            buySize = decimal.Round(buySize, okInstrument.GetSizeIncrementNumber());
+
+            var client_oid = "buy" + DateTime.Now.Ticks;
+            try
+            {
+                logger.Error($"");
+                logger.Error($"{JsonConvert.SerializeObject(sellInfo)}");
+                logger.Error($"");
+                logger.Error($"1: 准备购买(空) {sellInfo.Quote}-{sellInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, sellPrice:{buyPrice.ToString()}, sellSize:{buySize}");
+                var sellResult = OkApi.Sell(client_oid, sellInfo.Symbol + "-" + sellInfo.Quote, buyPrice.ToString(), buySize.ToString());
+                logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(sellResult)}");
+
+                sellInfo.BuyClientOid = client_oid;
+                sellInfo.BuyPrice = buyPrice;
+                sellInfo.BuyQuantity = buySize;
+                sellInfo.BuyResult = sellResult.result;
+                sellInfo.BuyOrderId = sellResult.order_id;
+                new SellInfoDao().UpdateSellInfoWhenBuy(sellInfo);
+
+                logger.Error($"3: 添加记录完成");
+                logger.Error($"");
+
+                lastSellDate = DateTime.Now;
+            }
+            catch (Exception e)
+            {
+                logger.Error("出售异常 严重 --> " + e.Message, e);
+
+                Thread.Sleep(1000 * 60 * 60);
             }
         }
 
