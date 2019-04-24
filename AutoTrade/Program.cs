@@ -154,7 +154,7 @@ namespace AutoTrade
             string symbol = tradeItem.symbol;
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
-            var oldData = new BuyInfoDao().List5LowertBuyForBuy(quote, symbol);
+            var oldData = new BuyInfoDao().List5LowerBuyForBuy(quote, symbol);
             // 判断是否阶梯
             var smallThenBuyPrice = false;
             if (oldData.Count > 0)

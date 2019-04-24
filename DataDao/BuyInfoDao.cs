@@ -36,7 +36,7 @@ namespace DataDao
         /// <param name="quote"></param>
         /// <param name="symbol"></param>
         /// <returns></returns>
-        public List<BuyInfo> List5LowertBuyForBuy(string quote, string symbol)
+        public List<BuyInfo> List5LowerBuyForBuy(string quote, string symbol)
         {
             var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and ((SellStatus!='{OrderStatus.filled}' and SellStatus!='{OrderStatus.part_filled}') or SellStatus is null) and BuyStatus!='{OrderStatus.cancelled}' order by BuyPrice asc limit 8";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
