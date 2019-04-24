@@ -95,12 +95,12 @@ namespace AutoTrade
                     if (runCount < 3)
                     {
                         var totalAmount = klineDataList.Sum(it => it.volume * (it.open + it.close) / 2);
-                        if (item.quote == "btc" && totalAmount < (decimal)0.2)
+                        if (item.quote == "btc" && totalAmount < (decimal)0.1)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
 
-                        if (item.quote == "eth" && totalAmount < 5)
+                        if (item.quote == "eth" && totalAmount < 3)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
@@ -109,11 +109,6 @@ namespace AutoTrade
                     if (item.MaxBuyPrice <= 0)
                     {
                         Console.WriteLine($"MaxBuyPrice -->没有设置 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
-                    }
-                    if (item.MaxBuyPrice < klineDataList[0].close * (decimal)1.5)
-                    {
-                        // 这里只是做粗略记录和控制
-                        Console.WriteLine($"MaxBuyPrice -->设置的有点小 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
                     if (item.MaxBuyPrice > klineDataList[0].close * 3)
                     {
@@ -132,7 +127,7 @@ namespace AutoTrade
                     }
 
                     // 每走一遍, 休眠一下
-                    Thread.Sleep(600);
+                    Thread.Sleep(500);
                 }
             }
 

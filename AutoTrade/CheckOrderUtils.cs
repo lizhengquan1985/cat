@@ -55,15 +55,27 @@ namespace AutoTrade
                 {
                     // 列出数据库里面的交易记录， 对比一下。
                     var orderInDb = new BuyInfoDao().GetBuyOrder(order.client_oid);
-                    if (orderInDb == null
-                        || orderInDb.BuyClientOid != order.client_oid
-                        || orderInDb.BuyCreateAt != order.created_at
-                        || orderInDb.BuyStatus != order.status
-                        || orderInDb.BuyOrderId != order.order_id)
+                    var orderInDb2 = new SellInfoDao().GetBuyOrder(order.client_oid);
+                    if ((
+                            orderInDb == null
+                            || orderInDb.BuyClientOid != order.client_oid
+                            || orderInDb.BuyCreateAt != order.created_at
+                            || orderInDb.BuyStatus != order.status
+                            || orderInDb.BuyOrderId != order.order_id
+                        )
+                        &&
+                        (
+                            orderInDb2 == null
+                            || orderInDb2.BuyClientOid != order.client_oid
+                            || orderInDb2.BuyCreateAt != order.created_at
+                            || orderInDb2.BuyStatus != order.status
+                            || orderInDb2.BuyOrderId != order.order_id
+                        ))
                     {
                         logger.Error($"有个订单不合理，快速查看一下 begin");
                         logger.Error($"{JsonConvert.SerializeObject(order)}");
                         logger.Error($"{JsonConvert.SerializeObject(orderInDb)}");
+                        logger.Error($"{JsonConvert.SerializeObject(orderInDb2)}");
                         logger.Error($"有个订单不合理，快速查看一下 end ");
                     }
                 }
@@ -71,15 +83,27 @@ namespace AutoTrade
                 {
                     // 列出数据库里面的交易记录， 对比一下。
                     var orderInDb = new BuyInfoDao().GetSellOrder(order.client_oid);
-                    if (orderInDb == null
-                        || orderInDb.SellClientOid != order.client_oid
-                        || orderInDb.SellCreateAt != order.created_at
-                        || orderInDb.SellStatus != order.status
-                        || orderInDb.SellOrderId != order.order_id)
+                    var orderInDb2 = new SellInfoDao().GetSellOrder(order.client_oid);
+                    if ((
+                            orderInDb == null
+                            || orderInDb.SellClientOid != order.client_oid
+                            || orderInDb.SellCreateAt != order.created_at
+                            || orderInDb.SellStatus != order.status
+                            || orderInDb.SellOrderId != order.order_id
+                        )
+                        && 
+                        (
+                            orderInDb2 == null
+                            || orderInDb2.SellClientOid != order.client_oid
+                            || orderInDb2.SellCreateAt != order.created_at
+                            || orderInDb2.SellStatus != order.status
+                            || orderInDb2.SellOrderId != order.order_id
+                        ))
                     {
                         logger.Error($"有个订单不合理，快速查看一下 begin");
                         logger.Error($"{JsonConvert.SerializeObject(order)}");
                         logger.Error($"{JsonConvert.SerializeObject(orderInDb)}");
+                        logger.Error($"{JsonConvert.SerializeObject(orderInDb2)}");
                         logger.Error($"有个订单不合理，快速查看一下 end ");
                     }
                 }
