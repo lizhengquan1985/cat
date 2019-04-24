@@ -139,11 +139,17 @@ namespace AutoTrade
 
         static void RunTrade(List<KLineData> coinInfos, TradeItem tradeItem)
         {
-            // 做多
+            // 做多购买
             PrepareBuyForMore(coinInfos, tradeItem);
 
             // 多单收割
             PrepareSellForMore(coinInfos, tradeItem);
+
+            // 做空出售
+            PrepareSellForEmpty(coinInfos, tradeItem);
+
+            // 做空购买
+            PrepareBuyForEmpty(coinInfos, tradeItem);
         }
 
         #region 多
@@ -429,21 +435,19 @@ namespace AutoTrade
                 if (tradeItem.SmallSellPrice > 0 && nowPrice < tradeItem.SmallSellPrice)
                 {
                     logger.Error($"价格过低，不能售出 quote: {quote}, symbol:{symbol}");
+                    return;
                 }
-                else
+                // 是否超过了最小售价
+                if (InstrumentsUtils.CheckSmallSellPrice(quote, symbol, coinInfos[0].close))
                 {
-                    // 是否超过了最大限价
-                    if (InstrumentsUtils.CheckSmallSellPrice(quote, symbol, coinInfos[0].close))
+                    // 出售一单
+                    Console.WriteLine($"PrepareSellForEmpty --> {quote}, {symbol}");
+                    if (oldData.Count > 0)
                     {
-                        // 购买一单
-                        Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
-                        if (oldData.Count > 0)
-                        {
-                            logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].SellTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].SellTradePrice == 0 ? 0 : (nowPrice / oldData[0].SellTradePrice))} --  { oldData[0].SellTradePrice / nowPrice}");
-                        }
-                        DoSellForEmpty(tradeItem, nowPrice);
-                        return;
+                        logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].SellTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].SellTradePrice == 0 ? 0 : (nowPrice / oldData[0].SellTradePrice))} --  { oldData[0].SellTradePrice / nowPrice}");
                     }
+                    DoSellForEmpty(tradeItem, nowPrice);
+                    return;
                 }
             }
         }
@@ -464,11 +468,8 @@ namespace AutoTrade
                 return;
             }
 
-            var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-            if (count > 50)
-            {
-                count = 50;
-            }
+            var count = new SellInfoDao().GetNotBuyCount(quote, symbol);
+            count = Math.Min(count, 50);
 
             sellSize = sellSize * (1 + count / 50);
             var sellPrice = nowPrice / (decimal)1.01;
@@ -494,17 +495,17 @@ namespace AutoTrade
                     SellCreateAt = DateTime.Now.ToString("yyyy-MM-dd"),
                     SellFilledNotional = (decimal)0,
                     SellStatus = "prepare",
+                    SellOrderId = tradeResult.order_id,
+                    SellResult = tradeResult.result,
 
                     Quote = quote,
                     Symbol = symbol,
-                    UserName = "qq",
-
-                    SellOrderId = tradeResult.order_id,
-                    SellResult = tradeResult.result
+                    UserName = "qq"
                 });
                 logger.Error($"3: 添加记录完成");
                 logger.Error($"");
-                lastBuyDate = DateTime.Now;
+
+                lastSellForEmptyDate = DateTime.Now;
             }
             catch (Exception e)
             {
@@ -539,7 +540,7 @@ namespace AutoTrade
                 var huidiaoPercent = 1 + (percent - 1) / 10;
                 if (coinInfos[0].close > minClose * (decimal)1.03 || coinInfos[0].close > minClose * huidiaoPercent)
                 {
-                    Console.WriteLine($"PrepareSell --> {item.Quote}--{item.Symbol}----");
+                    Console.WriteLine($"PrepareBuyForEmpty --> {item.Quote}--{item.Symbol}----");
                     // 出售， 适当的回调，可以出售
                     DoBuyForEmpty(item, coinInfos[0].close);
                 }
@@ -560,8 +561,8 @@ namespace AutoTrade
             }
 
             var percent = 1 + ((sellInfo.SellPrice / nowPrice) - 1) / 3;
-            var buySize = sellInfo.BuyQuantity / percent;
-            var buyPrice = nowPrice / (decimal)1.01; // 更低的价格出售， 是为了能够出售
+            var buySize = sellInfo.SellQuantity * percent;
+            var buyPrice = nowPrice * (decimal)1.01; // 更高的价格购入， 是为了能够购入
 
             var okInstrument = InstrumentsUtils.GetOkInstruments(sellInfo.Quote, sellInfo.Symbol);
             if (okInstrument == null)
@@ -579,8 +580,8 @@ namespace AutoTrade
                 logger.Error($"");
                 logger.Error($"{JsonConvert.SerializeObject(sellInfo)}");
                 logger.Error($"");
-                logger.Error($"1: 准备购买(空) {sellInfo.Quote}-{sellInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, sellPrice:{buyPrice.ToString()}, sellSize:{buySize}");
-                var sellResult = OkApi.Sell(client_oid, sellInfo.Symbol + "-" + sellInfo.Quote, buyPrice.ToString(), buySize.ToString());
+                logger.Error($"1: 准备购买(空) {sellInfo.Quote}-{sellInfo.Symbol}, client_oid:{client_oid},  nowPrice:{nowPrice.ToString()}, buyPrice:{buyPrice.ToString()}, buySize:{buySize}");
+                var sellResult = OkApi.Buy(client_oid, sellInfo.Symbol + "-" + sellInfo.Quote, buyPrice.ToString(), buySize.ToString());
                 logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(sellResult)}");
 
                 sellInfo.BuyClientOid = client_oid;
@@ -593,13 +594,13 @@ namespace AutoTrade
                 logger.Error($"3: 添加记录完成");
                 logger.Error($"");
 
-                lastSellDate = DateTime.Now;
+                lastBuyForEmptyDate = DateTime.Now;
             }
             catch (Exception e)
             {
-                logger.Error("出售异常 严重 --> " + e.Message, e);
+                logger.Error("购买异常（空） 严重 --> " + e.Message, e);
 
-                Thread.Sleep(1000 * 60 * 60);
+                Thread.Sleep(1000 * 60 * 10);
             }
         }
 
