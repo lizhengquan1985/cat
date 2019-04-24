@@ -422,6 +422,18 @@ namespace AutoTrade
 
             return true;
         }
+
+        public static bool CheckSmallSellPrice(string quote, string symbol, decimal nowPrice)
+        {
+            var item = instruments.Find(it => it.quote == quote && it.symbol == symbol);
+            if (item == null || item.SmallSellPrice <= 0 || item.SmallSellPrice > nowPrice)
+            {
+                Console.WriteLine($"没配置，或者smallSellPrice<=0，或者价格太低， 无法做空");
+                return false;
+            }
+
+            return true;
+        }
     }
 
 
@@ -434,6 +446,12 @@ namespace AutoTrade
         /// </summary>
         public decimal MaxBuyPrice { get; set; }
         public decimal BuyLadderRatio { get; set; }
+        /// <summary>
+        /// 做空价格
+        /// </summary>
+        public decimal SmallSellPrice { get; set; }
+        public decimal SellLadderRatio { get; set; }
+        public decimal EmptySize { get; set; }
     }
 
     public class instruments

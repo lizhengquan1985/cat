@@ -172,19 +172,21 @@ namespace AutoTrade
                 if (tradeItem.MaxBuyPrice > 0 && nowPrice > tradeItem.MaxBuyPrice)
                 {
                     logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
-                    return;
                 }
-                // 是否超过了最大限价
-                if (max < 2 * min && InstrumentsUtils.CheckMaxBuyPrice(quote, symbol, coinInfos[0].close))
+                else
                 {
-                    // 购买一单
-                    Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
-                    if (oldData.Count > 0)
+                    // 是否超过了最大限价
+                    if (max < 2 * min && InstrumentsUtils.CheckMaxBuyPrice(quote, symbol, coinInfos[0].close))
                     {
-                        logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].BuyTradePrice == 0 ? 0 : (nowPrice / oldData[0].BuyTradePrice))} --  { oldData[0].BuyTradePrice / nowPrice}");
+                        // 购买一单
+                        Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
+                        if (oldData.Count > 0)
+                        {
+                            logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].BuyTradePrice == 0 ? 0 : (nowPrice / oldData[0].BuyTradePrice))} --  { oldData[0].BuyTradePrice / nowPrice}");
+                        }
+                        PrepareBuy(quote, symbol, nowPrice);
+                        return;
                     }
-                    PrepareBuy(quote, symbol, nowPrice);
-                    return;
                 }
             }
 
@@ -384,6 +386,123 @@ namespace AutoTrade
                 Thread.Sleep(1000 * 60 * 60);
             }
         }
+
+        #region 空
+
+        private static DateTime lastBuyForEmptyDate = DateTime.MinValue;
+        private static DateTime lastSellForEmptyDate = DateTime.MinValue;
+
+        static void PrepareSellForEmpty(List<KLineData> coinInfos, TradeItem tradeItem)
+        {
+            string quote = tradeItem.quote;
+            string symbol = tradeItem.symbol;
+            decimal nowPrice = coinInfos[0].close;
+            // 读取数据库 看看以前的交易
+            var oldData = new SellInfoDao().List5HigherSell(quote, symbol);
+            // 判断是否阶梯
+            var bigTheSellPrice = false;
+            if (oldData.Count > 0)
+            {
+                var rateDecimal = (decimal)1.075;
+                bigTheSellPrice = nowPrice > oldData[0].SellPrice * rateDecimal;
+                if (oldData[0].SellTradePrice > 0 && oldData[0].SellTradePrice >= oldData[0].SellPrice)
+                {
+                    bigTheSellPrice = nowPrice > oldData[0].SellTradePrice * rateDecimal;
+                }
+            }
+            if (oldData.Count == 0 || bigTheSellPrice)
+            {
+                // coinfInfos的最高价和最低价相差不能太大
+                var min = coinInfos.Min(it => it.low);
+                var max = coinInfos.Max(it => it.high);
+                if (tradeItem.SmallSellPrice > 0 && nowPrice < tradeItem.SmallSellPrice)
+                {
+                    logger.Error($"价格过低，不能售出 quote: {quote}, symbol:{symbol}");
+                }
+                else
+                {
+                    // 是否超过了最大限价
+                    if (InstrumentsUtils.CheckSmallSellPrice(quote, symbol, coinInfos[0].close))
+                    {
+                        // 购买一单
+                        Console.WriteLine($"PrepareBuy --> {quote}, {symbol}");
+                        if (oldData.Count > 0)
+                        {
+                            logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].SellTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].SellTradePrice == 0 ? 0 : (nowPrice / oldData[0].SellTradePrice))} --  { oldData[0].SellTradePrice / nowPrice}");
+                        }
+                        DoSellForEmpty(tradeItem, nowPrice);
+                        return;
+                    }
+                }
+            }
+        }
+
+        static void DoSellForEmpty(TradeItem tradeItem, decimal nowPrice)
+        {
+            string quote = tradeItem.quote;
+            string symbol = tradeItem.symbol;
+            if (lastSellForEmptyDate > DateTime.Now.AddSeconds(-20))
+            {
+                // 如果20秒内做空过一单， 则不能再次做空
+                return;
+            }
+
+            var sellSize = tradeItem.EmptySize;
+            if (sellSize <= 0)
+            {
+                return;
+            }
+
+            var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
+            if (count > 50)
+            {
+                count = 50;
+            }
+
+            sellSize = sellSize * (1 + count / 50);
+            var sellPrice = nowPrice / (decimal)1.01;
+
+            var okInstrument = InstrumentsUtils.GetOkInstruments(quote, symbol);
+            sellPrice = decimal.Round(sellPrice, okInstrument.GetTickSizeNumber());
+            sellSize = decimal.Round(sellSize, okInstrument.GetSizeIncrementNumber());
+
+            var client_oid = "sell" + DateTime.Now.Ticks;
+
+            try
+            {
+                logger.Error($"");
+                logger.Error($"1: 准备出售(空) {quote}-{symbol}, client_oid:{client_oid},  nowPrice:{nowPrice}, sellPrice:{sellPrice.ToString()}, sellSize:{sellSize.ToString()}");
+                var tradeResult = OkApi.Sell(client_oid, symbol + "-" + quote, sellPrice.ToString(), sellSize.ToString());
+                logger.Error($"2: 下单完成 {JsonConvert.SerializeObject(tradeResult)}");
+
+                new SellInfoDao().CreateSellInfo(new SellInfo
+                {
+                    SellClientOid = client_oid,
+                    SellPrice = sellPrice,
+                    SellQuantity = sellSize,
+                    SellCreateAt = DateTime.Now.ToString("yyyy-MM-dd"),
+                    SellFilledNotional = (decimal)0,
+                    SellStatus = "prepare",
+
+                    Quote = quote,
+                    Symbol = symbol,
+                    UserName = "qq",
+
+                    SellOrderId = tradeResult.order_id,
+                    SellResult = tradeResult.result
+                });
+                logger.Error($"3: 添加记录完成");
+                logger.Error($"");
+                lastBuyDate = DateTime.Now;
+            }
+            catch (Exception e)
+            {
+                logger.Error("做空出售异常 严重 --> " + e.Message, e);
+                Thread.Sleep(1000 * 60 * 10);
+            }
+        }
+
+        #endregion
 
         #region 查询订单结果
 
