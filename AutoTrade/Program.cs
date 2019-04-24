@@ -144,6 +144,17 @@ namespace AutoTrade
 
         static void RunTrade(List<KLineData> coinInfos, TradeItem tradeItem)
         {
+            // 做多
+            PrepareBuyForMore(coinInfos, tradeItem);
+
+            // 多单收割
+            PrepareSellForMore(coinInfos, tradeItem);
+        }
+
+        #region 多
+
+        static void PrepareBuyForMore(List<KLineData> coinInfos, TradeItem tradeItem)
+        {
             string quote = tradeItem.quote;
             string symbol = tradeItem.symbol;
             decimal nowPrice = coinInfos[0].close;
@@ -184,19 +195,14 @@ namespace AutoTrade
                         {
                             logger.Error($"相差间隔 lastPrice: {oldData[0].Id} -- {oldData[0].BuyTradePrice}, nowPrice:{nowPrice}, rate: {(oldData[0].BuyTradePrice == 0 ? 0 : (nowPrice / oldData[0].BuyTradePrice))} --  { oldData[0].BuyTradePrice / nowPrice}");
                         }
-                        PrepareBuy(quote, symbol, nowPrice);
+                        DoBuyForMore(quote, symbol, nowPrice);
                         return;
                     }
                 }
             }
-
-            // 收割多单
-            PrepareSellForMore(coinInfos, tradeItem);
         }
 
-        #region 多
-
-        static void PrepareBuy(string quote, string symbol, decimal nowPrice)
+        static void DoBuyForMore(string quote, string symbol, decimal nowPrice)
         {
             if (lastBuyDate > DateTime.Now.AddMinutes(-1))
             {
