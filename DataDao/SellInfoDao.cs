@@ -71,7 +71,7 @@ namespace DataDao
 
         public List<SellInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and ((SellStatus!='{OrderStatus.filled}' and SellStatus!='{OrderStatus.cancelled}') or SellTradePrice is null)";
+            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare' or (SellTradePrice is null and SellStatus='filled'))";
             return Database.Query<SellInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -102,7 +102,7 @@ namespace DataDao
 
         public List<SellInfo> ListNeedQueryBuyDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (BuyStatus='{OrderStatus.open}' or BuyStatus='prepare' or (BuyTradePrice is null and BuyStatus='filled'))";
+            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and ((BuyStatus!='{OrderStatus.filled}' and BuyStatus!='{OrderStatus.cancelled}') or BuyTradePrice is null)";
             return Database.Query<SellInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 

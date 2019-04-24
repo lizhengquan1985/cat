@@ -784,7 +784,7 @@ namespace AutoTrade
                         continue;
                     }
 
-                    Console.WriteLine($"QuerySellDetail --> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
+                    Console.WriteLine($"QuerySellDetailForEmpty --> {quote}, {symbol} --> {JsonConvert.SerializeObject(orderInfo)}");
 
                     // 如果成交了。
                     if (orderInfo.status == "filled")
