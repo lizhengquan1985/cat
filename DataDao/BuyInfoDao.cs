@@ -58,7 +58,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedSellOrder(string quote, string symbol, int count = 5)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.cancelled}' or SellStatus='{OrderStatus.open}') order by BuyPrice asc limit {count}";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and BuyStatus='filled' and (SellStatus is null or SellStatus='{OrderStatus.cancelled}') order by BuyPrice asc limit {count}";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
@@ -97,7 +97,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare' or (SellTradePrice is null and SellStatus='filled'))";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare' or SellStatus='{OrderStatus.part_filled}' or (SellTradePrice is null and SellStatus='filled'))";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 

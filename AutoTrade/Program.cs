@@ -411,6 +411,11 @@ namespace AutoTrade
 
         static void PrepareSellForEmpty(List<KLineData> coinInfos, TradeItem tradeItem)
         {
+            if (tradeItem.SmallSellPrice <= 0 || tradeItem.EmptySize <= 0)
+            {
+                return;
+            }
+
             string quote = tradeItem.quote;
             string symbol = tradeItem.symbol;
             decimal nowPrice = coinInfos[0].close;
