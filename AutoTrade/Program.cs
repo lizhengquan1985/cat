@@ -190,33 +190,8 @@ namespace AutoTrade
                 }
             }
 
-            // 判断是否交易。
-            var needSellOldData = new BuyInfoDao().ListNeedSellOrder(quote, symbol);
-            foreach (var item in needSellOldData)
-            {
-                if (item.BuyStatus != "filled")
-                {
-                    continue;
-                }
-                // 这里的策略真的很重要
-                // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
-                // 如果超过7%, 站稳则需要等待3个小时
-                if (coinInfos[0].close < item.BuyPrice * (decimal)1.09)
-                {
-                    continue;
-                }
-
-                // 找到最大的close
-                var maxClose = coinInfos.Max(it => it.close);
-                var percent = coinInfos[0].close / item.BuyPrice; // 现在的价格/购买的价格
-                var huidiaoPercent = 1 + (percent - 1) / 10;
-                if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
-                {
-                    Console.WriteLine($"PrepareSell --> {item.Quote}--{item.Symbol}----");
-                    // 出售， 适当的回调，可以出售
-                    PrepareSell(item, coinInfos[0].close);
-                }
-            }
+            // 收割多单
+            PrepareSellForMore(coinInfos, tradeItem);
         }
 
         #region 多
@@ -330,7 +305,40 @@ namespace AutoTrade
             }
         }
 
-        static void PrepareSell(BuyInfo buyInfo, decimal nowPrice)
+        static void PrepareSellForMore(List<KLineData> coinInfos, TradeItem tradeItem)
+        {
+            string quote = tradeItem.quote;
+            string symbol = tradeItem.symbol;
+            // 判断是否交易。
+            var needSellOldData = new BuyInfoDao().ListNeedSellOrder(quote, symbol);
+            foreach (var item in needSellOldData)
+            {
+                if (item.BuyStatus != "filled")
+                {
+                    continue;
+                }
+                // 这里的策略真的很重要
+                // 如果超过20%, 则不需要考虑站稳, 只要有一丁点回调就可以
+                // 如果超过7%, 站稳则需要等待3个小时
+                if (coinInfos[0].close < item.BuyPrice * (decimal)1.09)
+                {
+                    continue;
+                }
+
+                // 找到最大的close
+                var maxClose = coinInfos.Max(it => it.close);
+                var percent = coinInfos[0].close / item.BuyPrice; // 现在的价格/购买的价格
+                var huidiaoPercent = 1 + (percent - 1) / 10;
+                if (coinInfos[0].close * (decimal)1.03 < maxClose || coinInfos[0].close * huidiaoPercent < maxClose)
+                {
+                    Console.WriteLine($"PrepareSell --> {item.Quote}--{item.Symbol}----");
+                    // 出售， 适当的回调，可以出售
+                    DoSellForMore(item, coinInfos[0].close);
+                }
+            }
+        }
+
+        static void DoSellForMore(BuyInfo buyInfo, decimal nowPrice)
         {
             if (lastSellDate > DateTime.Now.AddMinutes(-1))
             {
