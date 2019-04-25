@@ -66,7 +66,7 @@ namespace DataDao
 
         public List<BuyInfo> ListNeedQueryBuyDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and ((BuyStatus!=@BuyStatus and BuyStatus!='{OrderStatus.cancelled}') or BuyTradePrice is null)";
+            var sql = $"select * from t_buy_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (BuyStatus!=@BuyStatus or BuyTradePrice is null)";
             return Database.Query<BuyInfo>(sql, new { Quote = quote, Symbol = symbol, BuyStatus = "filled" }).ToList();
         }
 
@@ -87,6 +87,23 @@ namespace DataDao
 
         public void UpdateNotFillBuyToCancel(OrderInfo orderInfo)
         {
+            if(orderInfo.status == OrderStatus.cancelled)
+            {
+                if(orderInfo.filled_size > 0)
+                {
+                    var sqlA = $"update t_buy_info set BuyStatus=@BuyStatus, BuyQuantity=@BuyQuantity, BuyTradePrice=@BuyTradePrice, BuyFilledNotional=@BuyFilledNotional where BuyClientOid=@BuyClientOid";
+                    Database.Execute(sqlA, new
+                    {
+                        BuyStatus = OrderStatus.filled,
+                        BuyQuantity = orderInfo.filled_size,
+                        BuyTradePrice = orderInfo.price,
+                        BuyFilledNotional = orderInfo.filled_notional,
+                        BuyClientOid = orderInfo.client_oid
+                    });
+                    return;
+                }
+            }
+
             var sql = $"update t_buy_info set BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
             Database.Execute(sql, new
             {
