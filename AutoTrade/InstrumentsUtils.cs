@@ -116,6 +116,8 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "ada", MaxBuyPrice = (decimal)0.000022 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "aac", MaxBuyPrice = (decimal)0.000001820 });
 
+            instruments.Add(new TradeItem { quote = "btc", symbol = "atom", MaxBuyPrice = (decimal)0.0009 });
+
             instruments.Add(new TradeItem { quote = "btc", symbol = "abl", MaxBuyPrice = (decimal)0.00000557 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "abt", MaxBuyPrice = (decimal)0.0000950 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "ace", MaxBuyPrice = (decimal)0.00000813 });
@@ -267,6 +269,8 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "abl", MaxBuyPrice = (decimal)0.00022374 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "abt", MaxBuyPrice = (decimal)0.003 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "act", MaxBuyPrice = (decimal)0.0002200 });
+
+            instruments.Add(new TradeItem { quote = "eth", symbol = "atom", MaxBuyPrice = (decimal)0.05 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "ae", MaxBuyPrice = (decimal)0.0066 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "ark", MaxBuyPrice = (decimal)0.01 });
