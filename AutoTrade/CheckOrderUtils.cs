@@ -19,6 +19,18 @@ namespace AutoTrade
 
         public static void Check(TradeItem tradeItem)
         {
+            try
+            {
+                DoCheck(tradeItem);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex.Message, ex);
+            }
+        }
+
+        public static void DoCheck(TradeItem tradeItem)
+        {
             var instrument = $"{tradeItem.symbol}-{tradeItem.quote}".ToUpper();
 
             // 核实下 最近 10个小时是否统计过，
@@ -91,7 +103,7 @@ namespace AutoTrade
                             || orderInDb.SellStatus != order.status
                             || orderInDb.SellOrderId != order.order_id
                         )
-                        && 
+                        &&
                         (
                             orderInDb2 == null
                             || orderInDb2.SellClientOid != order.client_oid
