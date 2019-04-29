@@ -130,6 +130,8 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "bec", MaxBuyPrice = (decimal)0.00002 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "bkx", MaxBuyPrice = (decimal)0.00000833 });
 
+            instruments.Add(new TradeItem { quote = "btc", symbol = "bloc", MaxBuyPrice = (decimal)0.00001 });
+
             instruments.Add(new TradeItem { quote = "btc", symbol = "bnt", MaxBuyPrice = (decimal)0.000338 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "btg", MaxBuyPrice = (decimal)0.00481 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "btm", MaxBuyPrice = (decimal)0.00006 });
