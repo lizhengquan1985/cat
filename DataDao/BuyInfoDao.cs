@@ -136,6 +136,25 @@ namespace DataDao
 
         public void UpdateNotFillSellToCancel(OrderInfo orderInfo)
         {
+            if (orderInfo.status == OrderStatus.cancelled)
+            {
+                if (orderInfo.filled_size > 0)
+                {
+                    var sqlA = $"update t_buy_info set SellStatus=@SellStatus, SellCreateAt=@SellCreateAt, SellOrderId=@SellOrderId, SellQuantity=@SellQuantity, SellTradePrice=@SellTradePrice, SellFilledNotional=@SellFilledNotional where SellClientOid=@SellClientOid";
+                    Database.Execute(sqlA, new
+                    {
+                        SellStatus = OrderStatus.filled,
+                        SellCreateAt = orderInfo.created_at,
+                        SellOrderId = orderInfo.order_id,
+                        SellQuantity = orderInfo.filled_size,
+                        SellTradePrice = orderInfo.price,
+                        SellFilledNotional = orderInfo.filled_notional,
+                        SellClientOid = orderInfo.client_oid
+                    });
+                    return;
+                }
+            }
+
             var sql = $"update t_buy_info set SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {

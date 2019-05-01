@@ -722,6 +722,10 @@ namespace AutoTrade
                     }
                     else
                     {
+                        if(orderInfo.filled_notional > item.BuyFilledNotional)
+                        {
+                            Console.WriteLine($"{item.Symbol}-{item.Quote} 虽然没有完成，但是可以取消");
+                        }
                         new BuyInfoDao().UpdateNotFillSellToCancel(orderInfo);
                     }
                 }
