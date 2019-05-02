@@ -242,7 +242,7 @@ namespace AutoTrade
                     count = 50;
                 }
                 buyAmount = (decimal)1.2;
-                buyAmount = buyAmount * (1 + count / 50);
+                buyAmount = buyAmount * (1 + count / 48);
             }
             else if (quote == "usdt")
             {

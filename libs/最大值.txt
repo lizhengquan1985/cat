@@ -116,5 +116,6 @@
 	"zen": 0.21,
 	"zil": 210,
 	"zrx": 10,
+	"egt": 80,
 	"zz-question": "atom,ctxc,dash,smt,snt,vet,bix,bts,zec, xtz,xmr, steem,srn"
 }
