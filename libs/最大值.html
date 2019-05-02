@@ -1,0 +1,28 @@
+<script>
+var data = {
+		
+	"eth":1.06,
+	"edo":0.907,
+	"bnt":0.7444,
+	"ace":0.1447,
+	 
+};
+
+var strs = [];
+
+var keys = Object.keys(data);
+for(const key of keys){
+if(data[key] <= 0){
+continue;
+}
+  var str = "insert into t_coin_info(Symbol, TotalCount) values('"+ key;
+   
+  str+="', ";
+  str += data[key] +") ON DUPLICATE KEY UPDATE TotalCount= " + data[key] +";";
+  strs.push(str)
+}
+console.log(strs);
+for(var sql of strs){
+document.write('<div>'+sql+'</div>');
+}
+</script>
