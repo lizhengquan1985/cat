@@ -216,23 +216,23 @@ namespace AutoTrade
             {
                 // 获取没有出售的数量
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-                if (count > 50)
+                if (count > 60)
                 {
-                    count = 50;
+                    count = 60;
                 }
 
-                buyAmount = (decimal)0.013;
-                buyAmount = buyAmount * (1 + count / 50);
+                buyAmount = (decimal)0.01;
+                buyAmount = buyAmount * (1 + count / 40);
             }
             else if (quote.ToLower() == "btc")
             {
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-                if (count > 50)
+                if (count > 60)
                 {
-                    count = 50;
+                    count = 60;
                 }
-                buyAmount = (decimal)0.0005;
-                buyAmount = buyAmount * (1 + count / 50);
+                buyAmount = (decimal)0.0004;
+                buyAmount = buyAmount * (1 + count / 40);
             }
             else if (quote == "okb")
             {
@@ -242,7 +242,7 @@ namespace AutoTrade
                     count = 50;
                 }
                 buyAmount = (decimal)1.2;
-                buyAmount = buyAmount * (1 + count / 48);
+                buyAmount = buyAmount * (1 + count / 40);
             }
             else if (quote == "usdt")
             {
