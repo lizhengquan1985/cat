@@ -211,7 +211,7 @@ namespace AutoTrade
                 return;
             }
 
-            var buyAmount = (decimal)0.07;
+            var buyAmount = (decimal)0.00;
             if (quote.ToLower() == "eth")
             {
                 // 获取没有出售的数量
@@ -222,7 +222,8 @@ namespace AutoTrade
                 }
 
                 buyAmount = (decimal)0.01;
-                buyAmount = buyAmount * (1 + count / 40);
+                buyAmount = buyAmount * ((decimal)1 + count / (decimal)40);
+                Console.WriteLine($"已购买数量：{symbol} -> {count}, {buyAmount}");
             }
             else if (quote.ToLower() == "btc")
             {
@@ -232,9 +233,10 @@ namespace AutoTrade
                     count = 60;
                 }
                 buyAmount = (decimal)0.0004;
-                buyAmount = buyAmount * (1 + count / 40);
+                buyAmount = buyAmount * ((decimal)1 + count / (decimal)40);
+                Console.WriteLine($"已购买数量：{symbol} -> {count}, {buyAmount}");
             }
-            else if (quote == "okb")
+            else if (quote.ToLower() == "okb")
             {
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
                 if (count > 50)
@@ -242,9 +244,10 @@ namespace AutoTrade
                     count = 50;
                 }
                 buyAmount = (decimal)1.2;
-                buyAmount = buyAmount * (1 + count / 40);
+                buyAmount = buyAmount * ((decimal)1 + count / (decimal)40);
+                Console.WriteLine($"已购买数量：{symbol} -> {count}, {buyAmount}");
             }
-            else if (quote == "usdt")
+            else if (quote.ToLower() == "usdt")
             {
                 buyAmount = (decimal)2;
             }
