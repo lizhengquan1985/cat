@@ -356,7 +356,7 @@ namespace AutoTrade
                 return;
             }
 
-            if (!string.IsNullOrEmpty(buyInfo.SellClientOid))
+            if (!string.IsNullOrEmpty(buyInfo.SellClientOid) && buyInfo.SellStatus != OrderStatus.cancelled)
             {
                 return;
             }
