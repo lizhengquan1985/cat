@@ -76,6 +76,23 @@ namespace AutoTrade
             while (true)
             {
                 Console.WriteLine($"-------------> 运行次数:{runCount++} ");
+
+                var btcPrice = (decimal)0;
+                var ethPrice = (decimal)0;
+                var okbPrice = (decimal)0;
+                List<CoinInfo> allCoinInfos = new List<CoinInfo>();
+                try
+                {
+                    allCoinInfos = new CoinInfoDao().ListCoinInfo();
+                    var btcKlines = OkApi.GetKLineDataAsync("btc-usdt");
+                    var ethKlines = OkApi.GetKLineDataAsync("eth-usdt");
+                    var okbKlines = OkApi.GetKLineDataAsync("okb-usdt");
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex.Message, ex);
+                }
+
                 foreach (var item in instruments)
                 {
                     // 查询订单结果
@@ -90,6 +107,26 @@ namespace AutoTrade
                     {
                         logger.Error($"获取行情数据有误 {item.symbol}, quote:{item.quote}");
                         continue;
+                    }
+
+                    // 记录下价格
+                    var findCoinfInfo = allCoinInfos.Find(it => it.Symbol == item.symbol);
+                    var nowPrice = (decimal)0; ;
+                    if (item.quote.ToLower() == "btc")
+                    {
+                        nowPrice = klineDataList[0].close * btcPrice;
+                    }
+                    else if (item.quote.ToLower() == "eth")
+                    {
+                        nowPrice = klineDataList[0].close * ethPrice;
+                    }
+                    else if (item.quote.ToLower() == "okb")
+                    {
+                        nowPrice = klineDataList[0].close * okbPrice;
+                    }
+                    if (nowPrice > 0)
+                    {
+                        new CoinInfoDao().UpdateCoinInfo(item.symbol, nowPrice);
                     }
 
                     if (runCount < 3)
@@ -725,7 +762,7 @@ namespace AutoTrade
                     }
                     else
                     {
-                        if(orderInfo.filled_notional > item.BuyFilledNotional)
+                        if (orderInfo.filled_notional > item.BuyFilledNotional)
                         {
                             Console.WriteLine($"{item.Symbol}-{item.Quote} 虽然没有完成，但是可以取消");
                         }

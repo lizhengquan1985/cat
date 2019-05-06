@@ -67,6 +67,7 @@
     <Compile Include="BaseDao.cs" />
     <Compile Include="BuyInfo.cs" />
     <Compile Include="BuyInfoDao.cs" />
+    <Compile Include="CoinInfoDao.cs" />
     <Compile Include="DataTypes.cs" />
     <Compile Include="MaxInputPrice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
