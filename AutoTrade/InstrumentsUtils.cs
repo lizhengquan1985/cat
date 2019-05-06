@@ -60,7 +60,7 @@ namespace AutoTrade
         public static void InitOKB()
         {
             instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)66.88 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)6.66 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)6.66, SmallSellPrice = (decimal)6.2, EmptySize = (decimal)0.5 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)5.21 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.468, SmallSellPrice = (decimal)0.5, EmptySize = 10 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.03688, SmallSellPrice = (decimal)0.04, EmptySize = 100 });
@@ -101,7 +101,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "ltc", MaxBuyPrice = (decimal)0.022 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "eth", MaxBuyPrice = (decimal)0.08 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "okb", MaxBuyPrice = (decimal)0.0005 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "etc", MaxBuyPrice = (decimal)0.003 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "etc", MaxBuyPrice = (decimal)0.003, SmallSellPrice = (decimal)0.0015, EmptySize = (decimal)0.5 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "bch", MaxBuyPrice = (decimal)0.08 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "eos", MaxBuyPrice = (decimal)0.0022 });
@@ -256,7 +256,7 @@ namespace AutoTrade
         {
             instruments.Add(new TradeItem { quote = "eth", symbol = "ltc", MaxBuyPrice = (decimal)0.9 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "okb", MaxBuyPrice = (decimal)0.023564 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "etc", MaxBuyPrice = (decimal)0.1 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "etc", MaxBuyPrice = (decimal)0.1, SmallSellPrice = (decimal)0.046, EmptySize = (decimal)0.5 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "eos", MaxBuyPrice = (decimal)0.062 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "xrp", MaxBuyPrice = (decimal)0.005, SmallSellPrice = (decimal)0.0032, EmptySize = 10 });
 
