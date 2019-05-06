@@ -85,8 +85,11 @@ namespace AutoTrade
                 {
                     allCoinInfos = new CoinInfoDao().ListCoinInfo();
                     var btcKlines = OkApi.GetKLineDataAsync("btc-usdt");
+                    btcPrice = btcKlines[0].close;
                     var ethKlines = OkApi.GetKLineDataAsync("eth-usdt");
+                    ethPrice = ethKlines[0].close;
                     var okbKlines = OkApi.GetKLineDataAsync("okb-usdt");
+                    okbPrice = okbKlines[0].close;
                 }
                 catch (Exception ex)
                 {
@@ -111,22 +114,25 @@ namespace AutoTrade
 
                     // 记录下价格
                     var findCoinfInfo = allCoinInfos.Find(it => it.Symbol == item.symbol);
-                    var nowPrice = (decimal)0; ;
-                    if (item.quote.ToLower() == "btc")
+                    if (findCoinfInfo != null)
                     {
-                        nowPrice = klineDataList[0].close * btcPrice;
-                    }
-                    else if (item.quote.ToLower() == "eth")
-                    {
-                        nowPrice = klineDataList[0].close * ethPrice;
-                    }
-                    else if (item.quote.ToLower() == "okb")
-                    {
-                        nowPrice = klineDataList[0].close * okbPrice;
-                    }
-                    if (nowPrice > 0)
-                    {
-                        new CoinInfoDao().UpdateCoinInfo(item.symbol, nowPrice);
+                        var nowPrice = (decimal)0; ;
+                        if (item.quote.ToLower() == "btc")
+                        {
+                            nowPrice = klineDataList[0].close * btcPrice;
+                        }
+                        else if (item.quote.ToLower() == "eth")
+                        {
+                            nowPrice = klineDataList[0].close * ethPrice;
+                        }
+                        else if (item.quote.ToLower() == "okb")
+                        {
+                            nowPrice = klineDataList[0].close * okbPrice;
+                        }
+                        if (nowPrice > 0)
+                        {
+                            new CoinInfoDao().UpdateCoinInfo(item.symbol, nowPrice);
+                        }
                     }
 
                     if (runCount < 3)

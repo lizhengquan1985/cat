@@ -21,7 +21,7 @@ namespace DataDao
         public List<CoinInfo> ListCoinInfo()
         {
             var sql = $"select * from t_coin_info where UsdPriceDate<@Date ";
-            return Database.Query<CoinInfo>(sql, new { Date = DateTime.Now.AddHours(-1) }).ToList();
+            return Database.Query<CoinInfo>(sql, new { Date = DateTime.Now.AddHours(-3) }).ToList();
         }
 
         public void UpdateCoinInfo(string symbol, decimal usdPrice)
