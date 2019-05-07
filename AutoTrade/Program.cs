@@ -522,7 +522,7 @@ namespace AutoTrade
             var count = new SellInfoDao().GetNotBuyCount(quote, symbol);
             count = Math.Min(count, 60);
 
-            sellSize = sellSize * (1 + count / 30);
+            sellSize = sellSize * (1 + count / (decimal)30);
             var sellPrice = nowPrice / (decimal)1.01;
 
             var okInstrument = InstrumentsUtils.GetOkInstruments(quote, symbol);
