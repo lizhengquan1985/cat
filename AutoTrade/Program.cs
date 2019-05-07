@@ -596,7 +596,7 @@ namespace AutoTrade
                 if (coinInfos[0].close > minClose * (decimal)1.03 || coinInfos[0].close > minClose * huidiaoPercent)
                 {
                     Console.WriteLine($"PrepareBuyForEmpty --> {item.Quote}--{item.Symbol}----");
-                    // 出售， 适当的回调，可以出售
+                    // 出售， 适当的回调，可以购入
                     DoBuyForEmpty(item, coinInfos[0].close);
                 }
             }
