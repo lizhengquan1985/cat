@@ -44,3 +44,12 @@ for(var sql of strs){
 document.write('<div>'+sql+'</div>');
 }
 </script>
+
+<script>
+var fun = function(num, index = 0){
+	if(index > 40){
+		return num;
+	}
+	return num + fun(num + num/ 40, index + 1);
+}
+</script>
