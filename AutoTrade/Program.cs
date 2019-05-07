@@ -153,7 +153,7 @@ namespace AutoTrade
                     {
                         Console.WriteLine($"MaxBuyPrice -->没有设置 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
                     }
-                    if (item.MaxBuyPrice > klineDataList[0].close * 3)
+                    if (item.MaxBuyPrice > klineDataList[0].close * 4)
                     {
                         // 这里只是做粗略记录和控制
                         Console.WriteLine($"MaxBuyPrice xxxx -->设置的过大会接盘哦 {item.quote}-{item.symbol} --> {klineDataList.Min(it => it.low)}");
@@ -571,6 +571,10 @@ namespace AutoTrade
             string symbol = tradeItem.symbol;
             // 判断是否交易。
             var needBuyOldData = new SellInfoDao().ListNeedBuyOrder(quote, symbol);
+            if(needBuyOldData.Count > 0)
+            {
+                Console.WriteLine($"----------> {quote} {symbol} 空： {needBuyOldData.Count}");
+            }
             foreach (var item in needBuyOldData)
             {
                 if (item.SellStatus != "filled")
