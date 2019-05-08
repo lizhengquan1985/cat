@@ -282,12 +282,12 @@ namespace AutoTrade
             else if (quote.ToLower() == "okb")
             {
                 var count = new BuyInfoDao().GetNotSellCount(quote, symbol);
-                if (count > 50)
+                if (count > 60)
                 {
-                    count = 50;
+                    count = 60;
                 }
                 buyAmount = (decimal)1.2;
-                buyAmount = buyAmount * ((decimal)1 + count / (decimal)40);
+                buyAmount = buyAmount * ((decimal)1 + count / (decimal)28);
                 Console.WriteLine($"已购买数量：{symbol} -> {count}, {buyAmount}");
             }
             else if (quote.ToLower() == "usdt")
