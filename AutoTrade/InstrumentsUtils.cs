@@ -60,10 +60,10 @@ namespace AutoTrade
         public static void InitOKB()
         {
             instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)66.88 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)6.66, SmallSellPrice = (decimal)6.2, EmptySize = (decimal)0.5 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)7.2, SmallSellPrice = (decimal)5.8, EmptySize = (decimal)0.5 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)5.21 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.468, SmallSellPrice = (decimal)0.5, EmptySize = 10 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.03688, SmallSellPrice = (decimal)0.04, EmptySize = 100 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.48, SmallSellPrice = (decimal)0.42, EmptySize = 15 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.032, EmptySize = 100 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)126 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)12.6 });
@@ -74,13 +74,13 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "bloc", MaxBuyPrice = (decimal)0.030 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "cai", MaxBuyPrice = (decimal)0.00018 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "dcr", MaxBuyPrice = (decimal)26.6 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.0015, SmallSellPrice = (decimal)0.0014, EmptySize = 120 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.0016, SmallSellPrice = (decimal)0.0014, EmptySize = 120 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "hpb", MaxBuyPrice = (decimal)0.66 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "iota", MaxBuyPrice = (decimal)0.521 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "kan", MaxBuyPrice = (decimal)0.00368 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "lba", MaxBuyPrice = (decimal)0.042, SmallSellPrice = (decimal)0.038, EmptySize = 10 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "let", MaxBuyPrice = (decimal)0.0088 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "lba", MaxBuyPrice = (decimal)0.042, SmallSellPrice = (decimal)0.032, EmptySize = 10 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "let", MaxBuyPrice = (decimal)0.0088, SmallSellPrice = (decimal)0.0066, EmptySize = 10 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "nas", MaxBuyPrice = (decimal)1.26 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "ors", MaxBuyPrice = (decimal)0.0088 });
@@ -89,7 +89,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "vite", MaxBuyPrice = (decimal)0.0266 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "waves", MaxBuyPrice = (decimal)2.88 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "win", MaxBuyPrice = (decimal)0.0009, SmallSellPrice = (decimal)0.0008, EmptySize = 260 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "win", MaxBuyPrice = (decimal)0.0009, SmallSellPrice = (decimal)0.0008, EmptySize = 300 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "xas", MaxBuyPrice = (decimal)0.126 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "you", MaxBuyPrice = (decimal)0.018 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "zco", MaxBuyPrice = (decimal)0.0088 });
