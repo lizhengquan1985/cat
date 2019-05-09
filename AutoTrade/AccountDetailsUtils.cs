@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutoTrade
@@ -38,61 +39,63 @@ namespace AutoTrade
                 {
                     var klines = OkApi.GetKLineDataAsync($"{account.currency}-usdt");
                     var nowPrice = klines[0].close;
-                    if(account.balance * nowPrice > 5)
+                    if(account.balance * nowPrice > 50)
                     {
-                        Console.WriteLine($"{account.currency} --> {account.balance} ");
+                        Console.WriteLine($"usdt {account.currency} --> {account.balance} --> usd{account.balance * nowPrice}  ");
                     }
                     continue;
                 }
                 catch(Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
                 }
 
                 try
                 {
                     var klines = OkApi.GetKLineDataAsync($"{account.currency}-btc");
                     var nowPrice = klines[0].close;
-                    if (account.balance * nowPrice * btcPrice > 5)
+                    if (account.balance * nowPrice * btcPrice > 50)
                     {
-                        Console.WriteLine($"btc {account.currency} --> {account.balance} ");
+                        Console.WriteLine($"btc {account.currency} --> {account.balance} --> usd{account.balance * nowPrice * btcPrice} ");
                     }
                     continue;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
                 }
 
                 try
                 {
                     var klines = OkApi.GetKLineDataAsync($"{account.currency}-eth");
                     var nowPrice = klines[0].close;
-                    if (account.balance * nowPrice * ethPrice > 5)
+                    if (account.balance * nowPrice * ethPrice > 50)
                     {
-                        Console.WriteLine($"eth {account.currency} --> {account.balance} ");
+                        Console.WriteLine($"eth {account.currency} --> {account.balance} --> usd{account.balance * nowPrice * ethPrice}  ");
                     }
                     continue;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
                 }
 
                 try
                 {
                     var klines = OkApi.GetKLineDataAsync($"{account.currency}-okb");
                     var nowPrice = klines[0].close;
-                    if (account.balance * nowPrice * okbPrice > 5)
+                    if (account.balance * nowPrice * okbPrice > 50)
                     {
-                        Console.WriteLine($"eth {account.currency} --> {account.balance} ");
+                        Console.WriteLine($"eth {account.currency} --> {account.balance} --> usd{account.balance * nowPrice * okbPrice}  ");
                     }
                     continue;
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    //Console.WriteLine(ex.Message);
                 }
+
+                Thread.Sleep(300);
             }
 
             Console.WriteLine(" end ShowDetail");

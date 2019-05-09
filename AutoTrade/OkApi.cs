@@ -231,7 +231,7 @@ namespace AutoTrade
 
         public static List<Account> ListAccounts()
         {
-            var pathAndQuery = $"/api/spot/v3/accounts";
+            var pathAndQuery = $"api/spot/v3/accounts";
             var url = $"{root}{pathAndQuery}";
 
             var res = GetSign<List<Account>>(url, "/" + pathAndQuery);
