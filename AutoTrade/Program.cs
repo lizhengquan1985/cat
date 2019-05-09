@@ -39,7 +39,7 @@ namespace AutoTrade
             Console.WriteLine(3);
             instruments = InstrumentsUtils.GetAll();
 
-            // WalletDetailsUtils.ShowDetail();
+            AccountDetailsUtils.ShowDetail();
 
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 

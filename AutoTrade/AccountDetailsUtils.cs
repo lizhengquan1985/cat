@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AutoTrade
 {
-    public class WalletDetailsUtils
+    public class AccountDetailsUtils
     {
         public static void ShowDetail()
         {
@@ -31,16 +31,16 @@ namespace AutoTrade
                 Console.WriteLine(ex.Message);
             }
 
-            var wallets = OkApi.ListWallets();
-            foreach(var wallet in wallets)
+            var accounts = OkApi.ListAccounts();
+            foreach(var account in accounts)
             {
                 try
                 {
-                    var klines = OkApi.GetKLineDataAsync($"{wallet.currency}-usdt");
+                    var klines = OkApi.GetKLineDataAsync($"{account.currency}-usdt");
                     var nowPrice = klines[0].close;
-                    if(wallet.balance * nowPrice > 5)
+                    if(account.balance * nowPrice > 5)
                     {
-                        Console.WriteLine($"{wallet.currency} --> {wallet.balance} ");
+                        Console.WriteLine($"{account.currency} --> {account.balance} ");
                     }
                     continue;
                 }
@@ -51,11 +51,11 @@ namespace AutoTrade
 
                 try
                 {
-                    var klines = OkApi.GetKLineDataAsync($"{wallet.currency}-btc");
+                    var klines = OkApi.GetKLineDataAsync($"{account.currency}-btc");
                     var nowPrice = klines[0].close;
-                    if (wallet.balance * nowPrice * btcPrice > 5)
+                    if (account.balance * nowPrice * btcPrice > 5)
                     {
-                        Console.WriteLine($"btc {wallet.currency} --> {wallet.balance} ");
+                        Console.WriteLine($"btc {account.currency} --> {account.balance} ");
                     }
                     continue;
                 }
@@ -66,11 +66,11 @@ namespace AutoTrade
 
                 try
                 {
-                    var klines = OkApi.GetKLineDataAsync($"{wallet.currency}-eth");
+                    var klines = OkApi.GetKLineDataAsync($"{account.currency}-eth");
                     var nowPrice = klines[0].close;
-                    if (wallet.balance * nowPrice * ethPrice > 5)
+                    if (account.balance * nowPrice * ethPrice > 5)
                     {
-                        Console.WriteLine($"eth {wallet.currency} --> {wallet.balance} ");
+                        Console.WriteLine($"eth {account.currency} --> {account.balance} ");
                     }
                     continue;
                 }
@@ -81,11 +81,11 @@ namespace AutoTrade
 
                 try
                 {
-                    var klines = OkApi.GetKLineDataAsync($"{wallet.currency}-okb");
+                    var klines = OkApi.GetKLineDataAsync($"{account.currency}-okb");
                     var nowPrice = klines[0].close;
-                    if (wallet.balance * nowPrice * okbPrice > 5)
+                    if (account.balance * nowPrice * okbPrice > 5)
                     {
-                        Console.WriteLine($"eth {wallet.currency} --> {wallet.balance} ");
+                        Console.WriteLine($"eth {account.currency} --> {account.balance} ");
                     }
                     continue;
                 }

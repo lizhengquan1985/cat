@@ -229,12 +229,12 @@ namespace AutoTrade
             }
         }
 
-        public static List<Wallet> ListWallets()
+        public static List<Account> ListAccounts()
         {
-            var pathAndQuery = $"api/account/v3/wallet";
+            var pathAndQuery = $"/api/spot/v3/accounts";
             var url = $"{root}{pathAndQuery}";
 
-            var res = GetSign<List<Wallet>>(url, "/" + pathAndQuery);
+            var res = GetSign<List<Account>>(url, "/" + pathAndQuery);
             return res;
         }
     }
@@ -285,7 +285,7 @@ namespace AutoTrade
         }
     }
 
-    public class Wallet
+    public class Account
     {
         /// <summary>
         /// 币种，如btc
@@ -303,5 +303,6 @@ namespace AutoTrade
         /// 可用余额
         /// </summary>
         public decimal available { get; set; }
+        public string id { get; set; }
     }
 }
