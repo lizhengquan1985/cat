@@ -205,7 +205,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "pay", MaxBuyPrice = (decimal)0.00008 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "pst", MaxBuyPrice = (decimal)0.00002975 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "qun", MaxBuyPrice = (decimal)0.000002205 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "qun", MaxBuyPrice = (decimal)0.0000025, SmallSellPrice = (decimal)0.0000022, EmptySize = 50 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "r", MaxBuyPrice = (decimal)0.0000509 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "rfr", MaxBuyPrice = (decimal)0.000000884 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "sbtc", MaxBuyPrice = (decimal)0.000624 });
@@ -217,7 +217,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "ssc", MaxBuyPrice = (decimal)0.000001957 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "stc", MaxBuyPrice = (decimal)0.0000012 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "swftc", MaxBuyPrice = (decimal)0.000000827 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "swftc", MaxBuyPrice = (decimal)0.0000012, SmallSellPrice = (decimal)0.000001, EmptySize = 100 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "tct", MaxBuyPrice = (decimal)0.0000107 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "theta", MaxBuyPrice = (decimal)0.000045 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "trio", MaxBuyPrice = (decimal)0.000001228 });
@@ -349,7 +349,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "ppt", MaxBuyPrice = (decimal)0.02 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "pra", MaxBuyPrice = (decimal)0.000365 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "pst", MaxBuyPrice = (decimal)0.001963 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "qun", MaxBuyPrice = (decimal)0.0000887 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "qun", MaxBuyPrice = (decimal)0.0000887, SmallSellPrice = (decimal)0.000062, EmptySize = 50 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "r", MaxBuyPrice = (decimal)0.00189 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "ref", MaxBuyPrice = (decimal)0.0051 });
@@ -366,7 +366,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "soc", MaxBuyPrice = (decimal)0.0000931 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "ssc", MaxBuyPrice = (decimal)0.0000723 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "storj", MaxBuyPrice = (decimal)0.0041 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "swftc", MaxBuyPrice = (decimal)0.000021 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "swftc", MaxBuyPrice = (decimal)0.000023, SmallSellPrice = (decimal)0.000020, EmptySize = 100 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "theta", MaxBuyPrice = (decimal)0.0015 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "topc", MaxBuyPrice = (decimal)0.00009195 });
