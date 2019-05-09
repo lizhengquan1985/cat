@@ -92,6 +92,23 @@ namespace DataDao
 
         public void UpdateNotFillSellToCancel(OrderInfo orderInfo)
         {
+            if (orderInfo.status == OrderStatus.cancelled)
+            {
+                if (orderInfo.filled_size > 0)
+                {
+                    var sqlA = $"update t_sell_info set SellStatus=@SellStatus, SellQuantity=@SellQuantity, SellTradePrice=@SellTradePrice, SellFilledNotional=@SellFilledNotional where SellClientOid=@SellClientOid";
+                    Database.Execute(sqlA, new
+                    {
+                        SellStatus = OrderStatus.filled,
+                        SellQuantity = orderInfo.filled_size,
+                        SellTradePrice = orderInfo.price,
+                        SellFilledNotional = orderInfo.filled_notional,
+                        SellClientOid = orderInfo.client_oid
+                    });
+                    return;
+                }
+            }
+
             var sql = $"update t_sell_info set SellStatus=@SellStatus where SellClientOid=@SellClientOid";
             Database.Execute(sql, new
             {
@@ -124,6 +141,25 @@ namespace DataDao
 
         public void UpdateNotFillBuyToCancel(OrderInfo orderInfo)
         {
+            if (orderInfo.status == OrderStatus.cancelled)
+            {
+                if (orderInfo.filled_size > 0)
+                {
+                    var sqlA = $"update t_sell_info set BuyStatus=@BuyStatus, BuyCreateAt=@BuyCreateAt, BuyOrderId=@BuyOrderId, BuyQuantity=@BuyQuantity, BuyradePrice=@BuyTradePrice, BuyFilledNotional=@BuyFilledNotional where BuyClientOid=@BuyClientOid";
+                    Database.Execute(sqlA, new
+                    {
+                        BuyStatus = OrderStatus.filled,
+                        BuyCreateAt = orderInfo.created_at,
+                        BuyOrderId = orderInfo.order_id,
+                        BuyQuantity = orderInfo.filled_size,
+                        BuyTradePrice = orderInfo.price,
+                        BuyFilledNotional = orderInfo.filled_notional,
+                        BuyClientOid = orderInfo.client_oid
+                    });
+                    return;
+                }
+            }
+
             var sql = $"update t_sell_info set BuyStatus=@BuyStatus where BuyClientOid=@BuyClientOid";
             Database.Execute(sql, new
             {
