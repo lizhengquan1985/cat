@@ -229,7 +229,7 @@ namespace AutoTrade
                 var max = coinInfos.Max(it => it.high);
                 if (tradeItem.MaxBuyPrice > 0 && nowPrice > tradeItem.MaxBuyPrice)
                 {
-                    logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
+                    //logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
                 }
                 else
                 {
@@ -488,7 +488,7 @@ namespace AutoTrade
                 var max = coinInfos.Max(it => it.high);
                 if (tradeItem.SmallSellPrice > 0 && nowPrice < tradeItem.SmallSellPrice)
                 {
-                    logger.Error($"价格过低，不能售出 quote: {quote}, symbol:{symbol}");
+                    // logger.Error($"价格过低，不能售出 quote: {quote}, symbol:{symbol}");
                     return;
                 }
                 // 是否超过了最小售价
