@@ -38,6 +38,9 @@ namespace AutoTrade
             InstrumentsUtils.InitAllCoins();
             Console.WriteLine(3);
             instruments = InstrumentsUtils.GetAll();
+
+            // WalletDetailsUtils.ShowDetail();
+
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
 
             // 判断设置是否合理

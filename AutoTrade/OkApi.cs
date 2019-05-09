@@ -229,6 +229,14 @@ namespace AutoTrade
             }
         }
 
+        public static List<Wallet> ListWallets()
+        {
+            var pathAndQuery = $"api/account/v3/wallet";
+            var url = $"{root}{pathAndQuery}";
+
+            var res = GetSign<List<Wallet>>(url, "/" + pathAndQuery);
+            return res;
+        }
     }
 
     public class KLineData
@@ -277,5 +285,23 @@ namespace AutoTrade
         }
     }
 
-
+    public class Wallet
+    {
+        /// <summary>
+        /// 币种，如btc
+        /// </summary>
+        public string currency { get; set; }
+        /// <summary>
+        /// 余额
+        /// </summary>
+        public decimal balance { get; set; }
+        /// <summary>
+        /// 冻结(不可用)
+        /// </summary>
+        public decimal hold { get; set; }
+        /// <summary>
+        /// 可用余额
+        /// </summary>
+        public decimal available { get; set; }
+    }
 }
