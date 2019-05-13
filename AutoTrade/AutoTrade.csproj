@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="CheckOrderUtils.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="DayAvgUtils.cs" />
     <Compile Include="InstrumentsUtils.cs" />
     <Compile Include="OkApi.cs" />
     <Compile Include="Program.cs" />

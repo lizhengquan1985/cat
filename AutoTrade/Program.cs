@@ -39,6 +39,8 @@ namespace AutoTrade
             Console.WriteLine(3);
             instruments = InstrumentsUtils.GetAll();
 
+            DayAvgUtils.CalcAvgPrice();
+
             // AccountDetailsUtils.ShowDetail();
 
             //logger.Error(JsonConvert.SerializeObject(InstrumentsUtils.GetOkInstruments()));
