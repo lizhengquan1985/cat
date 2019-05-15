@@ -39,7 +39,7 @@ namespace AutoTrade
             Console.WriteLine(3);
             instruments = InstrumentsUtils.GetAll();
 
-            DayAvgUtils.CalcAvgPrice();
+            //DayAvgUtils.CalcAvgPrice();
 
             // AccountDetailsUtils.ShowDetail();
 
