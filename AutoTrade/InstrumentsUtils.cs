@@ -65,7 +65,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.48, SmallSellPrice = (decimal)0.36, EmptySize = 4 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.0388, SmallSellPrice = (decimal)0.0288, EmptySize = 50 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)120, SmallSellPrice = (decimal)100, EmptySize = (decimal)0.005 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)120, SmallSellPrice = (decimal)130, EmptySize = (decimal)0.1 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)12.8, SmallSellPrice = (decimal)10.8, EmptySize = (decimal)0.045 }); // --
             instruments.Add(new TradeItem { quote = "okb", symbol = "qtum", MaxBuyPrice = (decimal)3.18, SmallSellPrice = (decimal)2.18, EmptySize = (decimal)0.22 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "ada", MaxBuyPrice = (decimal)0.0666, SmallSellPrice = (decimal)0.0588, EmptySize = (decimal)9 });
@@ -166,7 +166,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "hpb", MaxBuyPrice = (decimal)0.0001021 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "hyc", MaxBuyPrice = (decimal)0.00000269 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "icx", MaxBuyPrice = (decimal)0.00019 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ins", MaxBuyPrice = (decimal)0.00019 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ins", MaxBuyPrice = (decimal)0.000119 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "insur", MaxBuyPrice = (decimal)0.0000000911 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "int", MaxBuyPrice = (decimal)0.000012 });
@@ -241,9 +241,9 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "zec", MaxBuyPrice = (decimal)0.03, SmallSellPrice = (decimal)0.015, EmptySize = (decimal)0.008 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "zen", MaxBuyPrice = (decimal)0.00251, SmallSellPrice = (decimal)0.00186, EmptySize = (decimal)0.09 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "zil", MaxBuyPrice = (decimal)0.000012, SmallSellPrice = (decimal)0.00000488, EmptySize = (decimal)25 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "zil", MaxBuyPrice = (decimal)0.00000612, SmallSellPrice = (decimal)0.00000488, EmptySize = (decimal)25 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "zip", MaxBuyPrice = (decimal)0.000000288, SmallSellPrice = (decimal)0.000000168, EmptySize = (decimal)8000 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "zrx", MaxBuyPrice = (decimal)0.00018, SmallSellPrice = (decimal)0.00011, EmptySize = (decimal)1 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "zrx", MaxBuyPrice = (decimal)0.000118, SmallSellPrice = (decimal)0.00011, EmptySize = (decimal)1 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "bcx", MaxBuyPrice = (decimal)0.00000032, SmallSellPrice = (decimal)0.00000022, EmptySize = (decimal)500 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "xuc", MaxBuyPrice = (decimal)0.0008, SmallSellPrice = (decimal)0.000588, EmptySize = (decimal)0.2 });
