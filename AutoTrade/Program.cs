@@ -428,6 +428,14 @@ namespace AutoTrade
             sellPrice = decimal.Round(sellPrice, okInstrument.GetTickSizeNumber());
             sellSize = decimal.Round(sellSize, okInstrument.GetSizeIncrementNumber());
 
+            if (buyInfo.Quote.ToLower() == "btc" && buyInfo.Symbol.ToLower() == "bch")
+            {
+                if (sellSize < (decimal)0.01)
+                {
+                    sellSize = (decimal)0.01;
+                }
+            }
+
             var client_oid = "sell" + DateTime.Now.Ticks;
             try
             {
