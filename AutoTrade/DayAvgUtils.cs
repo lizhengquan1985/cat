@@ -19,24 +19,8 @@ namespace AutoTrade
             var allAvgPrice = new Dictionary<string, decimal>();
             foreach (var item in instruments)
             {
-                var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, (60 * 60 * 24).ToString());
-                if (klineDataList == null)
-                {
-                    continue;
-                }
-                var count = 0;
-                var totalPrice = (decimal)0;
-                foreach (var data in klineDataList)
-                {
-                    var dataItemPrice = (data.open + data.close) / 2;
-
-                    totalPrice += dataItemPrice;
-                    count++;
-                }
-
-                // 
-                var avgPrice = totalPrice / count;
-                avgPrice = decimal.Round(avgPrice, 8);
+                // 判断最近500天， 100天，加权平均价格。
+                var avgPrice = GetAvgPrice(item, (60 * 60 * 24).ToString());
 
                 allAvgPrice.Add(item.quote + "-" + item.symbol, avgPrice);
 
@@ -49,6 +33,29 @@ namespace AutoTrade
             var fs = new FileStream("", FileMode.OpenOrCreate);
             var sw = new StreamWriter(fs);
             sw.Write(JsonConvert.SerializeObject(allAvgPrice));
+        }
+
+        public static decimal GetAvgPrice(TradeItem item, string granularity)
+        {
+            var klineDataList = OkApi.GetKLineDataAsync(item.symbol + "-" + item.quote, granularity);
+            if (klineDataList == null)
+            {
+                return 0;
+            }
+            var count = 0;
+            var totalPrice = (decimal)0;
+            foreach (var data in klineDataList)
+            {
+                var dataItemPrice = (data.open + data.close) / 2;
+
+                totalPrice += dataItemPrice;
+                count++;
+            }
+
+            // 
+            var avgPrice = totalPrice / count;
+            avgPrice = decimal.Round(avgPrice, 8);
+            return avgPrice;
         }
     }
 }
