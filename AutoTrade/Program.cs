@@ -326,6 +326,11 @@ namespace AutoTrade
                 }
             }
 
+            if (quote.ToLower() == "btc" && symbol.ToLower() == "bch")
+            {
+                buySize = (decimal)0.0108;
+            }
+
             var client_oid = "buy" + DateTime.Now.Ticks;
 
             try
@@ -576,7 +581,7 @@ namespace AutoTrade
             string symbol = tradeItem.symbol;
             // 判断是否交易。
             var needBuyOldData = new SellInfoDao().ListNeedBuyOrder(quote, symbol);
-            if(needBuyOldData.Count > 0)
+            if (needBuyOldData.Count > 0)
             {
                 Console.WriteLine($"----------> {quote} {symbol} 空： {needBuyOldData.Count}");
             }
