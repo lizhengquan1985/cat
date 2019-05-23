@@ -71,7 +71,7 @@ namespace DataDao
 
         public List<SellInfo> ListNeedQuerySellDetail(string quote, string symbol)
         {
-            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='prepare' or (SellTradePrice is null and SellStatus='filled'))";
+            var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (SellStatus='{OrderStatus.open}' or SellStatus='{OrderStatus.part_filled}' or SellStatus='prepare' or (SellTradePrice is null and SellStatus='filled'))";
             return Database.Query<SellInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();
         }
 
