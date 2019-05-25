@@ -53,3 +53,13 @@ var fun = function(num, index = 40){
 	return (num + num * index/40) + fun(num, index - 1);
 }
 </script>
+
+// sort
+var data = {};
+var keys = Object.keys(data);
+keys.sort();
+var newData = {};
+for(var key of keys){
+	newData[key] = data[key]
+}
+console.log(JSON.stringify(newData));
