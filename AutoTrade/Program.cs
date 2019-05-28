@@ -213,7 +213,7 @@ namespace AutoTrade
             var smallThenBuyPrice = false;
             if (oldData.Count > 0)
             {
-                var rateDecimal = (decimal)1.075;
+                var rateDecimal = (decimal)1.078;
                 if (tradeItem.BuyLadderRatio > (decimal)1.066)
                 {
                     rateDecimal = tradeItem.BuyLadderRatio;
@@ -489,7 +489,7 @@ namespace AutoTrade
             var bigTheSellPrice = false;
             if (oldData.Count > 0)
             {
-                var rateDecimal = (decimal)1.082;
+                var rateDecimal = (decimal)1.085;
                 bigTheSellPrice = nowPrice > oldData[0].SellPrice * rateDecimal;
                 if (oldData[0].SellTradePrice > 0 && oldData[0].SellTradePrice >= oldData[0].SellPrice)
                 {
