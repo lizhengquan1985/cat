@@ -489,7 +489,7 @@ namespace AutoTrade
             var bigTheSellPrice = false;
             if (oldData.Count > 0)
             {
-                var rateDecimal = (decimal)1.085;
+                var rateDecimal = (decimal)1.088;
                 bigTheSellPrice = nowPrice > oldData[0].SellPrice * rateDecimal;
                 if (oldData[0].SellTradePrice > 0 && oldData[0].SellTradePrice >= oldData[0].SellPrice)
                 {
