@@ -292,7 +292,7 @@ namespace AutoTrade
                     count = 60;
                 }
                 buyAmount = (decimal)1.8;
-                buyAmount = buyAmount * ((decimal)1 + count / (decimal)28);
+                buyAmount = buyAmount * ((decimal)1 + count / (decimal)20);
                 Console.WriteLine($"已购买数量：{symbol} -> {count}, {buyAmount}");
             }
             else if (quote.ToLower() == "usdt")
