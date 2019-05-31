@@ -62,8 +62,8 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)108.88, SmallSellPrice = (decimal)81.88, EmptySize = (decimal)0.01 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)12.88, SmallSellPrice = (decimal)8.18, EmptySize = (decimal)0.1 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)9.88, SmallSellPrice = (decimal)6.88, EmptySize = (decimal)0.1 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.52, SmallSellPrice = (decimal)0.36, EmptySize = 4 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.0388, SmallSellPrice = (decimal)0.0288, EmptySize = 50 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.52, SmallSellPrice = (decimal)0.28, EmptySize = 4 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.0488, SmallSellPrice = (decimal)0.0238, EmptySize = 80 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)288, SmallSellPrice = (decimal)188, EmptySize = (decimal)0.01 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)18.8, SmallSellPrice = (decimal)12.8, EmptySize = (decimal)0.045 }); // --
@@ -105,8 +105,8 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "bch", MaxBuyPrice = (decimal)0.08 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "eos", MaxBuyPrice = (decimal)0.0022 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "xrp", MaxBuyPrice = (decimal)0.00016, SmallSellPrice = (decimal)0.0001, EmptySize = 10 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "trx", MaxBuyPrice = (decimal)0.00001, SmallSellPrice = (decimal)0.00000588, EmptySize = 100 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "xrp", MaxBuyPrice = (decimal)0.00016, SmallSellPrice = (decimal)0.0001, EmptySize = 8 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "trx", MaxBuyPrice = (decimal)0.00001, SmallSellPrice = (decimal)0.000004, EmptySize = 80 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "bsv", MaxBuyPrice = (decimal)0.019, SmallSellPrice = (decimal)0.023, EmptySize = (decimal)0.01 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "dash", MaxBuyPrice = (decimal)0.05 });
 
@@ -258,9 +258,9 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "okb", MaxBuyPrice = (decimal)0.00766 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "etc", MaxBuyPrice = (decimal)0.0588, SmallSellPrice = (decimal)0.0366, EmptySize = (decimal)0.5 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "eos", MaxBuyPrice = (decimal)0.0288 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp", MaxBuyPrice = (decimal)0.003, SmallSellPrice = (decimal)0.0038, EmptySize = 10 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "xrp", MaxBuyPrice = (decimal)0.003, SmallSellPrice = (decimal)0.0019, EmptySize = 5 });
 
-            instruments.Add(new TradeItem { quote = "eth", symbol = "trx", MaxBuyPrice = (decimal)0.00017, SmallSellPrice = (decimal)0.00025, EmptySize = 100 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "trx", MaxBuyPrice = (decimal)0.000218, SmallSellPrice = (decimal)0.000138, EmptySize = 80 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "dash", MaxBuyPrice = (decimal)1.11 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "neo", MaxBuyPrice = (decimal)0.088 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "qtum", MaxBuyPrice = (decimal)0.0266 });
