@@ -1,24 +1,26 @@
 <script>
 var totalUse = 0;
-var perUse = 1;
-var maxP = 100;
+var perUse = 1.8;
+var maxP = 50;
 var minP = 1;
 var rateList = [1.03,1.04,1.05,1.06,1.07,1.08,1.09]
 var calcTotalUse = function(data){
-	var {nowP, totalUse, rate} = data;
+	var {nowP, totalUse, rate, count} = data;
 	if(nowP <= minP){
 		console.log(data);
 		return;
 	}
 	data.nowP = nowP / rate;
-	data.totalUse += perUse;
+	data.count++;
+	data.totalUse += perUse *(1 + (count/20));
 	return calcTotalUse(data);
 }
 for(var rate of rateList){
 	calcTotalUse({
 		nowP:maxP,
 		totalUse:0,
-		rate
+		rate,
+		count:0
 	});
 }
 </script>

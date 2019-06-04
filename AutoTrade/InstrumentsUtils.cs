@@ -90,7 +90,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "waves", MaxBuyPrice = (decimal)5.88, SmallSellPrice = (decimal)3.66, EmptySize = (decimal)0.13 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "win", MaxBuyPrice = (decimal)0.0009, SmallSellPrice = (decimal)0.00078, EmptySize = 400 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "xas", MaxBuyPrice = (decimal)0.138, SmallSellPrice = (decimal)0.108, EmptySize = 3 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "xas", MaxBuyPrice = (decimal)0.188, SmallSellPrice = (decimal)0.128, EmptySize = 3 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "you", MaxBuyPrice = (decimal)0.0198, SmallSellPrice = (decimal)0.0158, EmptySize = 20 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "zco", MaxBuyPrice = (decimal)0.0099, SmallSellPrice = (decimal)0.00688, EmptySize = 35 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "zec", MaxBuyPrice = (decimal)188, SmallSellPrice = (decimal)108, EmptySize = (decimal)0.003 });
