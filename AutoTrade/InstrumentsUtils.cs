@@ -317,7 +317,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "iost", MaxBuyPrice = (decimal)0.00014 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "iota", MaxBuyPrice = (decimal)0.005 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "itc", MaxBuyPrice = (decimal)0.0012 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "itc", MaxBuyPrice = (decimal)0.00188 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "kan", MaxBuyPrice = (decimal)0.000042, SmallSellPrice = (decimal)0.000032, EmptySize = 80 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "kcash", MaxBuyPrice = (decimal)0.00021, SmallSellPrice = (decimal)0.00029, EmptySize = 10 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "lba", MaxBuyPrice = (decimal)0.0005, SmallSellPrice = (decimal)0.0004, EmptySize = 10 });

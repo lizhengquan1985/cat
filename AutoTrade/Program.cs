@@ -143,12 +143,12 @@ namespace AutoTrade
                     if (runCount < 3)
                     {
                         var totalAmount = klineDataList.Sum(it => it.volume * (it.open + it.close) / 2);
-                        if (item.quote == "btc" && totalAmount < (decimal)0.1)
+                        if (item.quote == "btc" && totalAmount < (decimal)0.01)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
 
-                        if (item.quote == "eth" && totalAmount < 3)
+                        if (item.quote == "eth" && totalAmount < 1)
                         {
                             Console.WriteLine($"交易量太少， 不好办啊 {item.quote},{item.symbol}, totalAmount:{totalAmount}");
                         }
@@ -237,7 +237,7 @@ namespace AutoTrade
                 var max = coinInfos.Max(it => it.high);
                 if (tradeItem.MaxBuyPrice > 0 && nowPrice > tradeItem.MaxBuyPrice)
                 {
-                    //logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
+                    logger.Error($"价格过高，不能购入 quote: {quote}, symbol:{symbol}");
                 }
                 else
                 {
