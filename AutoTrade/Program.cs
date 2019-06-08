@@ -109,7 +109,7 @@ namespace AutoTrade
                     var ticker = tickers.Find(it => it.instrument_id.ToLower() == $"{item.symbol}-{item.quote}".ToLower());
                     var needContinue = true;
                     var oldData = new BuyInfoDao().List5LowerBuyForBuy(item.quote, item.symbol);
-                    if (oldData.Count ==0 || oldData[0].BuyPrice > ticker.last * (decimal)1.05)
+                    if (oldData.Count == 0 || oldData[0].BuyPrice > ticker.last * (decimal)1.05)
                     {
                         needContinue = false;
                     }
@@ -220,6 +220,7 @@ namespace AutoTrade
                 }
 
                 Console.WriteLine($"-------------> 运行次数:{runCount++}, 花费时间{(DateTime.Now - now).TotalSeconds} ");
+                Thread.Sleep(1000 * 2);
             }
 
             Console.ReadLine();
