@@ -30,12 +30,12 @@ namespace DataDao
         }
 
         /// <summary>
-        /// 列出5个最高的出售单子且未购买的记录，
+        /// 列出5个最高的出售单子且未购买的记录， 不管出售成功与否，目的是要判断是否要重新做空
         /// </summary>
         /// <param name="quote"></param>
         /// <param name="symbol"></param>
         /// <returns></returns>
-        public List<SellInfo> List5HigherSell(string quote, string symbol)
+        public List<SellInfo> List5HigherSellForEmpty(string quote, string symbol)
         {
             var sql = $"select * from t_sell_info where UserName='qq' and Quote=@Quote and Symbol=@Symbol and (BuyStatus!='filled' or BuyStatus is null) order by SellPrice desc limit 8";
             return Database.Query<SellInfo>(sql, new { Quote = quote, Symbol = symbol }).ToList();

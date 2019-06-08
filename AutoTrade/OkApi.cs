@@ -237,6 +237,15 @@ namespace AutoTrade
             var res = GetSign<List<Account>>(url, "/" + pathAndQuery);
             return res;
         }
+
+        public static List<Ticker> ListTickers()
+        {
+            var pathAndQuery = $"api/spot/v3/instruments/ticker";
+            var url = $"{root}{pathAndQuery}";
+
+            var res = GetSign<List<Ticker>>(url, "/" + pathAndQuery);
+            return res;
+        }
     }
 
     public class KLineData
@@ -304,5 +313,34 @@ namespace AutoTrade
         /// </summary>
         public decimal available { get; set; }
         public string id { get; set; }
+    }
+
+    public class Ticker
+    {
+        /// <summary>
+        /// 卖一价
+        /// </summary>
+        public decimal best_ask { get; set; }
+        /// <summary>
+        /// 买一价
+        /// </summary>
+        public decimal best_bid { get; set; }
+        public string instrument_id { get; set; }
+        public string product_id { get; set; }
+        /// <summary>
+        /// 最新成交价
+        /// </summary>
+        public decimal last { get; set; }
+        /// <summary>
+        /// 最新成交价
+        /// </summary>
+        public decimal ask { get; set; }
+        public decimal bid { get; set; }
+        public decimal open_24h { get; set; }
+        public decimal high_24h { get; set; }
+        public decimal low_24h { get; set; }
+        public decimal base_volume_24h { get; set; }
+        public DateTime timestamp { get; set; }
+        public decimal quote_volume_24h { get; set; }
     }
 }

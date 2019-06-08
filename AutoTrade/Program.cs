@@ -80,7 +80,7 @@ namespace AutoTrade
 
             while (true)
             {
-                Console.WriteLine($"-------------> 运行次数:{runCount++} ");
+                var now = DateTime.Now;
 
                 var btcPrice = (decimal)0;
                 var ethPrice = (decimal)0;
@@ -100,9 +100,50 @@ namespace AutoTrade
                 {
                     logger.Error(ex.Message, ex);
                 }
+                // 获取所有ticks
+                var tickers = OkApi.ListTickers();
 
                 foreach (var item in instruments)
                 {
+                    // 找到当前的ticker
+                    var ticker = tickers.Find(it => it.instrument_id.ToLower() == $"{item.symbol}-{item.quote}".ToLower());
+                    var needContinue = true;
+                    var oldData = new BuyInfoDao().List5LowerBuyForBuy(item.quote, item.symbol);
+                    if (oldData.Count ==0 || oldData[0].BuyPrice > ticker.last * (decimal)1.05)
+                    {
+                        needContinue = false;
+                    }
+                    if (needContinue)
+                    {
+                        var needSellForMoreList = new BuyInfoDao().ListNeedSellOrder(item.quote, item.symbol);
+                        if (needSellForMoreList.Count > 0 && needSellForMoreList[0].BuyPrice * (decimal)1.08 < ticker.last)
+                        {
+                            needContinue = false;
+                        }
+                    }
+                    if (needContinue)
+                    {
+                        // 读取数据库 看看以前的交易
+                        var higherSell = new SellInfoDao().List5HigherSellForEmpty(item.quote, item.symbol);
+                        if (higherSell.Count > 0 && higherSell[0].SellPrice * (decimal)1.075 < ticker.last)
+                        {
+                            needContinue = false;
+                        }
+                    }
+                    if (needContinue)
+                    {
+                        var needBuyForEmptyList = new SellInfoDao().ListNeedBuyOrder(item.quote, item.symbol);
+                        if (needBuyForEmptyList.Count > 0 && needBuyForEmptyList[0].SellPrice > ticker.last * (decimal)1.075)
+                        {
+                            needContinue = false;
+                        }
+                    }
+
+                    if (needContinue)
+                    {
+                        continue;
+                    }
+
                     // 查询订单结果
                     QueryOrderDetail(item.quote, item.symbol);
 
@@ -177,6 +218,8 @@ namespace AutoTrade
                     // 每走一遍, 休眠一下
                     Thread.Sleep(500);
                 }
+
+                Console.WriteLine($"-------------> 运行次数:{runCount++}, 花费时间{(DateTime.Now - now).TotalSeconds} ");
             }
 
             Console.ReadLine();
@@ -490,7 +533,7 @@ namespace AutoTrade
             string symbol = tradeItem.symbol;
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
-            var oldData = new SellInfoDao().List5HigherSell(quote, symbol);
+            var oldData = new SellInfoDao().List5HigherSellForEmpty(quote, symbol);
             // 判断是否阶梯
             var bigTheSellPrice = false;
             if (oldData.Count > 0)
