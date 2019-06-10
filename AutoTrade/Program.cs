@@ -253,6 +253,14 @@ namespace AutoTrade
             decimal nowPrice = coinInfos[0].close;
             // 读取数据库 看看以前的交易
             var oldData = new BuyInfoDao().List5LowerBuyForBuy(quote, symbol);
+
+            if (tradeItem.symbol.ToLower() == "egt" && tradeItem.quote.ToLower() == "okb")
+            {
+                if (oldData[0].BuyCreateAt.IndexOf("2019-06-07") >= 0)
+                {
+                    oldData.RemoveAt(0);
+                }
+            }
             // 判断是否阶梯
             var smallThenBuyPrice = false;
             if (oldData.Count > 0)
