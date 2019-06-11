@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,28 @@ namespace AutoTrade
             var avgPrice = totalPrice / count;
             avgPrice = decimal.Round(avgPrice, 8);
             return avgPrice;
+        }
+    }
+
+    public class DateUtils
+    {
+        public static DateTime GetDate(string dateStr)
+        {
+            try
+            {
+                DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
+
+                dtFormat.ShortDatePattern = "yyyy-MM-ddTHH:mm:ss"; // 2019-06-11T08:33:40.000Z
+
+                var dt =  Convert.ToDateTime(dateStr, dtFormat);
+                Console.WriteLine(dateStr);
+                Console.WriteLine(dt);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return DateTime.Now;
+            }
         }
     }
 }

@@ -106,7 +106,7 @@ namespace AutoTrade
                 foreach (var item in instruments)
                 {
                     // 查询订单结果
-                    QueryOrderDetail(item.quote, item.symbol);
+                    QueryOrderDetail(item.quote, item.symbol, true);
 
                     // 找到当前的ticker
                     var ticker = tickers.Find(it => it.instrument_id.ToLower() == $"{item.symbol}-{item.quote}".ToLower());
@@ -146,6 +146,9 @@ namespace AutoTrade
                     {
                         continue;
                     }
+
+                    // 查询订单结果
+                    QueryOrderDetail(item.quote, item.symbol, false);
 
                     // 核实订单
                     CheckOrderUtils.Check(item);
@@ -739,12 +742,12 @@ namespace AutoTrade
 
         #region 查询订单结果
 
-        static void QueryOrderDetail(string quote, string symbol)
+        static void QueryOrderDetail(string quote, string symbol, bool queryNear = false)
         {
             try
             {
                 // 查询购买结果
-                QueryBuyDetailForMore(quote, symbol);
+                QueryBuyDetailForMore(quote, symbol, queryNear);
             }
             catch (Exception ex)
             {
@@ -754,7 +757,7 @@ namespace AutoTrade
             try
             {
                 // 查询出售结果
-                QuerySellDetailForMore(quote, symbol);
+                QuerySellDetailForMore(quote, symbol, queryNear);
             }
             catch (Exception ex)
             {
@@ -764,7 +767,7 @@ namespace AutoTrade
             try
             {
                 // 查询出售结果
-                QueryBuyDetailForEmpty(quote, symbol);
+                QueryBuyDetailForEmpty(quote, symbol, queryNear);
             }
             catch (Exception ex)
             {
@@ -774,7 +777,7 @@ namespace AutoTrade
             try
             {
                 // 查询出售结果
-                QuerySellDetailForEmpty(quote, symbol);
+                QuerySellDetailForEmpty(quote, symbol, queryNear);
             }
             catch (Exception ex)
             {
@@ -782,7 +785,7 @@ namespace AutoTrade
             }
         }
 
-        static void QueryBuyDetailForMore(string quote, string symbol)
+        static void QueryBuyDetailForMore(string quote, string symbol, bool queryNear = false)
         {
             var notFillBuyList = new BuyInfoDao().ListNeedQueryBuyDetail(quote, symbol);
             if (notFillBuyList.Count == 0)
@@ -794,6 +797,11 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
+                    {
+                        continue;
+                    }
+
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
                     if (orderInfo == null)
@@ -820,7 +828,7 @@ namespace AutoTrade
             }
         }
 
-        static void QuerySellDetailForMore(string quote, string symbol)
+        static void QuerySellDetailForMore(string quote, string symbol, bool queryNear = false)
         {
             var notFillSellList = new BuyInfoDao().ListNeedQuerySellDetail(quote, symbol);
             if (notFillSellList == null || notFillSellList.Count == 0)
@@ -832,6 +840,11 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
+                    {
+                        continue;
+                    }
+
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.SellClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
                     if (orderInfo == null)
@@ -862,7 +875,7 @@ namespace AutoTrade
             }
         }
 
-        static void QueryBuyDetailForEmpty(string quote, string symbol)
+        static void QueryBuyDetailForEmpty(string quote, string symbol, bool queryNear = false)
         {
             var notFillBuyList = new SellInfoDao().ListNeedQueryBuyDetail(quote, symbol);
             if (notFillBuyList.Count == 0)
@@ -874,6 +887,11 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
+                    {
+                        continue;
+                    }
+
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.BuyClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
                     if (orderInfo == null)
@@ -900,7 +918,7 @@ namespace AutoTrade
             }
         }
 
-        static void QuerySellDetailForEmpty(string quote, string symbol)
+        static void QuerySellDetailForEmpty(string quote, string symbol, bool queryNear = false)
         {
             var notFillSellList = new SellInfoDao().ListNeedQuerySellDetail(quote, symbol);
             if (notFillSellList == null || notFillSellList.Count == 0)
@@ -912,6 +930,11 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
+                    {
+                        continue;
+                    }
+
                     // 查询我的购买结果
                     var orderInfo = OkApi.QueryOrderDetail(item.SellClientOid, $"{item.Symbol}-{item.Quote}".ToUpper());
                     if (orderInfo == null)
