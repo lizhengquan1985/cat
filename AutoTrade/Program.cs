@@ -226,7 +226,6 @@ namespace AutoTrade
                 Thread.Sleep(1000 * 5);
             }
 
-            Console.ReadLine();
         }
 
         private static DateTime lastBuyDate = DateTime.MinValue;
