@@ -223,7 +223,7 @@ namespace AutoTrade
                 }
 
                 Console.WriteLine($"-------------> 运行次数:{runCount++}, 花费时间{(DateTime.Now - now).TotalSeconds} ");
-                Thread.Sleep(1000 * 2);
+                Thread.Sleep(1000 * 5);
             }
 
             Console.ReadLine();
