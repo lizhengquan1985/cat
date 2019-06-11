@@ -74,7 +74,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "okb", symbol = "bloc", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.0266, EmptySize = (decimal)18 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "cai", MaxBuyPrice = (decimal)0.000288, SmallSellPrice = (decimal)0.000126, EmptySize = (decimal)4000 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "dcr", MaxBuyPrice = (decimal)36.8, SmallSellPrice = (decimal)28.8, EmptySize = (decimal)0.02 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.00888, SmallSellPrice = (decimal)0.00288, EmptySize = 200 });
+            instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.00999, SmallSellPrice = (decimal)0.00288, EmptySize = 200 });
             instruments.Add(new TradeItem { quote = "okb", symbol = "hpb", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.48, EmptySize = (decimal)0.8 });
 
             instruments.Add(new TradeItem { quote = "okb", symbol = "iota", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.521, EmptySize = (decimal)1 });
@@ -214,7 +214,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "snc", MaxBuyPrice = (decimal)0.0000111 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "snt", MaxBuyPrice = (decimal)0.0000126 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "soc", MaxBuyPrice = (decimal)0.00000266 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "ssc", MaxBuyPrice = (decimal)0.0000019, SmallSellPrice = (decimal)0.0000015, EmptySize = 100 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "ssc", MaxBuyPrice = (decimal)0.0000025, SmallSellPrice = (decimal)0.0000015, EmptySize = 100 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "stc", MaxBuyPrice = (decimal)0.0000012 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "swftc", MaxBuyPrice = (decimal)0.0000012, SmallSellPrice = (decimal)0.000001, EmptySize = 100 });
@@ -296,7 +296,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "dgd", MaxBuyPrice = (decimal)0.259, SmallSellPrice = (decimal)0.222, EmptySize = (decimal)0.01 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "dpy", MaxBuyPrice = (decimal)0.001259 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "edo", MaxBuyPrice = (decimal)0.01 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "egt", MaxBuyPrice = (decimal)0.0000198, SmallSellPrice = (decimal)0.000016, EmptySize = 200 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "egt", MaxBuyPrice = (decimal)0.0000666, SmallSellPrice = (decimal)0.000016, EmptySize = 200 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "elf", MaxBuyPrice = (decimal)0.003 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "fair", MaxBuyPrice = (decimal)0.00005, SmallSellPrice = (decimal)0.00003, EmptySize = 100 });
@@ -364,7 +364,7 @@ namespace AutoTrade
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "snt", MaxBuyPrice = (decimal)0.00031 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "soc", MaxBuyPrice = (decimal)0.0000931 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "ssc", MaxBuyPrice = (decimal)0.00007, SmallSellPrice = (decimal)0.00005, EmptySize = 100 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "ssc", MaxBuyPrice = (decimal)0.00009, SmallSellPrice = (decimal)0.00005, EmptySize = 100 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "storj", MaxBuyPrice = (decimal)0.0041 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "swftc", MaxBuyPrice = (decimal)0.000023, SmallSellPrice = (decimal)0.000020, EmptySize = 100 });
 
