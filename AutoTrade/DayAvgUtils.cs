@@ -67,13 +67,8 @@ namespace AutoTrade
             try
             {
                 DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
-
                 dtFormat.ShortDatePattern = "yyyy-MM-ddTHH:mm:ss"; // 2019-06-11T08:33:40.000Z
-
-                var dt =  Convert.ToDateTime(dateStr, dtFormat);
-                Console.WriteLine(dateStr);
-                Console.WriteLine(dt);
-                return dt;
+                return Convert.ToDateTime(dateStr, dtFormat);
             }
             catch (Exception ex)
             {
