@@ -105,6 +105,9 @@ namespace AutoTrade
 
                 foreach (var item in instruments)
                 {
+                    // 查询订单结果
+                    QueryOrderDetail(item.quote, item.symbol);
+
                     // 找到当前的ticker
                     var ticker = tickers.Find(it => it.instrument_id.ToLower() == $"{item.symbol}-{item.quote}".ToLower());
                     var needContinue = true;
@@ -143,9 +146,6 @@ namespace AutoTrade
                     {
                         continue;
                     }
-
-                    // 查询订单结果
-                    QueryOrderDetail(item.quote, item.symbol);
 
                     // 核实订单
                     CheckOrderUtils.Check(item);
