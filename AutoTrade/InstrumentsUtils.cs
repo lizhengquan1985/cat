@@ -175,7 +175,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "itc", MaxBuyPrice = (decimal)0.0000888 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "kan", MaxBuyPrice = (decimal)0.00000188, SmallSellPrice = (decimal)0.0000011, EmptySize = 80 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "kcash", MaxBuyPrice = (decimal)0.0000088, SmallSellPrice = (decimal)0.0000066, EmptySize = 20 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "kcash", MaxBuyPrice = (decimal)0.0000128, SmallSellPrice = (decimal)0.0000066, EmptySize = 20 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "knc", MaxBuyPrice = (decimal)0.0000873 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "lba", MaxBuyPrice = (decimal)0.0000188, SmallSellPrice = (decimal)0.0000126, EmptySize = 8 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "let", MaxBuyPrice = (decimal)0.0000018, SmallSellPrice = (decimal)0.0000016, EmptySize = 80 });
@@ -319,7 +319,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "iota", MaxBuyPrice = (decimal)0.005 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "itc", MaxBuyPrice = (decimal)0.00188 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "kan", MaxBuyPrice = (decimal)0.000042, SmallSellPrice = (decimal)0.000032, EmptySize = 80 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "kcash", MaxBuyPrice = (decimal)0.00021, SmallSellPrice = (decimal)0.00029, EmptySize = 10 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "kcash", MaxBuyPrice = (decimal)0.00029, SmallSellPrice = (decimal)0.00015, EmptySize = 10 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "lba", MaxBuyPrice = (decimal)0.0005, SmallSellPrice = (decimal)0.0004, EmptySize = 10 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "let", MaxBuyPrice = (decimal)0.000066, SmallSellPrice = (decimal)0.000045, EmptySize = 100 });
