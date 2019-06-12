@@ -142,7 +142,7 @@ namespace AutoTrade
                         }
                     }
 
-                    if (needContinue)
+                    if (needContinue && item.symbol.ToLower() != "egt")
                     {
                         continue;
                     }
@@ -795,6 +795,10 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (!item.BuyResult && item.BuyOrderId == "-1")
+                    {
+                        continue;
+                    }
                     if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
                     {
                         continue;
@@ -838,6 +842,10 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (!item.SellResult && item.SellOrderId == "-1")
+                    {
+                        continue;
+                    }
                     if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
                     {
                         continue;
@@ -885,6 +893,10 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (!item.BuyResult && item.BuyOrderId == "-1")
+                    {
+                        continue;
+                    }
                     if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
                     {
                         continue;
@@ -928,6 +940,10 @@ namespace AutoTrade
             {
                 try
                 {
+                    if (!item.SellResult && item.SellOrderId == "-1")
+                    {
+                        continue;
+                    }
                     if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
                     {
                         continue;
