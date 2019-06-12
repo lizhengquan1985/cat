@@ -258,10 +258,9 @@ namespace AutoTrade
 
             if (tradeItem.symbol.ToLower() == "egt" && tradeItem.quote.ToLower() == "okb")
             {
-                if (oldData[0].BuyCreateAt.IndexOf("2019-06-07") >= 0)
-                {
-                    oldData.RemoveAt(0);
-                }
+                logger.Error($"egt 数量： {oldData.Count}, {new DateTime(2019, 6, 12)}");
+                oldData.RemoveAll(it => DateUtils.GetDate(it.BuyCreateAt) < new DateTime(2019, 6, 12));
+                logger.Error($"egt 剩余数量： {oldData.Count}");
             }
             // 判断是否阶梯
             var smallThenBuyPrice = false;
