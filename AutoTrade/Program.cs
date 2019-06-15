@@ -799,7 +799,7 @@ namespace AutoTrade
                     {
                         continue;
                     }
-                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
+                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.Date)
                     {
                         continue;
                     }
@@ -846,7 +846,7 @@ namespace AutoTrade
                     {
                         continue;
                     }
-                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
+                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.Date)
                     {
                         continue;
                     }
@@ -897,7 +897,7 @@ namespace AutoTrade
                     {
                         continue;
                     }
-                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.AddMinutes(-5))
+                    if (queryNear && DateUtils.GetDate(item.BuyCreateAt) < DateTime.Now.Date)
                     {
                         continue;
                     }
@@ -944,7 +944,7 @@ namespace AutoTrade
                     {
                         continue;
                     }
-                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.AddMinutes(-5))
+                    if (queryNear && DateUtils.GetDate(item.SellCreateAt) < DateTime.Now.Date)
                     {
                         continue;
                     }
