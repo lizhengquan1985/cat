@@ -179,7 +179,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "btc", symbol = "knc", MaxBuyPrice = (decimal)0.0000873 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "lba", MaxBuyPrice = (decimal)0.0000188, SmallSellPrice = (decimal)0.0000126, EmptySize = 8 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "let", MaxBuyPrice = (decimal)0.0000018, SmallSellPrice = (decimal)0.0000016, EmptySize = 80 });
-            instruments.Add(new TradeItem { quote = "btc", symbol = "leo", MaxBuyPrice = (decimal)0.000555, SmallSellPrice = (decimal)0.0000016, EmptySize = 0 });
+            instruments.Add(new TradeItem { quote = "btc", symbol = "leo", MaxBuyPrice = (decimal)0.000455, SmallSellPrice = (decimal)0.000555, EmptySize = 0 });
 
             instruments.Add(new TradeItem { quote = "btc", symbol = "light", MaxBuyPrice = (decimal)0.0000000171 });
             instruments.Add(new TradeItem { quote = "btc", symbol = "link", MaxBuyPrice = (decimal)0.000388, SmallSellPrice = (decimal)0.000288, EmptySize = (decimal)0 });
@@ -324,7 +324,7 @@ namespace AutoTrade
             instruments.Add(new TradeItem { quote = "eth", symbol = "lba", MaxBuyPrice = (decimal)0.0005, SmallSellPrice = (decimal)0.0004, EmptySize = 10 });
 
             instruments.Add(new TradeItem { quote = "eth", symbol = "let", MaxBuyPrice = (decimal)0.000066, SmallSellPrice = (decimal)0.000045, EmptySize = 100 });
-            instruments.Add(new TradeItem { quote = "eth", symbol = "leo", MaxBuyPrice = (decimal)0.0128, SmallSellPrice = (decimal)0.0228, EmptySize = 0 });
+            instruments.Add(new TradeItem { quote = "eth", symbol = "leo", MaxBuyPrice = (decimal)0.0118, SmallSellPrice = (decimal)0.0228, EmptySize = 0 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "light", MaxBuyPrice = (decimal)0.000000510 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "link", MaxBuyPrice = (decimal)0.00999, SmallSellPrice = (decimal)0.00666, EmptySize = (decimal)0 });
             instruments.Add(new TradeItem { quote = "eth", symbol = "lrc", MaxBuyPrice = (decimal)0.000962 });
