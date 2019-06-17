@@ -77,9 +77,11 @@ namespace AutoTrade
             //    }
             //    Thread.Sleep(200);
             //}
-
+            var orderDetailIndex = 0L;
             while (true)
             {
+                orderDetailIndex++;
+
                 var now = DateTime.Now;
 
                 var btcPrice = (decimal)0;
@@ -106,7 +108,7 @@ namespace AutoTrade
                 foreach (var item in instruments)
                 {
                     // 查询订单结果
-                    QueryOrderDetail(item.quote, item.symbol, true);
+                    QueryOrderDetail(item.quote, item.symbol, (orderDetailIndex) % 10 != 0);
 
                     // 找到当前的ticker
                     var ticker = tickers.Find(it => it.instrument_id.ToLower() == $"{item.symbol}-{item.quote}".ToLower());
