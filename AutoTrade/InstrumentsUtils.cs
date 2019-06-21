@@ -24,7 +24,7 @@ namespace AutoTrade
             InitBtc();
             var btcCount = instruments.Count;
             Console.WriteLine("btc count -- > " + btcCount);
-            InitOKB();
+            //InitOKB();
             var okbCount = instruments.Count - btcCount;
             Console.WriteLine("okb count -- > " + okbCount);
             InitEth();
@@ -59,41 +59,41 @@ namespace AutoTrade
 
         public static void InitOKB()
         {
-            instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)108.88, SmallSellPrice = (decimal)81.88, EmptySize = (decimal)0.01 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)12.88, SmallSellPrice = (decimal)5.18, EmptySize = (decimal)0.15 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)9.88, SmallSellPrice = (decimal)6.88, EmptySize = (decimal)0.1 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.52, SmallSellPrice = (decimal)0.25, EmptySize = 4 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.0488, SmallSellPrice = (decimal)0.0188, EmptySize = 100 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "ltc", MaxBuyPrice = (decimal)108.88, SmallSellPrice = (decimal)81.88, EmptySize = (decimal)0.01 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "etc", MaxBuyPrice = (decimal)12.88, SmallSellPrice = (decimal)5.18, EmptySize = (decimal)0.15 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "eos", MaxBuyPrice = (decimal)9.88, SmallSellPrice = (decimal)6.88, EmptySize = (decimal)0.1 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "xrp", MaxBuyPrice = (decimal)0.52, SmallSellPrice = (decimal)0.25, EmptySize = 4 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "trx", MaxBuyPrice = (decimal)0.0488, SmallSellPrice = (decimal)0.0188, EmptySize = 100 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)288, SmallSellPrice = (decimal)188, EmptySize = (decimal)0.01 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)18.8, SmallSellPrice = (decimal)12.8, EmptySize = (decimal)0.045 }); // --
-            instruments.Add(new TradeItem { quote = "okb", symbol = "qtum", MaxBuyPrice = (decimal)6.18, SmallSellPrice = (decimal)3.88, EmptySize = (decimal)0.22 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "ada", MaxBuyPrice = (decimal)0.188, SmallSellPrice = (decimal)0.066, EmptySize = (decimal)9 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "ae", MaxBuyPrice = (decimal)1.18, SmallSellPrice = (decimal)0.68, EmptySize = (decimal)0.9 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "dash", MaxBuyPrice = (decimal)288, SmallSellPrice = (decimal)188, EmptySize = (decimal)0.01 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "neo", MaxBuyPrice = (decimal)18.8, SmallSellPrice = (decimal)12.8, EmptySize = (decimal)0.045 }); // --
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "qtum", MaxBuyPrice = (decimal)6.18, SmallSellPrice = (decimal)3.88, EmptySize = (decimal)0.22 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "ada", MaxBuyPrice = (decimal)0.188, SmallSellPrice = (decimal)0.066, EmptySize = (decimal)9 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "ae", MaxBuyPrice = (decimal)1.18, SmallSellPrice = (decimal)0.68, EmptySize = (decimal)0.9 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "bloc", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.0266, EmptySize = (decimal)18 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "cai", MaxBuyPrice = (decimal)0.000288, SmallSellPrice = (decimal)0.000126, EmptySize = (decimal)4000 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "dcr", MaxBuyPrice = (decimal)36.8, SmallSellPrice = (decimal)28.8, EmptySize = (decimal)0.02 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.01199, SmallSellPrice = (decimal)0.01288, EmptySize = 38 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "hpb", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.48, EmptySize = (decimal)0.8 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "bloc", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.0266, EmptySize = (decimal)18 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "cai", MaxBuyPrice = (decimal)0.000288, SmallSellPrice = (decimal)0.000126, EmptySize = (decimal)4000 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "dcr", MaxBuyPrice = (decimal)36.8, SmallSellPrice = (decimal)28.8, EmptySize = (decimal)0.02 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "egt", MaxBuyPrice = (decimal)0.01199, SmallSellPrice = (decimal)0.01288, EmptySize = 38 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "hpb", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.48, EmptySize = (decimal)0.8 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "iota", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.521, EmptySize = (decimal)1 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "kan", MaxBuyPrice = (decimal)0.00688, SmallSellPrice = (decimal)0.00388, EmptySize = 100 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "lba", MaxBuyPrice = (decimal)0.0666, SmallSellPrice = (decimal)0.0388, EmptySize = 10 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "let", MaxBuyPrice = (decimal)0.0088, SmallSellPrice = (decimal)0.00588, EmptySize = 100 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "nas", MaxBuyPrice = (decimal)1.88, SmallSellPrice = (decimal)0.96, EmptySize = (decimal)0.4 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "iota", MaxBuyPrice = (decimal)0.88, SmallSellPrice = (decimal)0.521, EmptySize = (decimal)1 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "kan", MaxBuyPrice = (decimal)0.00688, SmallSellPrice = (decimal)0.00388, EmptySize = 100 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "lba", MaxBuyPrice = (decimal)0.0666, SmallSellPrice = (decimal)0.0388, EmptySize = 10 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "let", MaxBuyPrice = (decimal)0.0088, SmallSellPrice = (decimal)0.00588, EmptySize = 100 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "nas", MaxBuyPrice = (decimal)1.88, SmallSellPrice = (decimal)0.96, EmptySize = (decimal)0.4 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "ors", MaxBuyPrice = (decimal)0.0099, SmallSellPrice = (decimal)0.0068, EmptySize = (decimal)80 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "sc", MaxBuyPrice = (decimal)0.00588, SmallSellPrice = (decimal)0.00366, EmptySize = (decimal)100 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "sda", MaxBuyPrice = (decimal)0.0088, SmallSellPrice = (decimal)0.0066, EmptySize = (decimal)80 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "vite", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.028, EmptySize = (decimal)18 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "waves", MaxBuyPrice = (decimal)5.88, SmallSellPrice = (decimal)3.66, EmptySize = (decimal)0.13 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "ors", MaxBuyPrice = (decimal)0.0099, SmallSellPrice = (decimal)0.0068, EmptySize = (decimal)80 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "sc", MaxBuyPrice = (decimal)0.00588, SmallSellPrice = (decimal)0.00366, EmptySize = (decimal)100 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "sda", MaxBuyPrice = (decimal)0.0088, SmallSellPrice = (decimal)0.0066, EmptySize = (decimal)80 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "vite", MaxBuyPrice = (decimal)0.038, SmallSellPrice = (decimal)0.028, EmptySize = (decimal)18 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "waves", MaxBuyPrice = (decimal)5.88, SmallSellPrice = (decimal)3.66, EmptySize = (decimal)0.13 });
 
-            instruments.Add(new TradeItem { quote = "okb", symbol = "win", MaxBuyPrice = (decimal)0.0009, SmallSellPrice = (decimal)0.00078, EmptySize = 0 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "xas", MaxBuyPrice = (decimal)0.188, SmallSellPrice = (decimal)0.128, EmptySize = 3 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "you", MaxBuyPrice = (decimal)0.0198, SmallSellPrice = (decimal)0.0158, EmptySize = 20 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "zco", MaxBuyPrice = (decimal)0.0099, SmallSellPrice = (decimal)0.00688, EmptySize = 35 });
-            instruments.Add(new TradeItem { quote = "okb", symbol = "zec", MaxBuyPrice = (decimal)188, SmallSellPrice = (decimal)108, EmptySize = (decimal)0.003 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "win", MaxBuyPrice = (decimal)0.0009, SmallSellPrice = (decimal)0.00078, EmptySize = 0 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "xas", MaxBuyPrice = (decimal)0.188, SmallSellPrice = (decimal)0.128, EmptySize = 3 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "you", MaxBuyPrice = (decimal)0.0198, SmallSellPrice = (decimal)0.0158, EmptySize = 20 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "zco", MaxBuyPrice = (decimal)0.0099, SmallSellPrice = (decimal)0.00688, EmptySize = 35 });
+            //instruments.Add(new TradeItem { quote = "okb", symbol = "zec", MaxBuyPrice = (decimal)188, SmallSellPrice = (decimal)108, EmptySize = (decimal)0.003 });
         }
 
         public static void InitBtc()
